@@ -1,5 +1,5 @@
 import useInput from "../hooks/useInput";
-import { loginApi } from "../apis";
+import { loginApi } from "../apis/index";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
