@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.content_wrapper {
+  @apply h-screen;
+}
+
+.content_fixed {
+  @apply h-auto min-h-screen pb-14;
+}
+
+.content {
+  @apply px-8 py-8 mx-auto;
+}

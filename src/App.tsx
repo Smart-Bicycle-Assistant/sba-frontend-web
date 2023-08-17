@@ -1,5 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { LoginPage, MainPage, RegisterPage } from "./pages";
+import {
+  LoginPage,
+  MainPage,
+  RegisterPage,
+  MyPageMain,
+  MyPageRecord,
+  MyPageRecordAll,
+} from "./pages";
 
 const ROUTER = createBrowserRouter([
   {
@@ -13,6 +20,18 @@ const ROUTER = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/mypage",
+    element: <MyPageMain />,
+  },
+  {
+    path: "/mypage/record",
+    element: <MyPageRecord />,
+  },
+  {
+    path: "/mypage/record/all",
+    element: <MyPageRecordAll />,
   },
 ]);
 
