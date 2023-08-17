@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { registerApi } from "../apis";
+import { registerApi } from "../apis/index";
 import useInput from "../hooks/useInput";
 // import {
 //   Logo,
