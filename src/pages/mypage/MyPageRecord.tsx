@@ -1,5 +1,8 @@
+import { Link } from "react-router-dom";
 import Header from "../../components/common/header";
 import Navbar from "../../components/common/navbar";
+
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const MyPageRecord: React.FC = () => {
   return (
@@ -22,9 +25,12 @@ const MyPageRecord: React.FC = () => {
               <p>자전거 주행 기록</p>
             </div>
           </div>
-          <div className="text-sm">
-            <p>전체 주행 기록</p>
-          </div>
+          <Link to="/mypage/record/all">
+            <div className="flex justify-between text-sm">
+              <p>전체 주행 기록</p>
+              <ChevronRightIcon className="w-4 h-4" />
+            </div>
+          </Link>
           <div className="text-sm">
             <p>주간 분석</p>
           </div>

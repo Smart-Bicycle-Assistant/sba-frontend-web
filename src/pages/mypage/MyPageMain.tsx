@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../../components/common/header";
 import Navbar from "../../components/common/navbar";
 
@@ -6,7 +6,6 @@ import { ArrowPathRoundedSquareIcon } from "@heroicons/react/24/outline";
 import { Bars3Icon } from "@heroicons/react/20/solid";
 
 const MyPageMain: React.FC = () => {
-  const navigate = useNavigate();
   return (
     <div className="content_wrapper">
       <div className="content_fixed">
@@ -26,15 +25,12 @@ const MyPageMain: React.FC = () => {
               <ArrowPathRoundedSquareIcon className="w-5 h-5" />
               <p>회원 정보 수정</p>
             </div>
-            <div
-              className="flex items-center gap-x-3 text-sm px-2 py-5 border-b"
-              onClick={() => {
-                navigate("/mypage/record");
-              }}
-            >
-              <Bars3Icon className="w-5 h-5" />
-              <p>주행 기록</p>
-            </div>
+            <Link to="/mypage/record">
+              <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
+                <Bars3Icon className="w-5 h-5" />
+                <p>주행 기록</p>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
