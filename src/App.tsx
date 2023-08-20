@@ -3,6 +3,9 @@ import {
   LoginPage,
   MainPage,
   RegisterPage,
+  MyPageMain,
+  MyPageRecord,
+  MyPageRecordAll,
   BicyclePage,
   BicycleDetail,
 } from "./pages";
@@ -21,6 +24,17 @@ const ROUTER = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
+    path: "/mypage",
+    element: <MyPageMain />,
+  },
+  {
+    path: "/mypage/record",
+    element: <MyPageRecord />,
+  },
+  {
+    path: "/mypage/record/all",
+    element: <MyPageRecordAll />,
+  },
     path: "/bicycle",
     element: <BicyclePage />,
   },
