@@ -1,5 +1,8 @@
 import useInput from "../hooks/useInput";
+import Header from "../components/common/header";
+
 import { loginApi } from "../apis/index";
+
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
@@ -20,9 +23,7 @@ function LoginPage() {
 
   return (
     <div>
-      <div className="text-black text-lg text-center border-b-2 p-2 font-bold">
-        로그인
-      </div>
+      <Header menu="로그인" showBackArrow={true} />
       <div className="px-8 mx-auto">
         <div className="my-10">
           <input
