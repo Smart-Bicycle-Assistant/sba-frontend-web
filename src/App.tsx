@@ -4,6 +4,7 @@ import {
   MainPage,
   RegisterPage,
   MyPageMain,
+  MyPageModify,
   MyPageRecord,
   MyPageRecordAll,
   MyPageRecordDetail,
@@ -27,6 +28,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/mypage",
     element: <MyPageMain />,
+  },
+  {
+    path: "/mypage/modify",
+    element: <MyPageModify />,
   },
   {
     path: "/mypage/record",

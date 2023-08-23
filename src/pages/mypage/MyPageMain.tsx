@@ -21,10 +21,12 @@ const MyPageMain: React.FC = () => {
             </div>
           </div>
           <div className="border-t">
-            <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
-              <ArrowPathRoundedSquareIcon className="w-5 h-5" />
-              <p>회원 정보 수정</p>
-            </div>
+            <Link to="/mypage/modify">
+              <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
+                <ArrowPathRoundedSquareIcon className="w-5 h-5" />
+                <p>회원 정보 수정</p>
+              </div>
+            </Link>
             <Link to="/mypage/record">
               <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
                 <Bars3Icon className="w-5 h-5" />
