@@ -29,9 +29,11 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
           </div>
         </div>
       </div>
-      <div className="py-3">
-        <p className="text-center text-xs">자세히 보기</p>
-      </div>
+      <a href={`/mypage/record/${recordId}`}>
+        <div className="py-3">
+          <p className="text-center text-xs">자세히 보기</p>
+        </div>
+      </a>
     </div>
   );
 };
