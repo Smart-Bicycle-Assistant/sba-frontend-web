@@ -11,7 +11,7 @@ const navbar: React.FC = () => {
         <a href="/bicycle">자전거</a>
       </div>
       <div className="flex justify-center items-center w-1/4">
-        <p>내 정보</p>
+        <a href="/mypage">내 정보</a>
       </div>
     </div>
   );

@@ -6,11 +6,9 @@ import {
   MyPageMain,
   MyPageRecord,
   MyPageRecordAll,
+  MyPageRecordDetail,
   BicyclePage,
   BicycleDetail,
-  MyPageMain,
-  MyPageRecord,
-  MyPageRecordAll,
 } from "./pages";
 
 const ROUTER = createBrowserRouter([
@@ -38,24 +36,17 @@ const ROUTER = createBrowserRouter([
     path: "/mypage/record/all",
     element: <MyPageRecordAll />,
   },
+  {
+    path: "/mypage/record/:recordNo",
+    element: <MyPageRecordDetail />,
+  },
+  {
     path: "/bicycle",
     element: <BicyclePage />,
   },
   {
     path: "/bicycle-detail",
     element: <BicycleDetail />,
-  },
-  {
-    path: "/mypage",
-    element: <MyPageMain />,
-  },
-  {
-    path: "/mypage/record",
-    element: <MyPageRecord />,
-  },
-  {
-    path: "/mypage/record/all",
-    element: <MyPageRecordAll />,
   },
 ]);
 
