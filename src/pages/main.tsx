@@ -1,3 +1,5 @@
+import Navbar from "../components/common/Navbar";
+
 function MainPage() {
   return (
     <div className="py-4 px-2 flex items-center justify-between">

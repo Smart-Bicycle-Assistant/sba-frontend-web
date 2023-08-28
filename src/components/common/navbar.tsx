@@ -1,8 +1,9 @@
-const navbar: React.FC = () => {
+const Navbar: React.FC = () => {
   return (
     <div className="flex translate-y-[-100%] w-full h-14 border-t-2 text-sm">
       <div className="flex justify-center items-center w-1/4">
-        <p>홈</p>
+        
+        <a href="/">홈</a>
       </div>
       <div className="flex justify-center items-center w-1/4">
         <p>지도</p>
@@ -17,4 +18,4 @@ const navbar: React.FC = () => {
   );
 };
 
-export default navbar;
+export default Navbar;

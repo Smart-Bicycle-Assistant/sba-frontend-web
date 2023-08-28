@@ -1,20 +1,33 @@
 import useInput from "../hooks/useInput";
+import Header from "../components/common/Header";
 import { loginApi } from "../apis/index";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const { value: id, onChange: onIdChange } = useInput();
-  const { value: password, onChange: onPasswordChange } = useInput();
+  const { value: id, onChange: onIdChange, setValue: setId } = useInput();
+  const {
+    value: password,
+    onChange: onPasswordChange,
+    setValue: setPassword,
+  } = useInput();
   const navigate = useNavigate();
 
   const onSubmit = async () => {
     if (id === "" || password === "") {
       return;
     }
-    const res = await loginApi({ id, password });
-    if (res.status === 200) {
-      navigate("/");
-      console.log(res);
+    
+    try {
+      const res = await loginApi({ id, password });
+      if (res.status === 200) {
+        navigate("/");
+        console.log(res);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+    } finally {
+      setId("");
+      setPassword("");
     }
   };
 
