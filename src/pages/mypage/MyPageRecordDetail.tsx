@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../../components/common/header";
-import Navbar from "../../components/common/navbar";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
 import { MapPinIcon } from "@heroicons/react/20/solid";
 import { recordOneApi } from "../../apis/myPage";
 import { RecordComponentType } from "../../types";

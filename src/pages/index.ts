@@ -6,8 +6,9 @@ import MyPageRecord from "./mypage/MyPageRecord";
 import MyPageModify from "./mypage/MyPageModify";
 import MyPageRecordAll from "./mypage/MyPageRecordAll";
 import MyPageRecordDetail from "./mypage/MyPageRecordDetail";
-import BicyclePage from "./bicycle";
-import BicycleDetail from "./bicycleDetail";
+import BicycleMain from "./bicycle/BicycleMain";
+import BicycleDetail from "./bicycle/BicycleDetail";
+import BicycleRegistration from "./bicycle/BicycleRegistration";
 
 export {
   MainPage,
@@ -18,6 +19,7 @@ export {
   MyPageRecord,
   MyPageRecordAll,
   MyPageRecordDetail,
-  BicyclePage,
+  BicycleMain,
   BicycleDetail,
+  BicycleRegistration,
 };

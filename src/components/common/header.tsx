@@ -5,7 +5,7 @@ type HeaderProps = {
   showBackArrow?: boolean;
 };
 
-const header: React.FC<HeaderProps> = ({ menu, showBackArrow = false }) => {
+const Header: React.FC<HeaderProps> = ({ menu, showBackArrow = false }) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
   const onClickBtn = () => {
@@ -18,7 +18,7 @@ const header: React.FC<HeaderProps> = ({ menu, showBackArrow = false }) => {
           <span className="absolute left-2" onClick={onClickBtn}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="h-6 w-6 pt-1"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -38,4 +38,4 @@ const header: React.FC<HeaderProps> = ({ menu, showBackArrow = false }) => {
   );
 };
 
-export default header;
+export default Header;

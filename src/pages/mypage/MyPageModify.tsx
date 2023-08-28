@@ -1,5 +1,5 @@
-import Header from "../../components/common/header";
-import Navbar from "../../components/common/navbar";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
 
 function MyPageModify() {
   return (

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-import Header from "../../components/common/header";
-import Navbar from "../../components/common/navbar";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
 import RecordComponent from "../../components/mypage/RecordComponent";
 
 import { recordListApi } from "../../apis/myPage";
