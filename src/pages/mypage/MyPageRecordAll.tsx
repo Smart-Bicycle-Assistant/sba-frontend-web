@@ -5,10 +5,10 @@ import Navbar from "../../components/common/navbar";
 import RecordComponent from "../../components/mypage/RecordComponent";
 
 import { recordListApi } from "../../apis/myPage";
-import { RecordComponentType } from "../../types";
+import { RecordListType } from "../../types";
 
 const MyPageRecordAll: React.FC = () => {
-  const [recordList, setRecordList] = useState<RecordComponentType[]>([]);
+  const [recordList, setRecordList] = useState<RecordListType[]>([]);
 
   useEffect(() => {
     const loadRecordList = async () => {

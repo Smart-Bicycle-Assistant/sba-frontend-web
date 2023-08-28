@@ -1,7 +1,7 @@
-import { RecordComponentType } from "../../types";
+import { RecordListType } from "../../types";
 
 type MyPageRecordDetailProps = {
-  data: RecordComponentType;
+  data: RecordListType;
 };
 
 const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
@@ -19,7 +19,7 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
         <div className="flex flex-col gap-y-1 pl-11 text-xs">
           <div className="flex gap-x-2">
             <p className="text-neutral-500">날짜</p>
-            <p>20NN. NN. NN</p>
+            <p>{ridingTime}</p>
           </div>
           <div className="flex gap-x-2">
             <p className="text-neutral-500">주행</p>
