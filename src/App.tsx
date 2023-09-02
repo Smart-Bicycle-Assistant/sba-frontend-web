@@ -3,7 +3,6 @@ import {
   LoginPage,
   MainPage,
   RegisterPage,
-  BicyclePage,
   MyPageMain,
   MyPageModify,
   MyPageRecord,
@@ -51,7 +50,14 @@ const ROUTER = createBrowserRouter([
     path: "/bicycle",
     element: <BicycleMain />,
   },
+<<<<<<< HEAD
   { path: "/bicycle", element: <BicycleMain /> },
+=======
+  {
+    path: "/bicycle/registration",
+    element: <BicycleRegistration />,
+  },
+>>>>>>> feat/mybicycle
   {
     path: "/bicycle/detail",
     element: <BicycleDetail />,

@@ -1,7 +1,7 @@
 import { BicycleCardProps } from "../../types";
 
 function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
-  const imagePath = "src/assets/Logo1.png";
+  const imagePath = "src/assets/Logo.png";
   return (
     <div className="border rounded-md p-5 pb-3 shadow-md">
       <div className="flex items-center">

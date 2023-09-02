@@ -1,39 +1,19 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
 import { MapPinIcon } from "@heroicons/react/20/solid";
-import { recordOneApi } from "../../apis/myPage";
-import { RecordComponentType } from "../../types";
 
 const MyPageRecordDetail: React.FC = () => {
-  const [recordData, setRecordData] = useState<RecordComponentType>();
-
-  const { recordNo } = useParams() as { recordNo: string };
-
-  useEffect(() => {
-    const loadRecordData = async () => {
-      const res = await recordOneApi({
-        memberId: "test1",
-        bicycleNo: 0,
-        recordId: Number(recordNo),
-      });
-      console.log(res);
-      setRecordData(res.data);
-    };
-    loadRecordData();
-  }, []);
-
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu={"주행 기록"} />
+        <Header menu="주행 기록" />
         <div className="flex flex-col gap-y-8 px-8 py-8 mx-auto">
           <div>
             <div className="flex items-center gap-x-2 text-sm pb-1">
               <div className="w-6 h-6 bg-neutral-200 rounded-full">
                 {/* <img src="" alt="bike"></img> */}
               </div>
+<<<<<<< HEAD
               <p className="font-base text-xs">
                 자전거 {recordData?.bicycleNo}
               </p>
@@ -42,6 +22,12 @@ const MyPageRecordDetail: React.FC = () => {
               <p className="text-xl font-semibold">
                 {recordData?.ridingTime} 주행 기록
               </p>
+=======
+              <p className="font-base text-xs">자전거 1</p>
+            </div>
+            <div>
+              <p className="text-xl font-semibold">2023년 8월 15일 주행 기록</p>
+>>>>>>> feat/mybicycle
             </div>
           </div>
           <div>

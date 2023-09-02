@@ -9,7 +9,7 @@ const BicycleDetail = () => {
         <div className="border rounded-md p-4  w-[96%] shadow-sm">
           <div className="flex items-center mb-2">
             <img
-              src="../src/assets/Logo1.png"
+              src="../src/assets/Logo.png"
               alt="자전거 이미지"
               className="w-12 h-12 rounded-full bg-yellow-200"
             />
