@@ -4,15 +4,6 @@ import NavBar from "../components/common/Navbar";
 
 import { registerApi } from "../apis/index";
 import useInput from "../hooks/useInput";
-// import {
-//   Logo,
-//   Container,
-//   FormContainer,
-//   Label,
-//   Input,
-//   Button,
-//   Link,
-// } from "@/styles";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -38,6 +29,8 @@ function RegisterPage() {
 
   return (
     <div>
+      <Header menu="회원가입" showBackArrow={true} />
+
       <div>
         <div>
           <p>이름</p>
@@ -62,6 +55,7 @@ function RegisterPage() {
       <div>
         <button onClick={onSubmit}>회원가입</button>
       </div>
+      <NavBar />
     </div>
   );
 }

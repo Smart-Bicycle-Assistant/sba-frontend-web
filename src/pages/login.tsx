@@ -1,41 +1,29 @@
 import useInput from "../hooks/useInput";
 import Header from "../components/common/Header";
+
 import { loginApi } from "../apis/index";
+
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
-  const { value: id, onChange: onIdChange, setValue: setId } = useInput();
-  const {
-    value: password,
-    onChange: onPasswordChange,
-    setValue: setPassword,
-  } = useInput();
+  const { value: id, onChange: onIdChange } = useInput();
+  const { value: password, onChange: onPasswordChange } = useInput();
   const navigate = useNavigate();
 
   const onSubmit = async () => {
     if (id === "" || password === "") {
       return;
     }
-    
-    try {
-      const res = await loginApi({ id, password });
-      if (res.status === 200) {
-        navigate("/");
-        console.log(res);
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
-    } finally {
-      setId("");
-      setPassword("");
+    const res = await loginApi({ id, password });
+    if (res.status === 200) {
+      navigate("/");
+      console.log(res);
     }
   };
 
   return (
     <div>
-      <div className="text-black text-lg text-center border-b-2 p-2 font-bold">
-        로그인
-      </div>
+      <Header menu="로그인" showBackArrow={true} />
       <div className="px-8 mx-auto">
         <div className="my-10">
           <input
