@@ -13,21 +13,10 @@ const MyPageRecordDetail: React.FC = () => {
               <div className="w-6 h-6 bg-neutral-200 rounded-full">
                 {/* <img src="" alt="bike"></img> */}
               </div>
-<<<<<<< HEAD
-              <p className="font-base text-xs">
-                자전거 {recordData?.bicycleNo}
-              </p>
-            </div>
-            <div>
-              <p className="text-xl font-semibold">
-                {recordData?.ridingTime} 주행 기록
-              </p>
-=======
               <p className="font-base text-xs">자전거 1</p>
             </div>
             <div>
               <p className="text-xl font-semibold">2023년 8월 15일 주행 기록</p>
->>>>>>> feat/mybicycle
             </div>
           </div>
           <div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Header from "../../components/common/Header";
 import useInput from "../../hooks/useInput";
+import { BicycleRegistratrationApi } from "../../apis/bicycle";
+import { useNavigate } from "react-router-dom";
 
 const BicycleRegistration: React.FC = () => {
   const { value: name, onChange: onNameChange, setValue: setName } = useInput();
@@ -15,13 +17,17 @@ const BicycleRegistration: React.FC = () => {
       setPreviewImage(URL.createObjectURL(selectedImage));
     }
   };
+  const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (name === "" || image === null) {
+      return;
+    }
+    const res = await BicycleRegistratrationApi({ name, image });
+    navigate("/bicycle");
+    console.log(res);
 
-    console.log("자전거 등록:", name, image); // 자전거 등록 로직 추가
-    console.log(name);
-    console.log(image);
     setName("");
   };
 
