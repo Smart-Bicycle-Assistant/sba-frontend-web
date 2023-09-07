@@ -9,9 +9,11 @@ import MyPageRecordDetail from "./mypage/MyPageRecordDetail";
 import BicycleMain from "./bicycle/BicycleMain";
 import BicycleDetail from "./bicycle/BicycleDetail";
 import BicycleRegistration from "./bicycle/BicycleRegistration";
+import MapPage from "./Map";
 
 export {
   MainPage,
+  MapPage,
   LoginPage,
   RegisterPage,
   MyPageMain,

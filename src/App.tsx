@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   LoginPage,
+  MapPage,
   MainPage,
   RegisterPage,
   MyPageMain,
@@ -17,6 +18,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+  },
+  {
+    path: "/map",
+    element: <MapPage />,
   },
   {
     path: "/login",
