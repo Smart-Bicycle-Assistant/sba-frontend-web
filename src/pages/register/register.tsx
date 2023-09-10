@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../components/common/Header";
-import NavBar from "../components/common/Navbar";
+import Header from "../../components/common/Header";
+import NavBar from "../../components/common/Navbar";
 
-import { registerApi } from "../apis/index";
-import useInput from "../hooks/useInput";
+import { registerApi } from "../../apis/index";
+import useInput from "../../hooks/useInput";
 
 function RegisterPage() {
   const navigate = useNavigate();
