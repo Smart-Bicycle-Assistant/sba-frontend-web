@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
   MapPage,
@@ -12,60 +12,65 @@ import {
   BicycleMain,
   BicycleDetail,
   BicycleRegistration,
-} from "./pages";
+  Terms,
+} from './pages';
 
 const ROUTER = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainPage />,
   },
   {
-    path: "/map",
+    path: '/map',
     element: <MapPage />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/register",
+    path: '/register',
     element: <RegisterPage />,
   },
   {
-    path: "/mypage",
+    path: '/mypage',
     element: <MyPageMain />,
   },
   {
-    path: "/mypage/modify",
+    path: '/mypage/modify',
     element: <MyPageModify />,
   },
   {
-    path: "/mypage/record",
+    path: '/mypage/record',
     element: <MyPageRecord />,
   },
   {
-    path: "/mypage/record/all",
+    path: '/mypage/record/all',
     element: <MyPageRecordAll />,
   },
   {
-    path: "/mypage/record/:recordNo",
+    path: '/mypage/record/:recordNo',
     element: <MyPageRecordDetail />,
   },
   {
-    path: "/bicycle",
+    path: '/bicycle',
     element: <BicycleMain />,
   },
   {
-    path: "/bicycle/registration",
+    path: '/bicycle/registration',
     element: <BicycleRegistration />,
   },
   {
-    path: "/bicycle/detail",
+    path: '/bicycle/detail',
     element: <BicycleDetail />,
   },
   {
-    path: "/bicycle/registration",
+    path: '/bicycle/registration',
     element: <BicycleRegistration />,
+  },
+  {
+    path: '/register/terms',
+    element: <Terms />,
   },
 ]);
 
