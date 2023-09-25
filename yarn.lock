@@ -2302,6 +2302,10 @@ onetime@^6.0.0:
   integrity sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==
   dependencies:
     mimic-fn "^4.0.0"
+openrouteservice-js@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/openrouteservice-js/-/openrouteservice-js-0.3.1.tgz#7f0df7ac525285698e1e66a6a8d1e83c8faf7203"
+  integrity sha512-sCbsXYI22MyT7WOv9C5Hz8/1W9e94Myu0vPeikDzESWv+pv9mDF4iLElFlUPQe6/+UqNn2JsQgDgVl5B/0WeDw==
 
 optionator@^0.9.3:
   version "0.9.3"
