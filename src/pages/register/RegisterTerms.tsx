@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 
 const isCheckedIcon = (isChecked: boolean) => {
   return isChecked ? (
     <FontAwesomeIcon
       icon={faCheckCircle}
-      color="blue"
+      color="#0064FF"
       className="pr-3 font-thin text-xl"
     />
   ) : (
@@ -49,6 +49,7 @@ const Terms: React.FC = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [agreedToPrivacyPolicy, setAgreedToPrivacyPolicy] = useState(false);
   const [optInForEmails, setOptInForEmails] = useState(false);
+  const navigate = useNavigate();
 
   const handleAgreeToAll = () => {
     const newValue = !agreedToAll;
@@ -112,13 +113,12 @@ const Terms: React.FC = () => {
                   onChange={agreement.onChange}
                 />
                 <span className="text-sm">{agreement.label}</span>
-                <Link
-                  to="/"
-                  className="fixed right-8 text-gray-600"
+                <div
+                  className="absolute right-8 text-gray-600"
                   onClick={() => {}}
                 >
                   {">"}
-                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -126,12 +126,16 @@ const Terms: React.FC = () => {
 
         <div className="fixed bottom-0 left-0 right-0 p-4">
           <button
-            className={`bg-${
+            className={`${
               agreedToPrivacyPolicy && agreedToTerms
-                ? "customColor"
-                : "gray-400"
-            } text-white py-2.5 px-4 rounded-lg hover:bg-blue-600 w-full`}
-            onClick={() => {}}
+                ? "bg-customColor"
+                : "bg-gray-400"
+            } text-white py-2.5 px-4 rounded-lg w-full`}
+            onClick={() => {
+              if (agreedToPrivacyPolicy && agreedToTerms) {
+                navigate("/register");
+              }
+            }}
           >
             회원가입
           </button>
