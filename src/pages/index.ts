@@ -9,8 +9,9 @@ import MyPageRecordDetail from './mypage/MyPageRecordDetail';
 import BicycleMain from './bicycle/BicycleMain';
 import BicycleDetail from './bicycle/BicycleDetail';
 import BicycleRegistration from './bicycle/BicycleRegistration';
+import RegisterTerms from './register/RegisterTerms';
+import RegisterSuccess from './register/RegisterSuccess';
 import MapPage from './Map';
-import Terms from './register/Terms';
 
 export {
   MainPage,
@@ -25,5 +26,6 @@ export {
   BicycleMain,
   BicycleDetail,
   BicycleRegistration,
-  Terms,
+  RegisterTerms,
+  RegisterSuccess,
 };

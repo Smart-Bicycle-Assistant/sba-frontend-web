@@ -4,7 +4,7 @@ type ValidationMessage = "initial" | "valid" | "invalid";
 
 interface ValidationProps {
   value: string;
-  type: "id" | "password" | "passwordCheck" | "email";
+  type: "id" | "password" | "passwordCheck";
   passwordCheck?: string;
 }
 
@@ -50,17 +50,6 @@ const ValidationMessage: React.FC<ValidationProps> = ({
             setValidationMessage("invalid");
           }
           break;
-        case "email":
-          // eslint-disable-next-line no-case-declarations
-          const emailRegex = /^[A-Za-z0-9+_.-]+@(.+)$/;
-          if (!value) {
-            setValidationMessage("initial");
-          } else if (emailRegex.test(value)) {
-            setValidationMessage("valid");
-          } else {
-            setValidationMessage("invalid");
-          }
-          break;
         default:
           setValidationMessage("initial");
           break;
@@ -77,13 +66,10 @@ const ValidationMessage: React.FC<ValidationProps> = ({
     case "valid":
       switch (type) {
         case "id":
-          message = "사용 가능한 아이디입니다.";
+          message = "";
           break;
         case "password":
           message = "사용 가능한 비밀번호입니다.";
-          break;
-        case "email":
-          message = "유효한 이메일 주소입니다.";
           break;
         case "passwordCheck":
           message = "비밀번호가 일치합니다.";
@@ -103,9 +89,6 @@ const ValidationMessage: React.FC<ValidationProps> = ({
         case "password":
           message = "영문, 숫자, 특수문자를 사용하여 8~20자로 입력해주세요.";
           break;
-        case "email":
-          message = "유효하지 않은 이메일 주소입니다.";
-          break;
         case "passwordCheck":
           message = "비밀번호가 일치하지 않습니다.";
           break;
@@ -122,9 +105,6 @@ const ValidationMessage: React.FC<ValidationProps> = ({
           break;
         case "password":
           message = "8~20자/영문, 숫자, 특수문자 조합 가능";
-          break;
-        case "email":
-          message = "4~12자/영문 소문자(숫자 조합 가능)";
           break;
         case "passwordCheck":
           message = "";

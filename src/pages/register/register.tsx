@@ -3,6 +3,7 @@ import Header from "../../components/common/Header";
 import { registerApi } from "../../apis/index";
 import useInput from "../../hooks/useInput";
 import ValidationMessage from "../../components/register/ValidationMessage";
+import { SetStateAction, useState } from "react";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -10,22 +11,48 @@ function RegisterPage() {
   const { value: password, onChange: onPasswordChange } = useInput();
   const { value: check, onChange: onCheckChange } = useInput();
   const { value: nickname, onChange: onNameChange } = useInput();
-  const { value: email, onChange: onEmailChange } = useInput();
+  const { value: emailId, onChange: onEmailIdChange } = useInput();
+
+  const [emailOption, setEmailOption] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+
+  const onEmailOptionChange = (e: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    const selectedOption = e.target.value;
+    setEmailOption(selectedOption);
+
+    if (selectedOption === "직접 입력") {
+      setEmailAddress("");
+    } else {
+      setEmailAddress(selectedOption);
+    }
+  };
+
+  const isFormInvalid = (
+    id: string,
+    password: string,
+    nickname: string,
+    emailId: string,
+    emailAddress: string
+  ): boolean => {
+    const values = [id, password, nickname, emailId, emailAddress];
+    return values.some((value) => value === "");
+  };
 
   const onSubmit = async () => {
-    if (id === "" || password === "" || nickname === "" || email === "") {
-      return;
-    }
-    const res = await registerApi({ id, nickname, password, email });
+    const res = await registerApi({
+      id,
+      nickname,
+      password,
+      email: `${emailId}@${emailAddress}`,
+    });
     if (res.status === 200) {
-      navigate("/login");
+      console.log("회원가입 성공");
+      navigate("/register/success");
     }
     console.log(res);
   };
-
-  // const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === "Enter") onSubmit();
-  // };
 
   return (
     <div>
@@ -40,9 +67,16 @@ function RegisterPage() {
               placeholder="아이디"
               onChange={onIdChange}
             />
-            <button className=" w-4/12 my-1 h-12 text-sm bg-gray-200 rounded-lg py-1 px-3 text-gray-500">
+            <button
+              className={`w-4/12 my-1 h-12 text-sm rounded-lg py-1 px-3 ${
+                id !== ""
+                  ? "bg-customColor text-white"
+                  : "bg-gray-200 text-gray-500"
+              }`}
+            >
               중복확인
             </button>
+            {/* 중복확인 api 연결 후, 중복 확인 완료했을 경우 버튼 변화시킬 것ㅐ */}
           </div>
           <ValidationMessage value={id} type="id" />
         </div>
@@ -87,33 +121,60 @@ function RegisterPage() {
 
         <div className="pt-4">
           <p className="text-gray-500 text-sm">이메일</p>
-          <div className="flex gap-2">
+          <div className="flex gap-3 w-full">
             <input
-              className=" w-7/12 my-1 h-12 text-sm placeholder-slate-300 bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
+              className="w-3/5 my-1 h-12 text-sm placeholder-slate-300 bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={emailId}
               placeholder="이메일"
-              onChange={onEmailChange}
+              onChange={onEmailIdChange}
             />
-            <p className=" text-gray-400 h-full text-left pt-3">@</p>
-            <select
-              className="w-5/12 my-1 h-12 text-sm text-gray-300 bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={() => {}}
-            >
-              <option value="">선택</option>
-              <option value="google.com">google.com</option>
-              <option value="naver.com">naver.com</option>
-              <option value="kakao.com">kakao.com</option>
-              <option value="ajou.ac.kr">ajou.ac.kr</option>
-            </select>
+            <p className="text-gray-400 h-full text-left pt-3">@</p>
+            {emailOption === "직접 입력" ? (
+              <input
+                className="my-1 w-full h-12 text-sm placeholder-slate-300 bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={emailAddress}
+                autoFocus={true}
+                onChange={(e) => {
+                  setEmailAddress(e.target.value);
+                }}
+              />
+            ) : (
+              <select
+                className={`my-1 w-full h-12 text-sm bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  emailOption === "" ? "text-gray-400" : "text-black"
+                }`}
+                value={emailOption}
+                onChange={onEmailOptionChange}
+              >
+                <option value="">선택</option>
+                <option value="ajou.ac.kr">ajou.ac.kr</option>
+                <option value="naver.com">naver.com</option>
+                <option value="kakao.com">kakao.com</option>
+                <option value="google.com">google.com</option>
+                <option value="hanmail.net">hanmail.net</option>
+                <option value="직접 입력">직접 입력</option>
+              </select>
+            )}
           </div>
-          <ValidationMessage value={email} type="email" />
         </div>
       </div>
       <div className="fixed bottom-0 left-0 right-0 p-4">
         <button
-          className="bg-customColor text-white py-2.5 px-4 rounded-lg w-full"
-          onClick={() => {}}
+          className={` text-white py-2.5 px-4 rounded-lg w-full ${
+            isFormInvalid(id, password, nickname, emailId, emailAddress)
+              ? "bg-gray-300"
+              : "bg-customColor"
+          }`}
+          disabled={isFormInvalid(
+            id,
+            password,
+            nickname,
+            emailId,
+            emailAddress
+          )}
+          onClick={() => {
+            navigate("/register/success");
+          }}
         >
           회원가입
         </button>

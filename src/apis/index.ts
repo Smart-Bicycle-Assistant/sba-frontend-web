@@ -54,4 +54,3 @@ export const registerApi = async ({
   console.log(message);
   return { data, status: res.status };
 };
-
