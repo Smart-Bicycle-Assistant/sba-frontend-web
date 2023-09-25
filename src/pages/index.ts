@@ -1,5 +1,5 @@
 import MainPage from "./main";
-import RegisterPage from "./register/register";
+import RegisterPage from "./register/Register";
 import LoginPage from "./login";
 import MyPageMain from "./mypage/MyPageMain";
 import MyPageRecord from "./mypage/MyPageRecord";
@@ -9,7 +9,8 @@ import MyPageRecordDetail from "./mypage/MyPageRecordDetail";
 import BicycleMain from "./bicycle/BicycleMain";
 import BicycleDetail from "./bicycle/BicycleDetail";
 import BicycleRegistration from "./bicycle/BicycleRegistration";
-import Terms from "./register/Terms";
+import RegisterTerms from "./register/RegisterTerms";
+import RegisterSuccess from "./register/RegisterSuccess";
 
 export {
   MainPage,
@@ -23,5 +24,6 @@ export {
   BicycleMain,
   BicycleDetail,
   BicycleRegistration,
-  Terms,
+  RegisterTerms,
+  RegisterSuccess,
 };
