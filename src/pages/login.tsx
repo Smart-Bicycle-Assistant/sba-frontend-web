@@ -3,9 +3,11 @@ import Header from "../components/common/Header";
 import { loginApi } from "../apis/index";
 
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../store/userStore";
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
+  const { setUser } = useUser();
   const {
     value: password,
     onChange: onPasswordChange,
@@ -17,10 +19,11 @@ function LoginPage() {
     if (id === "" || password === "") {
       return;
     }
-    
+
     try {
       const res = await loginApi({ id, password });
       if (res.status === 200) {
+        setUser(res.data.user); //타입 맞추기
         navigate("/");
         console.log(res);
       }
