@@ -1,13 +1,13 @@
-import useInput from "../hooks/useInput";
-import Header from "../components/common/Header";
-import { loginApi } from "../apis/index";
+import useInput from '../hooks/useInput';
+import Header from '../components/common/Header';
+import { loginApi } from '../apis/index';
 
-import { useNavigate } from "react-router-dom";
-import { useUser } from "../store/userStore";
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../store/userStore';
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
-  const { setUser } = useUser();
+  const { setUser } = useUserStore();
   const {
     value: password,
     onChange: onPasswordChange,
@@ -16,7 +16,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
-    if (id === "" || password === "") {
+    if (id === '' || password === '') {
       return;
     }
 
@@ -24,14 +24,14 @@ function LoginPage() {
       const res = await loginApi({ id, password });
       if (res.status === 200) {
         setUser(res.data.user); //타입 맞추기
-        navigate("/");
+        navigate('/');
         console.log(res);
       }
     } catch (error) {
-      console.error("Error during login:", error);
+      console.error('Error during login:', error);
     } finally {
-      setId("");
-      setPassword("");
+      setId('');
+      setPassword('');
     }
   };
 
@@ -62,7 +62,7 @@ function LoginPage() {
           로그인
         </button>
         <div className="mt-10 text-[11px] justify-between flex text-gray-500">
-          <a href="/register">{"회원가입 > "}</a>
+          <a href="/register">{'회원가입 > '}</a>
           <a href="/register">아이디 찾기 | 비밀번호 찾기</a>
         </div>
         <div></div>
