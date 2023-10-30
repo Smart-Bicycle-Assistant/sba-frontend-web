@@ -1,14 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router";
 
 import Header from "../../components/common/Header";
 
 const RegistrationSuccess: React.FC = () => {
+  const { state } = useLocation();
   return (
     <div>
       <Header menu="회원가입" showBackArrow={true} />
-      <div className="mx-6">
-        <p className="text-xl font-bold mt-20">[아이디]님 반갑습니다.</p>
+      <div className="mx-6 mt-20">
+        <span className="text-2xl font-bold mr-1 text-customColor">
+          {state}
+        </span>
+        <span className="text-xl font-bold">님 반갑습니다.</span>
         <p className="text-gray-600 mt-6">
           이제부터 SBA의 다양한 서비스를 자유롭게 이용하실 수 있습니다.
         </p>
