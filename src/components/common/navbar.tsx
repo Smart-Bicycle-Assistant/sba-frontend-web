@@ -1,17 +1,19 @@
+import { Link } from 'react-router-dom';
+
 const Navbar: React.FC = () => {
   return (
     <div className="flex w-full h-14 border-t-2 text-sm fixed bottom-0 bg-white">
       <div className="flex justify-center items-center w-1/4">
-        <a href="/">홈</a>
+        <Link to="/">홈</Link>
       </div>
       <div className="flex justify-center items-center w-1/4">
-        <a href="/map">지도</a>
+        <Link to="/map">지도</Link>
       </div>
       <div className="flex justify-center items-center w-1/4">
-        <a href="/bicycle">자전거</a>
+        <Link to="/bicycle">자전거</Link>
       </div>
       <div className="flex justify-center items-center w-1/4">
-        <a href="/mypage">내 정보</a>
+        <Link to="/mypage">내 정보</Link>
       </div>
     </div>
   );

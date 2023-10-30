@@ -16,10 +16,10 @@ export type LogoutType = {
 };
 
 export const loginApi = async ({ id, password }: LoginType) => {
-  const res = await fetch(SERVER_API + "/login", {
-    method: "POST",
+  const res = await fetch(SERVER_API + '/member/login', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       id,
@@ -38,10 +38,10 @@ export const registerApi = async ({
   password,
   email,
 }: RegisterType) => {
-  const res = await fetch(SERVER_API + "/register", {
-    method: "POST",
+  const res = await fetch(SERVER_API + '/register', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       id,

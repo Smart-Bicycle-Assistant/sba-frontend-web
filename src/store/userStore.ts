@@ -1,5 +1,3 @@
-// src/store/userStore.ts
-
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
@@ -9,21 +7,17 @@ interface UserProps {
   nickname: string;
 }
 
-interface UserActions extends UserProps {
+interface UserActions {
   setUser: (user: UserProps) => void;
 }
 
-export const useUserStore = create<UserActions>()(
+export const useUserStore = create<UserProps & UserActions>()(
   devtools((set) => ({
     id: '',
     email: '',
     nickname: '',
-    setUser: (user: UserProps) => {
-      set(() => ({
-        id: user.id,
-        email: user.email,
-        nickname: user.nickname,
-      }));
+    setUser: (user) => {
+      set({ id: user.id, email: user.email, nickname: user.nickname });
     },
   }))
 );

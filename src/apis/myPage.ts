@@ -17,9 +17,9 @@ export const recordListApi = async ({
     SERVER_API +
       `/riding_record/whole_list?memberId=${memberId}&bicycleNo=${bicycleNo}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -38,9 +38,9 @@ export const recordOneApi = async ({
     SERVER_API +
       `/riding_record/one?memberId=${memberId}&bicycleNo=${bicycleNo}&recordId=${recordId}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );

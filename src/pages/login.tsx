@@ -7,13 +7,14 @@ import { useUserStore } from '../store/userStore';
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
-  const { setUser } = useUserStore();
   const {
     value: password,
     onChange: onPasswordChange,
     setValue: setPassword,
   } = useInput();
   const navigate = useNavigate();
+
+  const { setUser } = useUserStore();
 
   const onSubmit = async () => {
     if (id === '' || password === '') {
@@ -23,9 +24,13 @@ function LoginPage() {
     try {
       const res = await loginApi({ id, password });
       if (res.status === 200) {
-        setUser(res.data.user); //타입 맞추기
+        setUser({
+          id: res.data.id,
+          email: res.data.email,
+          nickname: res.data.nickname,
+        });
+        localStorage.setItem('token', res.data.token);
         navigate('/');
-        console.log(res);
       }
     } catch (error) {
       console.error('Error during login:', error);
