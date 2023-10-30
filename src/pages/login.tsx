@@ -2,18 +2,20 @@ import useInput from "../hooks/useInput";
 import Header from "../components/common/Header";
 import { loginApi } from "../apis/index";
 
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
-  const { setUser } = useUser();
+
   const {
     value: password,
     onChange: onPasswordChange,
     setValue: setPassword,
   } = useInput();
   const navigate = useNavigate();
+
+  const { setUser } = useUser();
 
   const onSubmit = async () => {
     if (id === "" || password === "") {

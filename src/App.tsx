@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   LoginPage,
+  MapPage,
   MainPage,
   RegisterPage,
   MyPageMain,
@@ -19,6 +20,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+  },
+  {
+    path: "/map",
+    element: <MapPage />,
   },
   {
     path: "/login",
@@ -59,6 +64,18 @@ const ROUTER = createBrowserRouter([
   {
     path: "/bicycle/detail",
     element: <BicycleDetail />,
+  },
+  {
+    path: "/register/terms",
+    element: <RegisterTerms />,
+  },
+  {
+    path: "/register/success",
+    element: <RegisterSuccess />,
+  },
+  {
+    path: "/bicycle/registration",
+    element: <BicycleRegistration />,
   },
   {
     path: "/register/terms",

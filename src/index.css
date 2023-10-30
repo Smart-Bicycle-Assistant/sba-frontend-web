@@ -13,3 +13,7 @@
 .content {
   @apply px-8 py-8 mx-auto;
 }
+
+.leaflet-control-zoom {
+  display: none;
+}
