@@ -1,4 +1,4 @@
-import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Navbar from "../components/common/Navbar";
 import useInput from "../hooks/useInput";
 import Openrouteservice from "openrouteservice-js";
@@ -10,12 +10,25 @@ import {
   Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { OpenStreetMapProvider } from "leaflet-geosearch";
 import { AddressType, StepType } from "../types";
-import { decodePolyline } from "../apis/map";
+import { keywordSearch, decodePolyline } from "../apis/map";
 import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 type SearchPageType = "DEFAULT" | "START" | "END";
+type SearchResultType = {
+  address_name: string;
+  category_group_code: string;
+  category_group_name: string;
+  category_name: string;
+  distance: string;
+  id: string;
+  phone: string;
+  place_name: string;
+  place_url: string;
+  road_address_name: string;
+  x: string;
+  y: string;
+};
 
 const MapPage: React.FC = () => {
   const [startCoord, setStartCoord] = useState<[number, number]>();
@@ -40,8 +53,6 @@ const MapPage: React.FC = () => {
     setValue: setEndInput,
   } = useInput();
 
-  const provider = new OpenStreetMapProvider();
-
   const toggleSubPage = () => {
     setSubPageFull(!subPageFull);
   };
@@ -56,15 +67,20 @@ const MapPage: React.FC = () => {
     input: string,
     setSearchList: Dispatch<SetStateAction<AddressType[]>>
   ) => {
-    const res = await provider.search({ query: input });
-    setSearchList(
-      res.map((el, index) => ({
-        label: el.label,
-        x: el.x,
-        y: el.y,
-      }))
-    );
-    console.log(res);
+    keywordSearch<SearchResultType>(input)
+      .then((result: SearchResultType[]) => {
+        console.log(result);
+        setSearchList(
+          result.map((el) => ({
+            label: el.place_name,
+            x: Number(el.x),
+            y: Number(el.y),
+          }))
+        );
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+      });
   };
 
   const orsDirections = new Openrouteservice.Directions({
@@ -81,7 +97,6 @@ const MapPage: React.FC = () => {
         extra_info: ["waytype", "steepness"],
         format: "json",
       });
-      console.log("response: ", res);
       setGeometry(decodePolyline(res.routes[0].geometry, false));
       setStep(res.routes[0].segments[0].steps);
       setSearchPageOpen(false);

@@ -1,3 +1,26 @@
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    kakao: any;
+  }
+}
+
+const places = new window.kakao.maps.services.Places();
+
+export const keywordSearch = <T>(input: string): Promise<T[]> => {
+  return new Promise((resolve, reject) => {
+    const callback = (result: T[], status: "OK" | "ZERO_RESULT" | "ERROR") => {
+      if (status === window.kakao.maps.services.Status.OK) {
+        resolve(result);
+      } else {
+        reject(status);
+      }
+    };
+
+    places.keywordSearch(input, callback);
+  });
+};
+
 export const decodePolyline = (
   encodedPolyline: string,
   includeElevation: boolean
