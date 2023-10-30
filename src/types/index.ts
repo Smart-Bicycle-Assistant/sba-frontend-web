@@ -15,6 +15,7 @@ export type RecordComponentType = RecordListType & {
   maxSpeed: number;
   map: string;
 };
+
 //Bicycle
 export type BicycleCardProps = {
   name: string;

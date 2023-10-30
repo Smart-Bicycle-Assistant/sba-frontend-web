@@ -1,8 +1,21 @@
 import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
 import { MapPinIcon } from "@heroicons/react/20/solid";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const MyPageRecordDetail: React.FC = () => {
+  const marker = [
+    [37.56675, 126.97842],
+    [37.56649, 126.99209],
+  ];
+
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
@@ -21,10 +34,36 @@ const MyPageRecordDetail: React.FC = () => {
           </div>
           <div>
             <p className="pb-3 text-sm font-semibold">경로 다시보기</p>
-            <div className="flex justify-center items-center w-full h-36 bg-neutral-200 rounded-lg">
-              <p className="text-xs">
-                클릭하여 더 자세한 데이터를 확인해 보세요
-              </p>
+            <div className="flex justify-center items-center w-full">
+              <div className="w-full rounded-lg">
+                <MapContainer
+                  style={{ height: "10rem", borderRadius: "0.5rem" }}
+                  center={[37.56675, 126.97842]}
+                  zoom={13}
+                  scrollWheelZoom={true}
+                  attributionControl={false}
+                  className="leaflet-container"
+                >
+                  <TileLayer
+                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
+                  />
+                  {marker.map((el, index) => (
+                    <Marker key={index} position={[el[0], el[1]]}>
+                      <Popup>
+                        A pretty CSS3 popup. <br /> Easily customizable.
+                      </Popup>
+                    </Marker>
+                  ))}
+                  <Polyline
+                    positions={[
+                      [marker[0][0], marker[0][1]],
+                      [marker[1][0], marker[1][1]],
+                    ]}
+                    color={"blue"}
+                  />
+                </MapContainer>
+              </div>
             </div>
           </div>
           <div>
