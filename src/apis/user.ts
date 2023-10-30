@@ -7,7 +7,10 @@ export const LoginApi = async (params: LoginType) => {
   try {
     const response = await member_request.post(`/member/login`, params);
     const { jwt } = useUser.getState();
-    axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+    console.log("user" + jwt);
+    if (jwt) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+    }
     return response.data;
   } catch (error) {
     console.error("에러 발생: ", error);

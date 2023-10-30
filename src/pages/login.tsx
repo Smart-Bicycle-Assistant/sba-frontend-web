@@ -3,7 +3,6 @@ import Header from "../components/common/Header";
 
 import { useUser } from "../store/userStore";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../store/userStore";
 import { LoginApi } from "../apis/user";
 
 function LoginPage() {
