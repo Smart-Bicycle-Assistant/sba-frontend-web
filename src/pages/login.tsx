@@ -2,7 +2,7 @@ import useInput from "../hooks/useInput";
 import Header from "../components/common/Header";
 
 import { useUser } from "../store/userStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LoginApi } from "../apis/user";
 
 function LoginPage() {
@@ -43,7 +43,11 @@ function LoginPage() {
       setPassword("");
     }
   };
-
+  const handleEnterKey = (event: { key: string }) => {
+    if (event.key === "Enter") {
+      onSubmit();
+    }
+  };
   return (
     <div>
       <div>
@@ -55,6 +59,7 @@ function LoginPage() {
               className="w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={id}
               onChange={onIdChange}
+              onKeyDown={handleEnterKey}
             />
 
             <input
@@ -63,6 +68,7 @@ function LoginPage() {
               type="password"
               value={password}
               onChange={onPasswordChange}
+              onKeyDown={handleEnterKey}
             />
           </div>
           <button
@@ -72,8 +78,8 @@ function LoginPage() {
             로그인
           </button>
           <div className="mt-10 text-[11px] justify-between flex text-gray-500">
-            <a href="/register">{"회원가입 > "}</a>
-            <a href="/register">아이디 찾기 | 비밀번호 찾기</a>
+            <Link to="/register">{"회원가입 > "}</Link>
+            <Link to="/">비밀번호 찾기</Link>
           </div>
         </div>
       </div>

@@ -14,12 +14,17 @@ import {
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,
+  PreRiding,
 } from "./pages";
 
 const ROUTER = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+  },
+  {
+    path: "/riding/before",
+    element: <PreRiding />,
   },
   {
     path: "/map",

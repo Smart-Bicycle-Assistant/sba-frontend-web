@@ -4,19 +4,21 @@ import { handleApiError } from "./errorHandling";
 
 export type BicycleRegistrationType = {
   name: string;
-  image: File;
+  image: string;
 };
 
 export const BicycleRegistrationApi = async ({
   name,
   image,
 }: BicycleRegistrationType) => {
-  const { id } = useUser.getState();
+  const id = useUser.getState().id || "test2";
+  console.log(id);
   try {
+    console.log(`id: ${id}, name: ${name}, image: ${image}`);
     const response = await request.post("/member/register_bicycle", {
-      id,
-      name,
-      image,
+      ownerId: id,
+      bicycleName: name,
+      bicycleImage: image,
     });
     return response.data;
   } catch (error) {

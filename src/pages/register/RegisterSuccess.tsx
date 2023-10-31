@@ -19,9 +19,9 @@ const RegistrationSuccess: React.FC = () => {
         </p>
       </div>
       <div className="fixed bottom-0 left-0 right-0 p-4">
-        <Link to="/" className="block">
+        <Link to="/login" className="block">
           <button className="bg-customColor text-white py-2.5 px-4 rounded-lg w-full">
-            시작하기
+            로그인 하러 가기
           </button>
         </Link>
       </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { BicycleCardProps } from "../../types";
 
 function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
@@ -17,12 +18,11 @@ function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
       </p>
       <p className="text-xs text-gray-500 pl-12">주행기록: {mileage} km</p>
       <hr className="my-3" />
-      <a
-        href="/bicycle/detail"
+      <Link to="/bicycle/detail"
         className="text-blue-500 text-center text-xs hover:underline block"
       >
         자세히 보기
-      </a>
+      </Link>
     </div>
   );
 }

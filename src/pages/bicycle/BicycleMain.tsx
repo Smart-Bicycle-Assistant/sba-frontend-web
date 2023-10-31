@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BicycleCard from "../../components/bicycle/BicycleCard";
 import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
@@ -17,12 +18,11 @@ function BicycleMain() {
           registrationDate="2023-08-18"
           mileage="75"
         />
-        <a
-          href="/bicycle/registration"
+        <Link to="/bicycle/registration"
           className="text-blue-400 text-center text-xs mt-5"
         >
           새 자전거 등록
-        </a>
+        </Link>
       </div>
       <Navbar />
     </div>
