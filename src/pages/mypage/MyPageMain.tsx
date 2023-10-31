@@ -1,36 +1,54 @@
 import { Link } from 'react-router-dom';
+import { useUserStore } from '../../store/userStore';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 
-import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowPathRoundedSquareIcon,
+  ArrowLeftOnRectangleIcon,
+} from '@heroicons/react/24/outline';
 import { Bars3Icon } from '@heroicons/react/20/solid';
 
 const MyPageMain: React.FC = () => {
+  const { nickname } = useUserStore();
   return (
     <div className="content_wrapper">
       <div className="content_fixed">
         <Header menu={'마이페이지'} />
         <div className="content flex flex-col gap-y-8">
           <div>
-            <p className="pb-3 text-base font-semibold">마이페이지</p>
-            <div className="flex items-center gap-x-3 text-sm">
-              <div className="flex justify-center items-center w-16 h-16 bg-neutral-200 rounded-full">
-                <img src="" alt="profile"></img>
-              </div>
-              <p>닉네임</p>
+            <div className="flex items-center gap-x-3 text-lg">
+              <p>
+                <span className="font-semibold text-customColor">
+                  {nickname}
+                </span>{' '}
+                님, 안녕하세요!
+              </p>
             </div>
           </div>
-          <div className="border-t">
+          <div className="flex flex-col gap-y-3">
             <Link to="/mypage/modify">
-              <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
-                <ArrowPathRoundedSquareIcon className="w-5 h-5" />
+              <div className="flex items-center gap-x-3 bg-slate-100 rounded-xl text-sm px-5 py-4">
+                <ArrowPathRoundedSquareIcon className="w-4 h-4" />
                 <p>회원 정보</p>
               </div>
             </Link>
             <Link to="/mypage/record">
-              <div className="flex items-center gap-x-3 text-sm px-2 py-5 border-b">
-                <Bars3Icon className="w-5 h-5" />
+              <div className="flex items-center gap-x-3 bg-slate-100 rounded-xl text-sm px-5 py-4">
+                <Bars3Icon className="w-4 h-4" />
                 <p>주행 기록</p>
+              </div>
+            </Link>
+            <Link to="/mypage/record">
+              <div className="flex items-center gap-x-3 bg-slate-100 rounded-xl text-sm px-5 py-4">
+                <Bars3Icon className="w-4 h-4" />
+                <p>유지 보수 기록</p>
+              </div>
+            </Link>
+            <Link to="/mypage/record">
+              <div className="flex items-center gap-x-3 bg-slate-100 rounded-xl text-sm px-5 py-4">
+                <ArrowLeftOnRectangleIcon className="w-4 h-4" />
+                <p>회원 탈퇴</p>
               </div>
             </Link>
           </div>
