@@ -1,20 +1,21 @@
-import { useState, Dispatch, SetStateAction } from "react";
-import Navbar from "../components/common/Navbar";
-import useInput from "../hooks/useInput";
-import Openrouteservice from "openrouteservice-js";
+import { useState, Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
+import useInput from '../hooks/useInput';
+import Openrouteservice from 'openrouteservice-js';
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
   Polyline,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { AddressType, StepType } from "../types";
-import { keywordSearch, decodePolyline } from "../apis/map";
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import { AddressType, StepType } from '../types';
+import { keywordSearch, decodePolyline } from '../apis/map';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
-type SearchPageType = "DEFAULT" | "START" | "END";
+type SearchPageType = 'DEFAULT' | 'START' | 'END';
 type SearchResultType = {
   address_name: string;
   category_group_code: string;
@@ -39,8 +40,10 @@ const MapPage: React.FC = () => {
   const [geometry, setGeometry] = useState<[number, number][]>([]);
   const [searchPageOpen, setSearchPageOpen] = useState<boolean>(false);
   const [searchPageFull, setSearchPageFull] =
-    useState<SearchPageType>("DEFAULT");
+    useState<SearchPageType>('DEFAULT');
   const [subPageFull, setSubPageFull] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const {
     value: startInput,
@@ -61,6 +64,12 @@ const MapPage: React.FC = () => {
     setSearchPageOpen(!searchPageOpen);
     setStartSearchList([]);
     setEndSearchList([]);
+  };
+
+  const handleRidingStart = () => {
+    navigate('/riding', {
+      state: { startCoord: startCoord, endCoord: endCoord, geometry: geometry },
+    });
   };
 
   const inputHandler = async (
@@ -93,15 +102,15 @@ const MapPage: React.FC = () => {
     try {
       const res = await orsDirections.calculate({
         coordinates: [startCoord, endCoord],
-        profile: "cycling-regular",
-        extra_info: ["waytype", "steepness"],
-        format: "json",
+        profile: 'cycling-regular',
+        extra_info: ['waytype', 'steepness'],
+        format: 'json',
       });
       setGeometry(decodePolyline(res.routes[0].geometry, false));
       setStep(res.routes[0].segments[0].steps);
       setSearchPageOpen(false);
     } catch (err) {
-      console.log("Error");
+      console.log('Error');
     }
   };
 
@@ -128,13 +137,13 @@ const MapPage: React.FC = () => {
                 placeholder="출발지"
                 className="w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={startInput}
-                onClick={() => setSearchPageFull("START")}
+                onClick={() => setSearchPageFull('START')}
                 onChange={(e) => {
                   onStartInput(e);
                   inputHandler(startInput, setStartSearchList);
                 }}
               />
-              {searchPageFull === "START" && startSearchList.length > 0 && (
+              {searchPageFull === 'START' && startSearchList.length > 0 && (
                 <div className="flex flex-col gap-y-2 rounded-lg overflow-auto">
                   {startSearchList.map((el, index) => (
                     <div
@@ -143,7 +152,7 @@ const MapPage: React.FC = () => {
                       onClick={() => {
                         setStartInput(el.label);
                         setStartCoord([el.x, el.y]);
-                        setSearchPageFull("DEFAULT");
+                        setSearchPageFull('DEFAULT');
                       }}
                     >
                       {el.label}
@@ -155,13 +164,13 @@ const MapPage: React.FC = () => {
                 placeholder="도착지"
                 className="w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={endInput}
-                onClick={() => setSearchPageFull("END")}
+                onClick={() => setSearchPageFull('END')}
                 onChange={(e) => {
                   onEndInput(e);
                   inputHandler(endInput, setEndSearchList);
                 }}
               />
-              {searchPageFull === "END" && endSearchList.length > 0 && (
+              {searchPageFull === 'END' && endSearchList.length > 0 && (
                 <div className="flex flex-col gap-y-2 rounded-lg overflow-auto">
                   {endSearchList.map((el, index) => (
                     <div
@@ -170,7 +179,7 @@ const MapPage: React.FC = () => {
                       onClick={() => {
                         setEndInput(el.label);
                         setEndCoord([el.x, el.y]);
-                        setSearchPageFull("DEFAULT");
+                        setSearchPageFull('DEFAULT');
                       }}
                     >
                       {el.label}
@@ -192,7 +201,7 @@ const MapPage: React.FC = () => {
           <div className="w-full h-screen">
             <div className="w-full h-full">
               <MapContainer
-                style={{ height: "50%" }}
+                style={{ height: '50%' }}
                 center={[
                   (startCoord[1] + endCoord[1]) / 2,
                   (startCoord[0] + endCoord[0]) / 2,
@@ -216,7 +225,7 @@ const MapPage: React.FC = () => {
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
                 </Marker>
-                <Polyline positions={geometry} color={"red"} />
+                <Polyline positions={geometry} color={'red'} />
               </MapContainer>
             </div>
             <div
@@ -234,16 +243,24 @@ const MapPage: React.FC = () => {
                   <ChevronUpIcon className="w-5 h-5" onClick={toggleSubPage} />
                 )}
               </div>
-              {step.map((el, index) => (
-                <div key={index}>
-                  <div className="flex items-center justify-between">
-                    <p className="text-sm">{el.instruction}</p>
-                    <div className="flex flex-col justify-center">
-                      <p className="text-xl font-semibold">{el.distance}m</p>
+              <div>
+                {step.map((el, index) => (
+                  <div key={index}>
+                    <div className="flex items-center justify-between">
+                      <p className="text-sm">{el.instruction}</p>
+                      <div className="flex flex-col justify-center">
+                        <p className="text-xl font-semibold">{el.distance}m</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+                <button
+                  className="w-full bg-customColor text-sm text-white py-2.5 mt-3 rounded-lg hover:bg-opacity-80"
+                  onClick={handleRidingStart}
+                >
+                  주행 시작
+                </button>
+              </div>
             </div>
           </div>
         ) : (

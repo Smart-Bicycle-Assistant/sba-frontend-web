@@ -9,7 +9,7 @@ const places = new window.kakao.maps.services.Places();
 
 export const keywordSearch = <T>(input: string): Promise<T[]> => {
   return new Promise((resolve, reject) => {
-    const callback = (result: T[], status: "OK" | "ZERO_RESULT" | "ERROR") => {
+    const callback = (result: T[], status: 'OK' | 'ZERO_RESULT' | 'ERROR') => {
       if (status === window.kakao.maps.services.Status.OK) {
         resolve(result);
       } else {

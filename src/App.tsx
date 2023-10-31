@@ -14,6 +14,7 @@ import {
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,
+  RidingPage,
   PreRiding,
 } from "./pages";
 
@@ -89,6 +90,10 @@ const ROUTER = createBrowserRouter([
   {
     path: "/register/success",
     element: <RegisterSuccess />,
+  },
+  {
+    path: '/riding',
+    element: <RidingPage />,
   },
 ]);
 
