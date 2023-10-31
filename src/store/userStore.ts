@@ -1,45 +1,59 @@
-import { create } from 'zustand';
-import { devtools } from 'zustand/middleware';
+// src/store/userStore.ts
 
-interface UserProps {
+import { create } from "zustand";
+
+interface User {
   id: string;
   email: string;
   nickname: string;
+  jwt: string;
+  setUser: (user: userProps) => void;
 }
 
-interface UserActions {
-  setUser: (user: UserProps) => void;
-}
+export const useUser = create<User>((set) => ({
+  id: "",
+  email: "",
+  nickname: "",
+  jwt: "",
+  setUser: (user: userProps) => {
+    set(() => ({
+      id: user.id,
+      email: user.email,
+      nickname: user.nickname,
+      jwt: user.jwt,
+    }));
+  },
+}));
 
-export const useUserStore = create<UserProps & UserActions>()(
-  devtools((set) => ({
-    id: '',
-    email: '',
-    nickname: '',
-    setUser: (user) => {
-      set({ id: user.id, email: user.email, nickname: user.nickname });
-    },
-  }))
-);
+interface userProps {
+  id: string;
+  email: string;
+  nickname: string;
+  jwt: string;
+}
 
 interface Location {
-  latitude: number | null;
-  longitude: number | null;
+  latitude: number;
+  longitude: number;
+  speed: number;
   setLocation: (loc: locationProps) => void;
 }
 
 interface locationProps {
   latitude: number;
   longitude: number;
+  speed: number;
 }
 
-export const useLocationStore = create<Location>((set) => ({
-  latitude: null,
-  longitude: null,
+export const useLocation = create<Location>((set) => ({
+  latitude: 37.785634,
+  longitude: -122.184,
+  speed: 1,
   setLocation: (loc: locationProps) => {
     set(() => ({
       longitude: loc.longitude,
       latitude: loc.latitude,
+      speed: loc.speed,
     }));
   },
 }));

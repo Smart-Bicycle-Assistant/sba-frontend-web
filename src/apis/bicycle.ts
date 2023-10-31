@@ -1,31 +1,27 @@
-const SERVER_API = import.meta.env.VITE_SERVER_API;
-
-//BicycleMain //전체 자전거 목록
-
-//BicycleDetail //자전거 하나 상세정보
-
-//BicycleRegistration
+import request from "./request";
+import { useUser } from "../store/userStore";
+import { handleApiError } from "./errorHandling";
 
 export type BicycleRegistrationType = {
   name: string;
-  image: File;
+  image: string;
 };
 
-export const BicycleRegistratrationApi = async ({
+export const BicycleRegistrationApi = async ({
   name,
   image,
 }: BicycleRegistrationType) => {
-  const res = await fetch(SERVER_API + "/register_bicycle", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      image,
-    }),
-  });
-  const { data, message } = await res.json();
-  console.log("data : ", data, "message: ", message);
-  return { data, status: res.status };
+  const id = useUser.getState().id || "test2";
+  console.log(id);
+  try {
+    console.log(`id: ${id}, name: ${name}, image: ${image}`);
+    const response = await request.post("/member/register_bicycle", {
+      ownerId: id,
+      bicycleName: name,
+      bicycleImage: image,
+    });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };

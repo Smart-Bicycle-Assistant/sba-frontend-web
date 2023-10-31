@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 const BicycleRegistration: React.FC = () => {
   const { value: name, onChange: onNameChange, setValue: setName } = useInput();
 
+  const id = "1";
+
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -24,7 +26,7 @@ const BicycleRegistration: React.FC = () => {
     if (name === "" || image === null) {
       return;
     }
-    const res = await BicycleRegistratrationApi({ name, image });
+    const res = await BicycleRegistratrationApi({ id, name, image });
     navigate("/bicycle");
     console.log(res);
 

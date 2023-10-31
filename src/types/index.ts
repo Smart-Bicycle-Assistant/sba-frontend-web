@@ -23,7 +23,6 @@ export type BicycleCardProps = {
   mileage: string;
 };
 
-// Map
 export type AddressType = {
   label: string;
   x: number;
@@ -37,4 +36,21 @@ export type StepType = {
   name: string;
   type: number;
   way_points: number[];
+};
+
+export type LoginType = {
+  id: string;
+  password: string;
+};
+
+export type RegisterType = LoginType & {
+  nickname: string;
+  email: string;
+};
+
+export type PackRidingType = {
+  longitude: number;
+  latitude: number;
+  packMode: boolean;
+  speed: number;
 };

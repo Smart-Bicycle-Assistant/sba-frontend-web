@@ -9,15 +9,14 @@ const BicycleDetail = () => {
         <div className="border rounded-md p-4  w-[96%] shadow-sm">
           <div className="flex items-center mb-2">
             <img
-              src="../src/assets/Logo.png"
+              src="../src/assets/bicycle.png"
               alt="자전거 이미지"
-              className="w-12 h-12 rounded-full bg-yellow-200"
+              className="w-12 h-12 rounded-full bg-gray-100"
             />
             <div className="ml-3">
               <p className="font-semibold text-gray-700 text-lg mb-1">
                 자전거 1
               </p>
-              <p className="text-xs text-gray-500">자전거를 설명하는 글</p>
             </div>
           </div>
 
@@ -61,12 +60,12 @@ const BicycleDetail = () => {
             </div>
           </div>
           <div className="flex justify-center rounded-md my-3 mx-1">
-            <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal">
-              교체하기
+            <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal shadow-sm">
+              부품 정보 업데이트
             </button>
-            <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal">
+            {/* <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal">
               점검하기
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

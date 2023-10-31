@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
+import Modal from "../../components/register/Modal";
+import { policyDummy1, policyDummy2 } from "./TermsPolicy";
 
 const isCheckedIcon = (isChecked: boolean) => {
   return isChecked ? (
@@ -19,11 +21,6 @@ const isCheckedIcon = (isChecked: boolean) => {
     />
   );
 };
-interface Agreement {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}
 
 interface CheckboxProps {
   checked: boolean;
@@ -71,27 +68,48 @@ const Terms: React.FC = () => {
     setOptInForEmails(!optInForEmails);
   };
 
+  interface Agreement {
+    label: string;
+    checked: boolean;
+    onChange: () => void;
+    content: string;
+  }
+
   const agreements: Agreement[] = [
     {
       label: "[필수] 서비스 이용약관 동의",
       checked: agreedToTerms,
       onChange: handleAgreeToTerms,
+      content: policyDummy1,
     },
     {
       label: "[필수] 개인정보 수집/이용 동의",
       checked: agreedToPrivacyPolicy,
       onChange: handleAgreeToPrivacyPolicy,
+      content: policyDummy2,
     },
     {
       label: "[선택] 메일/문자 수신 동의",
       checked: optInForEmails,
       onChange: handleOptInForEmails,
+      content: "메일/문자 수신 동의 내용...",
     },
   ];
 
+  const [modalContent, setModalContent] = useState<string | null>(null);
+
+  const openModal = (content: string) => {
+    setModalContent(content);
+  };
+
+  const closeModal = () => {
+    setModalContent(null);
+  };
+
   return (
     <div>
-      <Header menu="회원가입" />
+      <Header menu="회원가입" showBackArrow={true} />
+      {modalContent && <Modal content={modalContent} onClose={closeModal} />}
       <div className=" items-center h-screen px-3 py-3">
         <div>
           <div className="flex space-x-2 pt-4" onClick={handleAgreeToAll}>
@@ -115,7 +133,9 @@ const Terms: React.FC = () => {
                 <span className="text-sm">{agreement.label}</span>
                 <div
                   className="absolute right-8 text-gray-600"
-                  onClick={() => {}}
+                  onClick={() => {
+                    openModal(agreement.content);
+                  }}
                 >
                   {">"}
                 </div>

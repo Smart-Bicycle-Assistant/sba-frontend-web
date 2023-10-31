@@ -13,6 +13,7 @@ import RegisterTerms from './register/RegisterTerms';
 import RegisterSuccess from './register/RegisterSuccess';
 import MapPage from './Map';
 import RidingPage from './Riding';
+import PreRiding from "./riding/PreRiding";
 
 export {
   MainPage,
@@ -30,4 +31,5 @@ export {
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,
+  PreRiding,
 };

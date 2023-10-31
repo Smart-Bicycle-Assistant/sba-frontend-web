@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
-import { registerApi } from "../../apis/index";
 import useInput from "../../hooks/useInput";
 import ValidationMessage from "../../components/register/ValidationMessage";
 import { SetStateAction, useState } from "react";
+import { RegisterApi, ValidIdApi } from "../../apis/user";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ function RegisterPage() {
   const { value: check, onChange: onCheckChange } = useInput();
   const { value: nickname, onChange: onNameChange } = useInput();
   const { value: emailId, onChange: onEmailIdChange } = useInput();
+  const [validationId, setValidationId] = useState(false);
 
   const [emailOption, setEmailOption] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -41,15 +42,16 @@ function RegisterPage() {
   };
 
   const onSubmit = async () => {
-    const res = await registerApi({
+    const res = await RegisterApi({
       id,
       nickname,
       password,
       email: `${emailId}@${emailAddress}`,
     });
+    console.log(res);
     if (res.status === 200) {
       console.log("회원가입 성공");
-      navigate("/register/success");
+      navigate("/register/success", { state: id });
     }
     console.log(res);
   };
@@ -66,17 +68,24 @@ function RegisterPage() {
               value={id}
               placeholder="아이디"
               onChange={onIdChange}
+              disabled={validationId}
             />
             <button
               className={`w-4/12 my-1 h-12 text-sm rounded-lg py-1 px-3 ${
-                id !== ""
+                id !== "" && validationId === false
                   ? "bg-customColor text-white"
                   : "bg-gray-200 text-gray-500"
               }`}
+              onClick={async () => {
+                const result = await ValidIdApi(id);
+                console.log(result);
+                result.message == "OK"
+                  ? setValidationId(true)
+                  : setValidationId(false);
+              }}
             >
-              중복확인
+              {validationId == true ? "확인완료" : "중복확인"}
             </button>
-            {/* 중복확인 api 연결 후, 중복 확인 완료했을 경우 버튼 변화시킬 것ㅐ */}
           </div>
           <ValidationMessage value={id} type="id" />
         </div>
@@ -173,6 +182,7 @@ function RegisterPage() {
             emailAddress
           )}
           onClick={() => {
+            onSubmit();
             navigate("/register/success");
           }}
         >

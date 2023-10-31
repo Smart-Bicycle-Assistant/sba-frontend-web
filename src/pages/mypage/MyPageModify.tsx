@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import { useUserStore } from '../../store/userStore';
+import { useUser } from '../../store/userStore';
 
 function MyPageModify() {
-  const { id, email, nickname } = useUserStore();
+  const { id, email, nickname } = useUser();
 
   const [modify, setModify] = useState<boolean>(false);
 
