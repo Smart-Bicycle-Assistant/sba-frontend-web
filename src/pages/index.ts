@@ -12,10 +12,12 @@ import BicycleRegistration from './bicycle/BicycleRegistration';
 import RegisterTerms from './register/RegisterTerms';
 import RegisterSuccess from './register/RegisterSuccess';
 import MapPage from './Map';
+import RidingPage from './Riding';
 
 export {
   MainPage,
   MapPage,
+  RidingPage,
   LoginPage,
   RegisterPage,
   MyPageMain,
