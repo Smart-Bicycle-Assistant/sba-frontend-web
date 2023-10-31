@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import Header from "../../components/common/Header";
-import useInput from "../../hooks/useInput";
-import { BicycleRegistratrationApi } from "../../apis/bicycle";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import Header from '../../components/common/Header';
+import useInput from '../../hooks/useInput';
+import { BicycleRegistrationApi } from '../../apis/bicycle';
+import { useNavigate } from 'react-router-dom';
 
 const BicycleRegistration: React.FC = () => {
   const { value: name, onChange: onNameChange, setValue: setName } = useInput();
 
-  const id = "1";
+  const id = '1';
 
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -23,14 +23,14 @@ const BicycleRegistration: React.FC = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name === "" || image === null) {
+    if (name === '' || image === null) {
       return;
     }
-    const res = await BicycleRegistratrationApi({ id, name, image });
-    navigate("/bicycle");
+    const res = await BicycleRegistrationApi({ id, name, image });
+    navigate('/bicycle');
     console.log(res);
 
-    setName("");
+    setName('');
   };
 
   return (

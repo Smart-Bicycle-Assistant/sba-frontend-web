@@ -14,7 +14,6 @@ import {
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,
-  RidingPage,
   PreRiding,
   RidingPage,
 } from './pages';

@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
-import { RecordListType } from "../../types";
+import { Link } from 'react-router-dom';
+import { RecordListType } from '../../types';
 
 type MyPageRecordDetailProps = {
   data: RecordListType;
 };
 
 const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
-  const { avgSpeed, recordId, ridingDistance, ridingDuration, ridingTime } =
-    data;
+  const { recordId, ridingDistance, ridingDuration, ridingTime } = data;
   return (
     <div className="border rounded-lg shadow-sm">
       <div className="border-b p-4">

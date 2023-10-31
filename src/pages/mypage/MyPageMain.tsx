@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useUserStore } from '../../store/userStore';
+import { useUser } from '../../store/userStore';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 
@@ -10,7 +10,7 @@ import {
 import { Bars3Icon } from '@heroicons/react/20/solid';
 
 const MyPageMain: React.FC = () => {
-  const { nickname } = useUserStore();
+  const { nickname } = useUser();
   return (
     <div className="content_wrapper">
       <div className="content_fixed">
