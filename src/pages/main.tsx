@@ -6,7 +6,6 @@ function MainPage() {
   const location = useLocation();
 
   RidingLocationApi({
-    id: "1",
     longitude: location.longitude,
     latitude: location.latitude,
     packMode: true,

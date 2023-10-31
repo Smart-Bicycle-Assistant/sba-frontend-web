@@ -1,29 +1,25 @@
-const SERVER_API = import.meta.env.VITE_SERVER_API;
+import request from "./request";
+import { useUser } from "../store/userStore";
+import { handleApiError } from "./errorHandling";
 
 export type BicycleRegistrationType = {
-  id: string;
   name: string;
   image: File;
 };
 
-export const BicycleRegistratrationApi = async ({
-  id,
+export const BicycleRegistrationApi = async ({
   name,
   image,
 }: BicycleRegistrationType) => {
-  const res = await fetch(SERVER_API + "/register_bicycle", {
-    method: "POST",
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    body: JSON.stringify({
+  const { id } = useUser.getState();
+  try {
+    const response = await request.post("/member/register_bicycle", {
       id,
       name,
       image,
-    }),
-  });
-  // const { data, message } = await res.json();
-  // console.log("data : ", data, "message: ", message);
-  // return { data, status: res.status };
-  console.log(res);
+    });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };

@@ -4,7 +4,7 @@ import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
 import RecordComponent from "../../components/mypage/RecordComponent";
 
-import { recordListApi } from "../../apis/myPage";
+import { RecordListApi } from "../../apis/myPage";
 import { RecordComponentType } from "../../types";
 
 const MyPageRecordAll: React.FC = () => {
@@ -12,7 +12,7 @@ const MyPageRecordAll: React.FC = () => {
 
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await recordListApi({ memberId: "test1", bicycleNo: 0 });
+      const res = await RecordListApi(0);
       console.log(res);
       setRecordList(res.data);
     };

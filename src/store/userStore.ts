@@ -1,6 +1,6 @@
 // src/store/userStore.ts
 
-import create from "zustand";
+import { create } from "zustand";
 
 interface User {
   id: string;
@@ -16,7 +16,7 @@ export const useUser = create<User>((set) => ({
   nickname: "",
   jwt: "",
   setUser: (user: userProps) => {
-    set((state) => ({
+    set(() => ({
       id: user.id,
       email: user.email,
       nickname: user.nickname,
@@ -50,7 +50,7 @@ export const useLocation = create<Location>((set) => ({
   longitude: -122.184,
   speed: 1,
   setLocation: (loc: locationProps) => {
-    set((state) => ({
+    set(() => ({
       longitude: loc.longitude,
       latitude: loc.latitude,
       speed: loc.speed,

@@ -49,7 +49,6 @@ export type RegisterType = LoginType & {
 };
 
 export type PackRidingType = {
-  id: string;
   longitude: number;
   latitude: number;
   packMode: boolean;
