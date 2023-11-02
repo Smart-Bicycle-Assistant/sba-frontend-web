@@ -1,6 +1,6 @@
 // src/store/userStore.ts
 
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface User {
   id: string;
@@ -11,10 +11,10 @@ interface User {
 }
 
 export const useUser = create<User>((set) => ({
-  id: "",
-  email: "",
-  nickname: "",
-  jwt: "",
+  id: '',
+  email: '',
+  nickname: '',
+  jwt: '',
   setUser: (user: userProps) => {
     set(() => ({
       id: user.id,
