@@ -19,8 +19,8 @@ const BicycleRegistration: React.FC = () => {
 
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>("");
-  const [frontLifeSpan, setFrontLifeSpan] = useState<number | null>();
-  const [rearLifeSpan, setRearLifeSpan] = useState<number | null>();
+  const [frontLifeSpan, setFrontLifeSpan] = useState<number>();
+  const [rearLifeSpan, setRearLifeSpan] = useState<number>();
 
   const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files && e.target.files[0];
@@ -67,6 +67,7 @@ const BicycleRegistration: React.FC = () => {
             <input
               className="mr-2 bg-transparent border-b w-16 border-[#73AAFF] text-right text-white font-bold text-lg placeholder-[#87b4f8]"
               type="text"
+              value={frontLifeSpan}
               placeholder="5,000"
               onChange={(e) => {
                 setFrontLifeSpan(Number(e.target.value));
@@ -85,6 +86,7 @@ const BicycleRegistration: React.FC = () => {
               className="mr-2 bg-transparent border-b w-16 border-[#73AAFF] text-right text-white font-bold text-lg placeholder-[#87b4f8]"
               type="text"
               placeholder="5,000"
+              value={rearLifeSpan}
               onChange={(e) => {
                 setRearLifeSpan(Number(e.target.value));
               }}
