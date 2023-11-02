@@ -1,10 +1,10 @@
-import Navbar from "../components/common/Navbar";
-import { useLocation } from "../store/userStore";
-import { RidingLocationApi } from "../apis/riding";
-import { Link } from "react-router-dom";
+import Navbar from '../components/common/Navbar';
+import { useUserLocation } from '../store/userStore';
+import { RidingLocationApi } from '../apis/riding';
+import { Link } from 'react-router-dom';
 
 function MainPage() {
-  const location = useLocation();
+  const location = useUserLocation();
 
   RidingLocationApi({
     longitude: location.longitude,
@@ -27,22 +27,29 @@ function MainPage() {
             <Link to="/login" className="text-blue-500 hover:underline">
               로그인
             </Link>
-            
+
             <div>
               <p>
-                Latitude:{" "}
-                {location.latitude !== null ? location.latitude : "N/A"}
+                Latitude:{' '}
+                {location.latitude !== null ? location.latitude : 'N/A'}
               </p>
               <p>
-                Longitude:{" "}
-                {location.longitude !== null ? location.longitude : "N/A"}
+                Longitude:{' '}
+                {location.longitude !== null ? location.longitude : 'N/A'}
               </p>
-              <p>Speed: {location.speed !== null ? location.speed : "N/A"}</p>
+              <p>Speed: {location.speed !== null ? location.speed : 'N/A'}</p>
             </div>
           </div>
-          <Link to="/riding/before" className="text-blue-500 hover:underline">
+          <div>
+            <Link to="/riding/before" className="text-blue-500 hover:underline">
               주행 전 설정
             </Link>
+          </div>
+          <div>
+            <Link to="/riding" className="text-blue-500 hover:underline">
+              주행
+            </Link>
+          </div>
         </div>
       </div>
       <Navbar />
