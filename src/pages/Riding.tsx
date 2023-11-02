@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import { useUserLocation } from '../store/userStore';
 import {
   MapContainer,
   TileLayer,
@@ -10,6 +11,7 @@ import 'leaflet/dist/leaflet.css';
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
+  const { latitude, longitude, speed } = useUserLocation();
 
   return (
     <div className="w-full h-screen flex">
@@ -19,7 +21,7 @@ const RidingPage: React.FC = () => {
             width: `50vw`,
             height: `100vh`,
           }}
-          center={[37.56675, 126.97842]}
+          center={[latitude, longitude]}
           zoom={13}
           scrollWheelZoom={true}
           attributionControl={false}
@@ -29,7 +31,7 @@ const RidingPage: React.FC = () => {
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[37.56675, 126.97842]}>
+          <Marker position={[latitude, longitude]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
@@ -41,7 +43,7 @@ const RidingPage: React.FC = () => {
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg">
           <p className="text-sm">현재 속도</p>
           <div>
-            <p className="text-5xl font-semibold">0</p>
+            <p className="text-5xl font-semibold">{speed}</p>
             <p className="text-xs">km/h</p>
           </div>
         </div>
