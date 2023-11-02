@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   LoginPage,
   MapPage,
@@ -15,89 +15,105 @@ import {
   RegisterTerms,
   RegisterSuccess,
   PreRiding,
+  PartManagement,
   RidingPage,
-} from './pages';
+} from "./pages";
+import { useUserLocation } from "./store/userStore";
 
 const ROUTER = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <MainPage />,
   },
   {
-    path: '/riding/before',
+    path: "/riding/before",
     element: <PreRiding />,
   },
   {
-    path: '/map',
+    path: "/management/part",
+    element: <PartManagement />,
+  },
+  {
+    path: "/map",
     element: <MapPage />,
   },
   {
-    path: '/login',
+    path: "/login",
     element: <LoginPage />,
   },
   {
-    path: '/register',
+    path: "/register",
     element: <RegisterPage />,
   },
   {
-    path: '/mypage',
+    path: "/mypage",
     element: <MyPageMain />,
   },
   {
-    path: '/mypage/modify',
+    path: "/mypage/modify",
     element: <MyPageModify />,
   },
   {
-    path: '/mypage/record',
+    path: "/mypage/record",
     element: <MyPageRecord />,
   },
   {
-    path: '/mypage/record/all',
+    path: "/mypage/record/all",
     element: <MyPageRecordAll />,
   },
   {
-    path: '/mypage/record/:recordNo',
+    path: "/mypage/record/:recordNo",
     element: <MyPageRecordDetail />,
   },
   {
-    path: '/bicycle',
+    path: "/bicycle",
     element: <BicycleMain />,
   },
   {
-    path: '/bicycle/registration',
+    path: "/bicycle/registration",
     element: <BicycleRegistration />,
   },
   {
-    path: '/bicycle/detail',
+    path: "/bicycle/detail",
     element: <BicycleDetail />,
   },
   {
-    path: '/register/terms',
+    path: "/register/terms",
     element: <RegisterTerms />,
   },
   {
-    path: '/register/success',
+    path: "/register/success",
     element: <RegisterSuccess />,
   },
   {
-    path: '/bicycle/registration',
+    path: "/bicycle/registration",
     element: <BicycleRegistration />,
   },
   {
-    path: '/register/terms',
+    path: "/register/terms",
     element: <RegisterTerms />,
   },
   {
-    path: '/register/success',
+    path: "/register/success",
     element: <RegisterSuccess />,
   },
   {
-    path: '/riding',
+    path: "/riding",
     element: <RidingPage />,
   },
 ]);
 
 function App() {
+  const { setLocation } = useUserLocation();
+  window.addEventListener("message", (e) => {
+    const { latitude, longitude, speed } = JSON.parse(e.data);
+
+    setLocation({
+      latitude,
+      longitude,
+      speed,
+    });
+  });
   return <RouterProvider router={ROUTER} />;
 }
 

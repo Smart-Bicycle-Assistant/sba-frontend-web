@@ -14,12 +14,38 @@ export const BicycleRegistrationApi = async ({
   const id = useUser.getState().id || "test2";
   console.log(id);
   try {
-    console.log(`id: ${id}, name: ${name}, image: ${image}`);
     const response = await request.post("/member/register_bicycle", {
       ownerId: id,
       bicycleName: name,
       bicycleImage: image,
     });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export type ManagementType = {
+  memberId?: string;
+  bicycleNo: number;
+  tire: number;
+  brakes: number;
+  chain: number;
+  gears: number;
+  front_tire: number;
+  rear_tire: number;
+  managementTime: number;
+};
+
+// - fix 2
+// - check 1
+// - nothing 0
+
+export const BicycleManagementApi = async (params: ManagementType) => {
+  const id = useUser.getState().id || "test2";
+  params.memberId = id;
+  try {
+    const response = await request.post("/management_record/post", params);
     return response.data;
   } catch (error) {
     return handleApiError(error);

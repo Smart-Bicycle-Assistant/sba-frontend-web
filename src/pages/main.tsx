@@ -1,7 +1,7 @@
-import Navbar from '../components/common/Navbar';
-import { useUserLocation } from '../store/userStore';
-import { RidingLocationApi } from '../apis/riding';
-import { Link } from 'react-router-dom';
+import Navbar from "../components/common/Navbar";
+import { useUserLocation } from "../store/userStore";
+import { RidingLocationApi } from "../apis/riding";
+import { Link } from "react-router-dom";
 
 function MainPage() {
   const location = useUserLocation();
@@ -30,14 +30,14 @@ function MainPage() {
 
             <div>
               <p>
-                Latitude:{' '}
-                {location.latitude !== null ? location.latitude : 'N/A'}
+                Latitude:{" "}
+                {location.latitude !== null ? location.latitude : "N/A"}
               </p>
               <p>
-                Longitude:{' '}
-                {location.longitude !== null ? location.longitude : 'N/A'}
+                Longitude:{" "}
+                {location.longitude !== null ? location.longitude : "N/A"}
               </p>
-              <p>Speed: {location.speed !== null ? location.speed : 'N/A'}</p>
+              <p>Speed: {location.speed !== null ? location.speed : "N/A"}</p>
             </div>
           </div>
           <div>
