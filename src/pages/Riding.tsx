@@ -1,22 +1,22 @@
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 import { useUserLocation } from '../store/userStore';
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-} from 'react-leaflet';
+// import {
+//   MapContainer,
+//   TileLayer,
+//   Marker,
+//   Popup,
+//   Polyline,
+// } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const RidingPage: React.FC = () => {
-  const { state } = useLocation();
-  const { latitude, longitude, speed } = useUserLocation();
+  // const { state } = useLocation();
+  const { speed } = useUserLocation();
 
   return (
     <div className="w-full h-screen flex">
       <div className="w-1/2">
-        <MapContainer
+        {/* <MapContainer
           style={{
             width: `50vw`,
             height: `100vh`,
@@ -37,7 +37,7 @@ const RidingPage: React.FC = () => {
             </Popup>
           </Marker>
           <Polyline positions={state.geometry} color={'red'} />
-        </MapContainer>
+        </MapContainer> */}
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg">
