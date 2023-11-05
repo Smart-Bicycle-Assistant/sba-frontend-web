@@ -1,6 +1,6 @@
-import { PackRidingType } from "../types";
-import { handleApiError } from "./errorHandling";
-import request from "./request";
+import { PackRidingType } from '../types';
+import { handleApiError } from './errorHandling';
+import request from './request';
 
 export const RidingLocationApi = async (params: PackRidingType) => {
   try {

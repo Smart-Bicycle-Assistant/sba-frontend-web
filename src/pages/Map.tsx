@@ -2,7 +2,7 @@ import { useState, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import useInput from '../hooks/useInput';
-import Openrouteservice from 'openrouteservice-js';
+// import Openrouteservice from 'openrouteservice-js';
 import {
   MapContainer,
   TileLayer,
@@ -12,7 +12,11 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { AddressType, StepType } from '../types';
-import { keywordSearch, decodePolyline } from '../apis/map';
+import {
+  keywordSearch,
+  decodePolyline,
+  getBicycleDirectionApi,
+} from '../apis/map';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 type SearchPageType = 'DEFAULT' | 'START' | 'END';
@@ -92,23 +96,32 @@ const MapPage: React.FC = () => {
       });
   };
 
-  const orsDirections = new Openrouteservice.Directions({
-    host: import.meta.env.VITE_MAP_SERVER_API,
-    api_key: import.meta.env.VITE_MAP_API,
-  });
+  // const orsDirections = new Openrouteservice.Directions({
+  //   host: import.meta.env.VITE_MAP_SERVER_API,
+  //   api_key: import.meta.env.VITE_MAP_API,
+  // });
 
   const getDirections = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await orsDirections.calculate({
-        coordinates: [startCoord, endCoord],
-        profile: 'cycling-regular',
-        extra_info: ['waytype', 'steepness'],
-        format: 'json',
-      });
-      setGeometry(decodePolyline(res.routes[0].geometry, false));
-      setStep(res.routes[0].segments[0].steps);
-      setSearchPageOpen(false);
+      if (startCoord && endCoord) {
+        const res = await getBicycleDirectionApi(
+          startCoord[1],
+          startCoord[0],
+          endCoord[1],
+          endCoord[0]
+        );
+
+        setGeometry(decodePolyline(res.routes[0].geometry, false));
+        setStep(res.routes[0].segments[0].steps);
+        setSearchPageOpen(false);
+      }
+      // const res = await orsDirections.calculate({
+      //   coordinates: [startCoord, endCoord],
+      //   profile: 'cycling-regular',
+      //   extra_info: ['waytype', 'steepness'],
+      //   format: 'json',
+      // });
     } catch (err) {
       console.log('Error');
     }

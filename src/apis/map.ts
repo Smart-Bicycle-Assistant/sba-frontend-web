@@ -1,3 +1,6 @@
+import request from './request';
+import { handleApiError } from './errorHandling';
+
 declare global {
   interface Window {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -82,4 +85,22 @@ export const decodePolyline = (
   }
 
   return points;
+};
+
+export const getBicycleDirectionApi = async (
+  startLat: number,
+  startLong: number,
+  destLat: number,
+  destLong: number
+) => {
+  try {
+    const response = await request.get(
+      `/riding_location/ors?startLat=${String(startLat)}&startLong=${String(
+        startLong
+      )}&destLat=${String(destLat)}&destLong=${String(destLong)}`
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
 };
