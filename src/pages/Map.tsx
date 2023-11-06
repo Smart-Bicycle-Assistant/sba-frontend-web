@@ -112,6 +112,8 @@ const MapPage: React.FC = () => {
           endCoord[0]
         );
 
+        console.log(decodePolyline(res.routes[0].geometry, false));
+
         setGeometry(decodePolyline(res.routes[0].geometry, false));
         setStep(res.routes[0].segments[0].steps);
         setSearchPageOpen(false);

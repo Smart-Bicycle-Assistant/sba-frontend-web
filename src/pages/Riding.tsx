@@ -13,6 +13,8 @@ const RidingPage: React.FC = () => {
   const { state } = useLocation();
   const { latitude, longitude, speed } = useUserLocation();
 
+  // const saveRidingData = () => {};
+
   return (
     <div className="w-full h-screen flex">
       <div className="w-1/2">
@@ -67,6 +69,14 @@ const RidingPage: React.FC = () => {
             <p className="text-5xl font-semibold">0</p>
             <p className="text-xs">km/h</p>
           </div>
+        </div>
+        <div className="col-span-2">
+          <button
+            type="button"
+            className="w-full bg-red-200 rounded-lg py-3 text-sm"
+          >
+            주행 종료
+          </button>
         </div>
       </div>
     </div>
