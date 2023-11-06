@@ -1,9 +1,10 @@
 import L from 'leaflet';
+import pin from '../../assets/pin.png';
 
 // Create a custom icon using an image URL
 const CustomMarker = L.icon({
-  iconUrl: '../../assets/pin.png',
-  iconSize: [100, 100],
+  iconUrl: pin,
+  iconSize: [30, 90],
   iconAnchor: [16, 32],
 });
 
