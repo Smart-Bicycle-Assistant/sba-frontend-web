@@ -113,7 +113,7 @@ const BicycleRegistration: React.FC = () => {
             onClick={onSubmit}
             className="text-sm w-full bg-customColor text-white py-2.5 mt-3 rounded-lg hover:bg-opacity-80 "
           >
-            다음
+            새 자전거 등록
           </button>
         </div>
       </div>
