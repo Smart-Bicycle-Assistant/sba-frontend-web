@@ -23,8 +23,8 @@ export const postRidingRecordApi = async () => {
       avgSpeed: '30.5',
       maxSpeed: '45.9',
       ridingDuration: '30',
-      map: 'hello',
     });
+
     return response.data;
   } catch (error) {
     return handleApiError(error);

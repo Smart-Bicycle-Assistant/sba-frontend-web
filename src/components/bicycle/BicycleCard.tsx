@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
-import { BicycleCardProps } from "../../types";
+import { Link } from 'react-router-dom';
+import { BicycleCardProps } from '../../types';
 
 function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
-  const imagePath = "src/assets/bicycle.png";
   return (
     <div className="border rounded-md p-5 pb-3 shadow-md">
       <div className="flex items-center">
         <img
-          src={imagePath}
+          src={process.env.PUBLIC_URL + '/assets/bicycle.png'}
           alt="logo"
           className="w-10 h-10 rounded-full bg-gray-100"
         />
@@ -18,7 +17,8 @@ function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
       </p>
       <p className="text-xs text-gray-500 pl-12">주행기록: {mileage} km</p>
       <hr className="my-3" />
-      <Link to="/bicycle/detail"
+      <Link
+        to="/bicycle/detail"
         className="text-blue-500 text-center text-xs hover:underline block"
       >
         자세히 보기
