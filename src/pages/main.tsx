@@ -4,13 +4,26 @@ import { RidingLocationApi } from "../apis/riding";
 import { Link } from "react-router-dom";
 
 function MainPage() {
-  const location = useUserLocation();
+  const { longitude, latitude, speed, setLocation } = useUserLocation();
+  function handleMessage(e) {
+    const { latitude, longitude, speed } = JSON.parse(e.data);
+
+    setLocation({
+      latitude,
+      longitude,
+      speed,
+    });
+  }
+
+  setInterval(() => {
+    window.addEventListener("message", handleMessage);
+  }, 1000);
 
   RidingLocationApi({
-    longitude: location.longitude,
-    latitude: location.latitude,
+    longitude: longitude,
+    latitude: latitude,
     packMode: true,
-    speed: location.speed,
+    speed: speed,
   });
 
   return (
@@ -29,15 +42,9 @@ function MainPage() {
             </Link>
 
             <div>
-              <p>
-                Latitude:{" "}
-                {location.latitude !== null ? location.latitude : "N/A"}
-              </p>
-              <p>
-                Longitude:{" "}
-                {location.longitude !== null ? location.longitude : "N/A"}
-              </p>
-              <p>Speed: {location.speed !== null ? location.speed : "N/A"}</p>
+              <p>Latitude: {latitude !== null ? latitude : "N/A"}</p>
+              <p>Longitude: {longitude !== null ? longitude : "N/A"}</p>
+              <p>Speed: {speed !== null ? speed : "N/A"}</p>
             </div>
           </div>
           <div>

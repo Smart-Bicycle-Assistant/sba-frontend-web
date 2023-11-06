@@ -105,7 +105,7 @@ const ROUTER = createBrowserRouter([
 
 function App() {
   const { setLocation } = useUserLocation();
-  window.addEventListener("message", (e) => {
+  function handleMessage(e) {
     const { latitude, longitude, speed } = JSON.parse(e.data);
 
     setLocation({
@@ -113,7 +113,11 @@ function App() {
       longitude,
       speed,
     });
-  });
+  }
+  setInterval(() => {
+    window.addEventListener("message", handleMessage);
+  }, 1000);
+
   return <RouterProvider router={ROUTER} />;
 }
 
