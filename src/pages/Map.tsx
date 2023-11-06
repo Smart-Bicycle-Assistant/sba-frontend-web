@@ -17,6 +17,7 @@ import {
   decodePolyline,
   getBicycleDirectionApi,
 } from '../apis/map';
+import CustomMarker from '../components/common/CustomMarker';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 type SearchPageType = 'DEFAULT' | 'START' | 'END';
@@ -230,12 +231,12 @@ const MapPage: React.FC = () => {
                   attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={startCoord}>
+                <Marker position={startCoord} icon={CustomMarker}>
                   <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
                 </Marker>
-                <Marker position={endCoord}>
+                <Marker position={endCoord} icon={CustomMarker}>
                   <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
@@ -294,7 +295,7 @@ const MapPage: React.FC = () => {
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[37.56675, 126.97842]}>
+              <Marker position={[37.56675, 126.97842]} icon={CustomMarker}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>

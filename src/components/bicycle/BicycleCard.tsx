@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { BicycleCardProps } from '../../types';
-// import bicycle from '../../assets/bicycle.png';
 
 function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
   return (
