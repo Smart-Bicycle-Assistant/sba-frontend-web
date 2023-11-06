@@ -49,7 +49,7 @@ const MapPage: React.FC = () => {
     useState<SearchPageType>('DEFAULT');
   const [subPageFull, setSubPageFull] = useState<boolean>(false);
 
-  const { latitude, longitude, speed } = useUserLocation();
+  const { latitude, longitude } = useUserLocation();
   const navigate = useNavigate();
 
   const {

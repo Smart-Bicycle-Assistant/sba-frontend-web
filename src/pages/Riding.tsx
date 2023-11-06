@@ -46,7 +46,7 @@ const RidingPage: React.FC = () => {
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg">
           <p className="text-sm">현재 속도</p>
           <div>
-            <p className="text-5xl font-semibold">{speed}</p>
+            <p className="text-5xl font-semibold">{speed * 3.6}</p>
             <p className="text-xs">km/h</p>
           </div>
         </div>
