@@ -36,9 +36,7 @@ const RidingPage: React.FC = () => {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {state.geometry && (
-            <Polyline positions={state.geometry} color={"red"} />
-          )}
+          {state && <Polyline positions={state.geometry} color={"red"} />}
         </MapContainer>
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
