@@ -12,3 +12,21 @@ export const RidingLocationApi = async (params: PackRidingType) => {
     return handleApiError(error);
   }
 };
+
+export const postRidingRecordApi = async () => {
+  try {
+    const response = await request.post('/riding_record/post', {
+      memberId: 'test1',
+      bicycleNo: '0',
+      ridingTime: '4',
+      distance: '0.5',
+      avgSpeed: '30.5',
+      maxSpeed: '45.9',
+      ridingDuration: '30',
+      map: 'hello',
+    });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
