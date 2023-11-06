@@ -1,5 +1,6 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserLocation } from '../store/userStore';
 import Navbar from '../components/common/Navbar';
 import useInput from '../hooks/useInput';
 // import Openrouteservice from 'openrouteservice-js';
@@ -17,6 +18,7 @@ import {
   decodePolyline,
   getBicycleDirectionApi,
 } from '../apis/map';
+import CustomMarker from '../components/common/CustomMarker';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 type SearchPageType = 'DEFAULT' | 'START' | 'END';
@@ -47,6 +49,7 @@ const MapPage: React.FC = () => {
     useState<SearchPageType>('DEFAULT');
   const [subPageFull, setSubPageFull] = useState<boolean>(false);
 
+  const { latitude, longitude } = useUserLocation();
   const navigate = useNavigate();
 
   const {
@@ -230,12 +233,12 @@ const MapPage: React.FC = () => {
                   attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                   url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={startCoord}>
+                <Marker position={startCoord} icon={CustomMarker}>
                   <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
                 </Marker>
-                <Marker position={endCoord}>
+                <Marker position={endCoord} icon={CustomMarker}>
                   <Popup>
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
@@ -294,7 +297,7 @@ const MapPage: React.FC = () => {
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[37.56675, 126.97842]}>
+              <Marker position={[latitude, longitude]} icon={CustomMarker}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
