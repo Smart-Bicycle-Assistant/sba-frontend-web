@@ -1,13 +1,13 @@
-import { useLocation } from 'react-router-dom';
-import { useUserLocation } from '../store/userStore';
+import { useLocation } from "react-router-dom";
+import { useUserLocation } from "../store/userStore";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
   Polyline,
-} from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
@@ -36,7 +36,9 @@ const RidingPage: React.FC = () => {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          <Polyline positions={state.geometry} color={'red'} />
+          {state.geometry && (
+            <Polyline positions={state.geometry} color={"red"} />
+          )}
         </MapContainer>
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
