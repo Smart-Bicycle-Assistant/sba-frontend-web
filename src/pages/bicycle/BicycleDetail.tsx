@@ -1,5 +1,6 @@
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
+import bicycle from '../../assets/bicycle.png';
 
 const BicycleDetail = () => {
   return (
@@ -9,7 +10,7 @@ const BicycleDetail = () => {
         <div className="border rounded-md p-4  w-[96%] shadow-sm">
           <div className="flex items-center mb-2">
             <img
-              src={process.env.PUBLIC_URL + '/assets/bicycle.png'}
+              src={bicycle}
               alt="자전거 이미지"
               className="w-12 h-12 rounded-full bg-gray-100"
             />
@@ -23,7 +24,7 @@ const BicycleDetail = () => {
           <hr className="my-4" />
           <div className="relative h-60">
             <img
-              src="https://github.com/Smart-Bicycle-Assistant/sba_frontend_web/blob/main/src/assets/bicycle.png?raw=true"
+              src={bicycle}
               alt="자전거 이미지"
               className="w-40 h-44 mx-auto pt-12"
             />

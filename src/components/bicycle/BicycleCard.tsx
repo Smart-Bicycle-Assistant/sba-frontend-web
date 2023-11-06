@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
 import { BicycleCardProps } from '../../types';
+import bicycle from '../../assets/bicycle.png';
 
 function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
   return (
     <div className="border rounded-md p-5 pb-3 shadow-md">
       <div className="flex items-center">
         <img
-          src={process.env.PUBLIC_URL + '/assets/bicycle.png'}
+          src={bicycle}
           alt="logo"
           className="w-10 h-10 rounded-full bg-gray-100"
         />
