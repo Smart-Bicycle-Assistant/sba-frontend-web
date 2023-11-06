@@ -6,6 +6,19 @@ import { Link } from "react-router-dom";
 function MainPage() {
   const { longitude, latitude, speed } = useUserLocation();
 
+  const { setLocation } = useUserLocation();
+  function handleMessage(e: { data: string }) {
+    const { latitude, longitude, speed } = JSON.parse(e.data);
+    setLocation({
+      latitude,
+      longitude,
+      speed,
+    });
+  }
+  setInterval(() => {
+    window.addEventListener("message", handleMessage);
+  }, 1000);
+
   RidingLocationApi({
     longitude: longitude,
     latitude: latitude,

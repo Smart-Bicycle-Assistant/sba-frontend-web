@@ -108,7 +108,6 @@ function App() {
   const { setLocation } = useUserLocation();
   function handleMessage(e: { data: string }) {
     const { latitude, longitude, speed } = JSON.parse(e.data);
-
     setLocation({
       latitude,
       longitude,
