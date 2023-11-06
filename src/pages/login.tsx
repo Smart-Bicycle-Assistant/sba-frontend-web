@@ -32,7 +32,6 @@ function LoginPage() {
           jwt: res.data.token,
         });
         console.log("data" + res.data.token);
-
         navigate("/");
         console.log(res);
       }

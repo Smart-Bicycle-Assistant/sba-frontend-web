@@ -46,8 +46,8 @@ interface locationProps {
 }
 
 export const useUserLocation = create<Location>((set) => ({
-  latitude: 127.04426351,
-  longitude: 37.28446289,
+  latitude: 37.28446289,
+  longitude: 127.04426351,
   speed: 0,
   setLocation: (loc: locationProps) => {
     set(() => ({
