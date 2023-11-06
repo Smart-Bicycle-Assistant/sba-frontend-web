@@ -1,5 +1,6 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUserLocation } from '../store/userStore';
 import Navbar from '../components/common/Navbar';
 import useInput from '../hooks/useInput';
 // import Openrouteservice from 'openrouteservice-js';
@@ -48,6 +49,7 @@ const MapPage: React.FC = () => {
     useState<SearchPageType>('DEFAULT');
   const [subPageFull, setSubPageFull] = useState<boolean>(false);
 
+  const { latitude, longitude, speed } = useUserLocation();
   const navigate = useNavigate();
 
   const {
@@ -295,7 +297,7 @@ const MapPage: React.FC = () => {
                 attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
               />
-              <Marker position={[37.56675, 126.97842]} icon={CustomMarker}>
+              <Marker position={[latitude, longitude]} icon={CustomMarker}>
                 <Popup>
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>

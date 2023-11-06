@@ -1,13 +1,14 @@
-import { useLocation } from "react-router-dom";
-import { useUserLocation } from "../store/userStore";
+import { useLocation } from 'react-router-dom';
+import { useUserLocation } from '../store/userStore';
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
   Polyline,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import CustomMarker from '../components/common/CustomMarker';
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
@@ -33,12 +34,12 @@ const RidingPage: React.FC = () => {
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[latitude, longitude]}>
+          <Marker position={[latitude, longitude]} icon={CustomMarker}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {state && <Polyline positions={state.geometry} color={"red"} />}
+          {state && <Polyline positions={state.geometry} color={'red'} />}
         </MapContainer>
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
