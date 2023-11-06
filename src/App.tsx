@@ -105,7 +105,7 @@ const ROUTER = createBrowserRouter([
 
 function App() {
   const { setLocation } = useUserLocation();
-  function handleMessage(e) {
+  function handleMessage(e: { data: string }) {
     const { latitude, longitude, speed } = JSON.parse(e.data);
 
     setLocation({

@@ -4,20 +4,7 @@ import { RidingLocationApi } from "../apis/riding";
 import { Link } from "react-router-dom";
 
 function MainPage() {
-  const { longitude, latitude, speed, setLocation } = useUserLocation();
-  function handleMessage(e) {
-    const { latitude, longitude, speed } = JSON.parse(e.data);
-
-    setLocation({
-      latitude,
-      longitude,
-      speed,
-    });
-  }
-
-  setInterval(() => {
-    window.addEventListener("message", handleMessage);
-  }, 1000);
+  const { longitude, latitude, speed } = useUserLocation();
 
   RidingLocationApi({
     longitude: longitude,
