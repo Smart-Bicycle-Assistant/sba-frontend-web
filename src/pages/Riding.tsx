@@ -8,10 +8,20 @@ import {
   Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { useEffect, useState } from "react";
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
   const { latitude, longitude, speed } = useUserLocation();
+
+  const [mapCenter, setMapCenter] = useState<[number, number]>([
+    latitude,
+    longitude,
+  ]);
+
+  useEffect(() => {
+    setMapCenter([latitude, longitude]);
+  }, [latitude, longitude]);
 
   // const saveRidingData = () => {};
 
@@ -23,7 +33,7 @@ const RidingPage: React.FC = () => {
             width: `50vw`,
             height: `100vh`,
           }}
-          center={[latitude, longitude]}
+          center={mapCenter}
           zoom={13}
           scrollWheelZoom={true}
           attributionControl={false}
