@@ -1,16 +1,15 @@
-import { useLocation } from 'react-router-dom';
-import { useUserLocation } from '../store/userStore';
+import { useLocation } from "react-router-dom";
+import { useUserLocation } from "../store/userStore";
 import {
   MapContainer,
   TileLayer,
   Marker,
   Popup,
   Polyline,
-
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
-import CustomMarker from '../components/common/CustomMarker';
+import CustomMarker from "../components/common/CustomMarker";
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
@@ -50,14 +49,14 @@ const RidingPage: React.FC = () => {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {state && <Polyline positions={state.geometry} color={'red'} />}
+          {state && <Polyline positions={state.geometry} color={"red"} />}
         </MapContainer>
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg">
           <p className="text-sm">현재 속도</p>
           <div>
-            <p className="text-5xl font-semibold">{speed * 3.6}</p>
+            <p className="text-5xl font-semibold">{Math.round(speed * 3.6)}</p>
             <p className="text-xs">km/h</p>
           </div>
         </div>
