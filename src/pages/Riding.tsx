@@ -36,13 +36,13 @@ const RidingPage: React.FC = () => {
       packMode,
       speed: targetSpeed,
     });
-    return res;
+    return res.data;
   };
 
   useEffect(() => {
     setMapCenter([latitude, longitude]);
     const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
-    alert(res);
+    console.log(res);
   }, [latitude, longitude, packMode, targetSpeed]);
 
   // const saveRidingData = () => {};
