@@ -57,3 +57,29 @@ export const useUserLocation = create<Location>((set) => ({
     }));
   },
 }));
+
+interface Riding {
+  packMode: boolean;
+  targetSpeed: number | null;
+  rearDetection: boolean;
+  setRiding: (mode: RidingProps) => void;
+}
+
+interface RidingProps {
+  packMode: boolean;
+  targetSpeed: number | null;
+  rearDetection: boolean;
+}
+
+export const useRiding = create<Riding>((set) => ({
+  packMode: false,
+  targetSpeed: 0,
+  rearDetection: false,
+  setRiding: (mode: RidingProps) => {
+    set(() => ({
+      packMode: mode.packMode,
+      targetSpeed: mode.targetSpeed,
+      rearDetection: mode.rearDetection,
+    }));
+  },
+}));

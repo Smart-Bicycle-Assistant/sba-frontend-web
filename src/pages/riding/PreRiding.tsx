@@ -2,20 +2,23 @@ import Header from "../../components/common/Header";
 import { useNavigate } from "react-router-dom";
 import PreRidingBox from "../../components/riding/PreRidingBox";
 import { useState } from "react";
+import { useRiding } from "../../store/userStore";
 
 export const PreRiding: React.FC = () => {
-  const [packRiding, setPackRiding] = useState<boolean>(false);
+  const [packMode, setpackMode] = useState<boolean>(false);
   const [rearDetection, setRearDetection] = useState<boolean>(false);
-  const [targetSpeed, setTargetSpeed] = useState<number | null>();
+  const [targetSpeed, setTargetSpeed] = useState<number | null>(null);
   const navigate = useNavigate();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setTargetSpeed(Number(newValue));
   };
+  const { setRiding } = useRiding();
 
   const onSubmit = () => {
-    if (!(packRiding && !targetSpeed)) {
-      console.log(packRiding, rearDetection, targetSpeed);
+    if (!(packMode && !targetSpeed)) {
+      setRiding({ packMode, targetSpeed, rearDetection });
+      console.log(packMode, targetSpeed, rearDetection);
       navigate("/");
     } else {
       console.log("목표 속도를 설정하세요");
@@ -28,11 +31,11 @@ export const PreRiding: React.FC = () => {
       <PreRidingBox
         title="팩라이딩"
         content="목표 속도가 비슷한 주변의 유저들을 주행 중 화면에서 확인할 수 있습니다."
-        state={packRiding}
-        onClick={() => setPackRiding((prev) => !prev)}
+        state={packMode}
+        onClick={() => setpackMode((prev) => !prev)}
       />
 
-      {packRiding && (
+      {packMode && (
         <div className="rounded-lg bg-[#4D93FF] shadow-md py-7 m-4 relative h-32">
           <p className="text-white text-2xl ml-5 font-bold ">목표속력</p>
           <div className="absolute right-3 bottom-2 m-3">
