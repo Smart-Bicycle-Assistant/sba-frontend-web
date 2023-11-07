@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useUserLocation } from "../store/userStore";
 import {
   MapContainer,
@@ -19,6 +19,8 @@ const RidingPage: React.FC = () => {
     latitude,
     longitude,
   ]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setMapCenter([latitude, longitude]);
@@ -85,6 +87,9 @@ const RidingPage: React.FC = () => {
           <button
             type="button"
             className="w-full bg-red-200 rounded-lg py-3 text-sm"
+            onClick={() => {
+              navigate("/");
+            }}
           >
             주행 종료
           </button>

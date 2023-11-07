@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Header from "../../components/common/Header";
 import useInput from "../../hooks/useInput";
-import { BicycleRegistrationApi } from "../../apis/bicycle";
+import {
+  BicycleManagementApi,
+  BicycleRegistrationApi,
+} from "../../apis/bicycle";
 import { useNavigate } from "react-router-dom";
 
 const encodeFileToBase64 = (image: File) => {
@@ -19,8 +22,8 @@ const BicycleRegistration: React.FC = () => {
 
   const [image, setImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>("");
-  const [frontLifeSpan, setFrontLifeSpan] = useState<number>();
-  const [rearLifeSpan, setRearLifeSpan] = useState<number>();
+  const [frontLifeSpan, setFrontLifeSpan] = useState<number | null>(null);
+  const [rearLifeSpan, setRearLifeSpan] = useState<number | null>(null);
 
   const onImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedImage = e.target.files && e.target.files[0];
@@ -34,13 +37,30 @@ const BicycleRegistration: React.FC = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (name === "" || image === null) {
+    if (
+      name === "" ||
+      image === null ||
+      frontLifeSpan === null ||
+      rearLifeSpan === null
+    ) {
       return;
     }
 
     const res = await BicycleRegistrationApi({ name, image: previewImage });
-    navigate("/management/part");
     console.log(res);
+
+    const tireRes = await BicycleManagementApi({
+      bicycleNo: 1,
+      tire: 2,
+      brakes: 0,
+      chain: 0,
+      gears: 0,
+      front_tire: frontLifeSpan,
+      rear_tire: rearLifeSpan,
+      managementTime: 0,
+    });
+    console.log(tireRes);
+    navigate("/bicycle");
     setName("");
   };
 
@@ -48,24 +68,24 @@ const BicycleRegistration: React.FC = () => {
     <div>
       <Header menu="새 자전거 등록" showBackArrow={true} />
       <div className=" p-5 max-w-md">
-        <div className="rounded-lg bg-[#4D93FF] shadow-md py-5 relative h-24 m-3">
-          <p className="text-white text-sm ml-5 font-semibold">자전거 이름</p>
+        <div className="rounded-lg bg-white border-2 border-gray-100 shadow-md py-5 relative h-24 m-3">
+          <p className="text-black text-sm ml-5 font-semibold">자전거 이름</p>
           <div className="absolute right-3 bottom-2 m-3">
             <input
-              className=" bg-transparent border-b w-20 border-[#73AAFF] text-right pr-2 text-white font-semibold text-lg placeholder-[#87b4f8]"
+              className=" bg-transparent border-b w-20 border-gray-300 text-right pr-2 text-black font-semibold text-lg placeholder-gray-200"
               type="text"
               onChange={onNameChange}
             ></input>
           </div>
         </div>
 
-        <div className="rounded-lg bg-[#4D93FF] shadow-md py-5 relative h-24  m-3">
-          <p className="text-white text-sm ml-5 font-semibold">
+        <div className="rounded-lg bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
+          <p className="text-black text-sm ml-5 font-semibold">
             앞타이어 기대수명
           </p>
           <div className="absolute right-3 bottom-2 m-3">
             <input
-              className="mr-2 bg-transparent border-b w-16 border-[#73AAFF] text-right text-white font-bold text-lg placeholder-[#87b4f8]"
+              className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
               type="text"
               value={frontLifeSpan}
               placeholder="5,000"
@@ -73,17 +93,17 @@ const BicycleRegistration: React.FC = () => {
                 setFrontLifeSpan(Number(e.target.value));
               }}
             ></input>
-            <span className="text-white text-md font-bold">km</span>
+            <span className="text-black text-md font-bold">km</span>
           </div>
         </div>
 
-        <div className="rounded-lg bg-[#4D93FF] shadow-md py-5 relative h-24  m-3">
-          <p className="text-white text-sm ml-5 font-semibold">
+        <div className="rounded-lg  bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
+          <p className="text-black text-sm ml-5 font-semibold">
             뒷타이어 기대수명
           </p>
           <div className="absolute right-3 bottom-2 m-3">
             <input
-              className="mr-2 bg-transparent border-b w-16 border-[#73AAFF] text-right text-white font-bold text-lg placeholder-[#87b4f8]"
+              className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
               type="text"
               placeholder="5,000"
               value={rearLifeSpan}
@@ -91,13 +111,13 @@ const BicycleRegistration: React.FC = () => {
                 setRearLifeSpan(Number(e.target.value));
               }}
             ></input>
-            <span className="text-white text-md font-bold">km</span>
+            <span className="text-black text-md font-bold">km</span>
           </div>
         </div>
 
-        <div className="rounded-lg bg-[#4D93FF] shadow-md py-5 relative h-24  m-3">
+        <div className="rounded-lg  bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
           <div className=" pr-4 mb-6">
-            <p className="text-white text-sm ml-5 font-semibold">
+            <p className="text-black text-sm ml-5 font-semibold">
               자전거 이미지
             </p>
             <input
@@ -111,7 +131,7 @@ const BicycleRegistration: React.FC = () => {
 
           <button
             onClick={onSubmit}
-            className="text-sm w-full bg-customColor text-white py-2.5 mt-3 rounded-lg hover:bg-opacity-80 "
+            className="text-sm w-full bg-customColor text-white py-2.5 mt-5 rounded-lg hover:bg-opacity-80 shadow-md"
           >
             새 자전거 등록
           </button>

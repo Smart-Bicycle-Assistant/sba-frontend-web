@@ -1,8 +1,9 @@
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import bicycle from '../../assets/bicycle.png';
-
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import bicycle from "../../assets/bicycle.png";
+import { useNavigate } from "react-router-dom";
 const BicycleDetail = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Header menu="자전거 상세정보" showBackArrow={true} />
@@ -61,12 +62,14 @@ const BicycleDetail = () => {
             </div>
           </div>
           <div className="flex justify-center rounded-md my-3 mx-1">
-            <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal shadow-sm">
+            <button
+              className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal shadow-sm"
+              onClick={() => {
+                navigate("/management/part");
+              }}
+            >
               부품 정보 업데이트
             </button>
-            {/* <button className="text-white py-2 px-6 text-sm m-2 bg-customColor rounded-md font-normal">
-              점검하기
-            </button> */}
           </div>
         </div>
       </div>

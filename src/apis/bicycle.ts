@@ -32,8 +32,8 @@ export type ManagementType = {
   brakes: number;
   chain: number;
   gears: number;
-  front_tire: number;
-  rear_tire: number;
+  front_tire: number | null;
+  rear_tire: number | null;
   managementTime: number;
 };
 
