@@ -86,8 +86,7 @@ const BicycleRegistration: React.FC = () => {
           <div className="absolute right-3 bottom-2 m-3">
             <input
               className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
-              type="text"
-              value={frontLifeSpan}
+              type="number"
               placeholder="5,000"
               onChange={(e) => {
                 setFrontLifeSpan(Number(e.target.value));
@@ -104,9 +103,8 @@ const BicycleRegistration: React.FC = () => {
           <div className="absolute right-3 bottom-2 m-3">
             <input
               className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
-              type="text"
+              type="number"
               placeholder="5,000"
-              value={rearLifeSpan}
               onChange={(e) => {
                 setRearLifeSpan(Number(e.target.value));
               }}
