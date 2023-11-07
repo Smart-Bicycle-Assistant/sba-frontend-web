@@ -24,12 +24,18 @@ const RidingPage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  interface LocationData {
+    nickname: string;
+    longitude: number;
+    latitude: number;
+  }
+
   const handlePackRiding = async (
     latitude: number,
     longitude: number,
     packMode: boolean,
     targetSpeed: number | null
-  ) => {
+  ): Promise<LocationData[]> => {
     const res = await RidingLocationApi({
       longitude,
       latitude,
@@ -42,7 +48,8 @@ const RidingPage: React.FC = () => {
   useEffect(() => {
     setMapCenter([latitude, longitude]);
     const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
-    console.log(res);
+    alert(res);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, packMode, targetSpeed]);
 
   // const saveRidingData = () => {};

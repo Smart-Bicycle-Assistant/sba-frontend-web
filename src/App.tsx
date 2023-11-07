@@ -18,7 +18,7 @@ import {
   PartManagement,
   RidingPage,
 } from "./pages";
-import { useUserLocation } from "./store/userStore";
+// import { useUserLocation } from "./store/userStore";
 // import { useUserLocation } from "./store/userStore";
 
 const ROUTER = createBrowserRouter([
@@ -105,19 +105,6 @@ const ROUTER = createBrowserRouter([
 ]);
 
 function App() {
-  const { setLocation } = useUserLocation();
-  function handleMessage(e: { data: string }) {
-    const { latitude, longitude, speed } = JSON.parse(e.data);
-    setLocation({
-      latitude,
-      longitude,
-      speed,
-    });
-  }
-  setInterval(() => {
-    window.addEventListener("message", handleMessage);
-  }, 1000);
-
   return <RouterProvider router={ROUTER} />;
 }
 
