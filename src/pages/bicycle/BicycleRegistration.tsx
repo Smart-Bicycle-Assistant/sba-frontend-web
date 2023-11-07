@@ -68,7 +68,7 @@ const BicycleRegistration: React.FC = () => {
     <div>
       <Header menu="새 자전거 등록" showBackArrow={true} />
       <div className=" p-5 max-w-md">
-        <div className="rounded-lg bg-white border-2 border-gray-100 shadow-md py-5 relative h-24 m-3">
+        <div className="rounded-lg bg-white border-2 border-gray-100 py-5 relative h-24 m-3">
           <p className="text-black text-sm ml-5 font-semibold">자전거 이름</p>
           <div className="absolute right-3 bottom-2 m-3">
             <input
@@ -79,7 +79,7 @@ const BicycleRegistration: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-lg bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
+        <div className="rounded-lg bg-white border-2 border-gray-100  py-5 relative h-24  m-3">
           <p className="text-black text-sm ml-5 font-semibold">
             앞타이어 기대수명
           </p>
@@ -96,7 +96,7 @@ const BicycleRegistration: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-lg  bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
+        <div className="rounded-lg  bg-white border-2 border-gray-100  py-5 relative h-24  m-3">
           <p className="text-black text-sm ml-5 font-semibold">
             뒷타이어 기대수명
           </p>
@@ -113,7 +113,7 @@ const BicycleRegistration: React.FC = () => {
           </div>
         </div>
 
-        <div className="rounded-lg  bg-white border-2 border-gray-100 shadow-md py-5 relative h-24  m-3">
+        <div className="rounded-lg  bg-white border-2 border-gray-100 py-5 relative h-24  m-3">
           <div className=" pr-4 mb-6">
             <p className="text-black text-sm ml-5 font-semibold">
               자전거 이미지

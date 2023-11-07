@@ -52,5 +52,5 @@ export type PackRidingType = {
   longitude: number;
   latitude: number;
   packMode: boolean;
-  speed: number;
+  speed: number | null;
 };

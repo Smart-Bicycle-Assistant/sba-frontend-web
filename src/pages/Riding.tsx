@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useUserLocation } from "../store/userStore";
+import { useUserLocation, useRiding } from "../store/userStore";
 import {
   MapContainer,
   TileLayer,
@@ -10,9 +10,11 @@ import {
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import CustomMarker from "../components/common/CustomMarker";
+import { RidingLocationApi } from "../apis/riding";
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
+  const { packMode, targetSpeed } = useRiding();
   const { latitude, longitude, speed } = useUserLocation();
 
   const [mapCenter, setMapCenter] = useState<[number, number]>([
@@ -22,9 +24,26 @@ const RidingPage: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const handlePackRiding = async (
+    latitude: number,
+    longitude: number,
+    packMode: boolean,
+    targetSpeed: number | null
+  ) => {
+    const res = await RidingLocationApi({
+      longitude,
+      latitude,
+      packMode,
+      speed: targetSpeed,
+    });
+    return res;
+  };
+
   useEffect(() => {
     setMapCenter([latitude, longitude]);
-  }, [latitude, longitude]);
+    const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
+    alert(res);
+  }, [latitude, longitude, packMode, targetSpeed]);
 
   // const saveRidingData = () => {};
 

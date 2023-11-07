@@ -1,6 +1,5 @@
 import Navbar from "../components/common/Navbar";
 import { useUserLocation } from "../store/userStore";
-import { RidingLocationApi } from "../apis/riding";
 import { Link } from "react-router-dom";
 
 function MainPage() {
@@ -15,16 +14,8 @@ function MainPage() {
       speed,
     });
   }
-  setInterval(() => {
-    window.addEventListener("message", handleMessage);
-  }, 1000);
 
-  RidingLocationApi({
-    longitude: longitude,
-    latitude: latitude,
-    packMode: true,
-    speed: speed,
-  });
+  window.addEventListener("message", handleMessage);
 
   return (
     <div className="h-screen">
