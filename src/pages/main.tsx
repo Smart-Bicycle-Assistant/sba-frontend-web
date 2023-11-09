@@ -21,9 +21,9 @@ function MainPage() {
   async function handleClickRiding() {
     const res = await startRidingApi();
     if (res === 200) {
-      navigate("/riding");
-      const message = { message: "안녕, 리액트 네이티브!" };
+      const message = "안녕, 리액트 네이티브!";
       window.postMessage(message, "*");
+      navigate("/riding");
     }
   }
 
