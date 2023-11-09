@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useUserLocation } from '../store/userStore';
+import { useLocationStore } from '../store/locationStore';
 import Search from '../components/map/Search';
 import Routing from '../components/map/Routing';
 import Navbar from '../components/common/Navbar';
@@ -18,7 +18,7 @@ const MapPage: React.FC = () => {
   const [searchPageOpen, setSearchPageOpen] = useState<boolean>(false);
   const [routingPageOpen, setRoutingPageOpen] = useState<boolean>(false);
 
-  const { latitude, longitude } = useUserLocation();
+  const { latitude, longitude } = useLocationStore();
 
   const navigate = useNavigate();
 

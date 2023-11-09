@@ -1,8 +1,8 @@
-import Header from "../../components/common/Header";
-import { useNavigate } from "react-router-dom";
-import PreRidingBox from "../../components/riding/PreRidingBox";
-import { useState } from "react";
-import { useRiding } from "../../store/userStore";
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
+import PreRidingBox from '../../components/riding/PreRidingBox';
+import { useState } from 'react';
+import { useRidingStore } from '../../store/ridingStore';
 
 export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
@@ -13,15 +13,15 @@ export const PreRiding: React.FC = () => {
     const newValue = event.target.value;
     setTargetSpeed(Number(newValue));
   };
-  const { setRiding } = useRiding();
+  const { setRiding } = useRidingStore();
 
   const onSubmit = () => {
     if (!(packMode && !targetSpeed)) {
       setRiding({ packMode, targetSpeed, rearDetection });
       console.log(packMode, targetSpeed, rearDetection);
-      navigate("/");
+      navigate('/');
     } else {
-      console.log("목표 속도를 설정하세요");
+      console.log('목표 속도를 설정하세요');
     }
   };
 
