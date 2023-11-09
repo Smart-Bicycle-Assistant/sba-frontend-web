@@ -1,26 +1,19 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useUserLocation, useRiding } from "../store/userStore";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
-import CustomMarker from "../components/common/CustomMarker";
-import { RidingLocationApi } from "../apis/riding";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useUserLocation, useRiding } from '../store/userStore';
+import { useEffect, useState } from 'react';
+import CustomMarker from '../components/common/CustomMarker';
+import { convertMeterToKilometer } from '../apis/map';
+import { RidingLocationApi } from '../apis/riding';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
   const { packMode, targetSpeed } = useRiding();
   const { latitude, longitude, speed } = useUserLocation();
 
-  const [mapCenter, setMapCenter] = useState<[number, number]>([
-    latitude,
-    longitude,
-  ]);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([latitude, longitude]);
+  const [time, setTime] = useState<[number, number]>([0, 0]);
 
   const navigate = useNavigate();
 
@@ -52,7 +45,21 @@ const RidingPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, packMode, targetSpeed]);
 
-  // const saveRidingData = () => {};
+  useEffect(() => {
+    timer(state.startTime);
+    startTimer(state.startTime);
+  }, []);
+
+  const timer = (startTime: Date) => {
+    const currentTime = new Date();
+    const hours = currentTime.getHours() - startTime.getHours();
+    const mins = currentTime.getMinutes() - startTime.getMinutes();
+    setTime([hours, mins]);
+  };
+
+  const startTimer = (startTime: Date) => {
+    setInterval(() => timer(startTime), 60000);
+  };
 
   return (
     <div className="w-full h-screen flex">
@@ -77,7 +84,7 @@ const RidingPage: React.FC = () => {
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
           </Marker>
-          {state && <Polyline positions={state.geometry} color={"red"} />}
+          {state && <Polyline positions={state.geometry} color={'red'} />}
         </MapContainer>
       </div>
       <div className="w-1/2 grid grid-cols-2 grid-rows-2 gap-3 text-center p-6">
@@ -91,15 +98,36 @@ const RidingPage: React.FC = () => {
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg text-sm">
           <p className="text-sm">주행 시간</p>
           <div>
-            <p className="text-5xl font-semibold">0</p>
-            <p className="text-xs">분</p>
+            {time[0] === 0 ? (
+              <div>
+                <p className="text-5xl font-semibold">{time[1]}</p>
+                <p className="text-xs">분</p>
+              </div>
+            ) : (
+              <div>
+                <p className="text-5xl font-semibold">{time[1]}</p>
+                <p className="text-xs">분</p>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg text-sm">
           <p className="text-sm">총 거리</p>
           <div>
-            <p className="text-5xl font-semibold">0</p>
-            <p className="text-xs">km</p>
+            {state.distance >= 1000 ? (
+              <div>
+                {' '}
+                <p className="text-5xl font-semibold">
+                  {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
+                </p>
+                <p className="text-xs">km</p>
+              </div>
+            ) : (
+              <div>
+                <p className="text-5xl font-semibold">{Math.round(state.distance * 100) / 100}</p>
+                <p className="text-xs">m</p>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-y-2 justify-center items-center p-6 bg-slate-100 rounded-lg text-sm">
@@ -114,7 +142,7 @@ const RidingPage: React.FC = () => {
             type="button"
             className="w-full bg-red-200 rounded-lg py-3 text-sm"
             onClick={() => {
-              navigate("/");
+              navigate('/');
             }}
           >
             주행 종료
