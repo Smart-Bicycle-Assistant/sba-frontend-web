@@ -38,6 +38,12 @@ export type StepType = {
   way_points: number[];
 };
 
+export type RouteType = {
+  distance: number;
+  step: StepType[];
+  geometry: [number, number][];
+};
+
 export type LoginType = {
   id: string;
   password: string;
