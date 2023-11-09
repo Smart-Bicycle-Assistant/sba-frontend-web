@@ -47,8 +47,8 @@ const RidingPage: React.FC = () => {
 
   useEffect(() => {
     setMapCenter([latitude, longitude]);
-    // const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
-    // alert(res);
+    const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
+    console.log(res);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, packMode, targetSpeed]);
 
