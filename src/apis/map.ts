@@ -24,10 +24,7 @@ export const keywordSearch = <T>(input: string): Promise<T[]> => {
   });
 };
 
-export const decodePolyline = (
-  encodedPolyline: string,
-  includeElevation: boolean
-) => {
+export const decodePolyline = (encodedPolyline: string, includeElevation: boolean) => {
   const points: [number, number][] = [];
   let index = 0;
   const len = encodedPolyline.length;
@@ -85,6 +82,10 @@ export const decodePolyline = (
   }
 
   return points;
+};
+
+export const convertMeterToKilometer = (number: number) => {
+  return number / 1000;
 };
 
 export const getBicycleDirectionApi = async (

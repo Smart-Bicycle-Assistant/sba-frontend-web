@@ -20,7 +20,7 @@ request.interceptors.request.use(async (config) => {
 export default request;
 
 export const member_request = axios.create({
-  baseURL: `${SERVER_URL}`,
+  baseURL: SERVER_URL,
   headers: {
     'Content-Type': 'application/json',
   },

@@ -1,15 +1,15 @@
-import member_request from "./request";
-import { LoginType, RegisterType } from "../types";
-import axios from "axios";
-import { useUser } from "../store/userStore";
-import { handleApiError } from "./errorHandling";
+import member_request from './request';
+import { LoginType, RegisterType } from '../types';
+import axios from 'axios';
+import { useUser } from '../store/userStore';
+import { handleApiError } from './errorHandling';
 
 export const LoginApi = async (params: LoginType) => {
   try {
     const response = await member_request.post(`/member/login`, params);
     const { jwt } = useUser.getState();
     if (jwt) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
     }
     return response.data;
   } catch (error) {
@@ -19,7 +19,7 @@ export const LoginApi = async (params: LoginType) => {
 
 export const RegisterApi = async (params: RegisterType) => {
   try {
-    const response = await member_request.post("/member/register", params);
+    const response = await member_request.post('/member/register', params);
     return response.data;
   } catch (error) {
     return handleApiError(error);
