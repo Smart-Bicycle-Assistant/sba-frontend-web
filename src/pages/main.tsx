@@ -22,7 +22,8 @@ function MainPage() {
     const res = await startRidingApi();
     if (res === 200) {
       navigate("/riding");
-      window.postMessage("주행시작", "*");
+      const message = { message: "안녕, 리액트 네이티브!" };
+      window.postMessage(message, "*");
     }
   }
 
