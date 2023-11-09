@@ -22,7 +22,7 @@ function MainPage() {
     const res = await startRidingApi();
     if (res === 200) {
       navigate("/riding");
-      window.postMessage("주행시작");
+      window.postMessage("주행시작", "*");
     }
   }
 
