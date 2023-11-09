@@ -90,117 +90,119 @@ const RidingPage: React.FC = () => {
           {state && <Polyline positions={state.geometry} color={'red'} />}
         </MapContainer>
         <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
-        <div className="absolute top-1/2 translate-y-[-50%] right-1 flex flex-col gap-y-3 justify-center items-end pr-8 z-10">
-          <div className="flex flex-col w-96 gap-y-3 bg-slate-100 p-5 rounded-2xl drop-shadow-lg">
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col justify-center p-4 bg-white rounded-lg">
-                <div className="flex items-center gap-x-1 text-gray-light">
-                  <span className="material-symbols-outlined text-xl">speed</span>
-                  <p className="text-sm">현재속도</p>
+        <div className="absolute top-0 left-1/2 w-1/2 h-screen flex justify-center items-center">
+          <div className="w-full flex flex-col gap-y-3 py-8 pr-8">
+            <div className="flex flex-col gap-y-3 w-full bg-slate-100 p-5 rounded-2xl drop-shadow-lg">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col justify-center p-4 bg-white rounded-lg">
+                  <div className="flex items-center gap-x-1 text-gray-light">
+                    <span className="material-symbols-outlined text-xl">speed</span>
+                    <p className="text-sm">현재속도</p>
+                  </div>
+                  <div className="flex items-center gap-x-1">
+                    <p className="text-3xl text-red-500 font-semibold">{Math.round(speed * 3.6)}</p>
+                    <p className="text-sm text-gray-light">km/h</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-x-1">
-                  <p className="text-3xl text-red-500 font-semibold">{Math.round(speed * 3.6)}</p>
-                  <p className="text-sm text-gray-light">km/h</p>
-                </div>
-              </div>
-              <div className="flex flex-col justify-center p-4 rounded-lg text-sm">
-                <p className="text-sm text-gray-light">최대속도</p>
-                <div className="flex items-center gap-x-1">
-                  <p className="text-2xl font-semibold text-gray-dark">{maxSpeed}</p>
-                  <p className="text-sm text-gray-light">km/h</p>
-                </div>
-              </div>
-            </div>
-            <div className="grid grid-cols-2 bg-white rounded-lg">
-              <div className="flex flex-col justify-center p-4 text-sm">
-                <div className="flex items-center gap-x-1 text-gray-light">
-                  <span className="material-symbols-outlined text-xl">directions_bike</span>
-                  <p className="text-sm">주행거리</p>
-                </div>
-                <div>
-                  {state.distance >= 1000 ? (
-                    <div className="flex items-center gap-x-1">
-                      <p className="text-3xl text-gray-dark font-semibold">
-                        {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
-                      </p>
-                      <p className="text-sm text-gray-light">km</p>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-x-1">
-                      <p className="text-3xl font-semibold">
-                        {Math.round(state.distance * 100) / 100}
-                      </p>
-                      <p className="text-sm">m</p>
-                    </div>
-                  )}
+                <div className="flex flex-col justify-center p-4 rounded-lg text-sm">
+                  <p className="text-sm text-gray-light">최대속도</p>
+                  <div className="flex items-center gap-x-1">
+                    <p className="text-2xl font-semibold text-gray-dark">{maxSpeed}</p>
+                    <p className="text-sm text-gray-light">km/h</p>
+                  </div>
                 </div>
               </div>
-              <div className="flex flex-col justify-center pr-4 py-4 text-sm">
-                <div className="flex items-center gap-x-1 text-gray-light">
-                  <span className="material-symbols-outlined text-xl">schedule</span>
-                  <p className="text-sm">주행시간</p>
+              <div className="grid grid-cols-2 bg-white rounded-lg">
+                <div className="flex flex-col justify-center p-4 text-sm">
+                  <div className="flex items-center gap-x-1 text-gray-light">
+                    <span className="material-symbols-outlined text-xl">directions_bike</span>
+                    <p className="text-sm">주행거리</p>
+                  </div>
+                  <div>
+                    {state.distance >= 1000 ? (
+                      <div className="flex items-center gap-x-1">
+                        <p className="text-3xl text-gray-dark font-semibold">
+                          {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
+                        </p>
+                        <p className="text-sm text-gray-light">km</p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-x-1">
+                        <p className="text-3xl font-semibold">
+                          {Math.round(state.distance * 100) / 100}
+                        </p>
+                        <p className="text-sm">m</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  {time[0] === 0 ? (
-                    <div className="flex items-center gap-x-1">
-                      <p className="text-3xl font-semibold">{time[1]}</p>
-                      <p className="text-sm">분</p>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-x-1">
-                      <p className="text-3xl font-semibold">{time[1]}</p>
-                      <p className="text-sm">분</p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex gap-x-3 w-full">
-            <div className="w-1/2">
-              <div className="flex justify-between items-center w-full bg-slate-100 rounded-2xl px-8 py-2 drop-shadow-lg">
-                <div className="flex items-center gap-x-1">
-                  <span className="material-symbols-outlined text-light-700 text-lg">group</span>
-                  <p className="text-light-700 text-sm">팩라이딩</p>
-                </div>
-                <div className="flex items-center">
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" className="sr-only peer" />
-                    <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-                  </label>
+                <div className="flex flex-col justify-center pr-4 py-4 text-sm">
+                  <div className="flex items-center gap-x-1 text-gray-light">
+                    <span className="material-symbols-outlined text-xl">schedule</span>
+                    <p className="text-sm">주행시간</p>
+                  </div>
+                  <div>
+                    {time[0] === 0 ? (
+                      <div className="flex items-center gap-x-1">
+                        <p className="text-3xl font-semibold">{time[1]}</p>
+                        <p className="text-sm">분</p>
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-x-1">
+                        <p className="text-3xl font-semibold">{time[1]}</p>
+                        <p className="text-sm">분</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-1/2">
-              <div className="flex justify-between items-center w-full bg-slate-100 rounded-2xl px-8 py-2 drop-shadow-lg">
-                <div className="flex items-center gap-x-1">
-                  <span className="material-symbols-outlined text-light-700 text-lg">
-                    directions_car
-                  </span>
-                  <p className="text-light-700 text-sm">후방감지</p>
+            <div className="flex gap-x-3 w-full">
+              <div className="w-1/2">
+                <div className="flex justify-between items-center w-full bg-slate-100 rounded-2xl px-6 py-2 drop-shadow-lg">
+                  <div className="flex items-center gap-x-1">
+                    <span className="material-symbols-outlined text-light-700 text-lg">group</span>
+                    <p className="text-light-700 text-sm">팩라이딩</p>
+                  </div>
+                  <div className="flex items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" className="sr-only peer" />
+                      <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                    </label>
+                  </div>
                 </div>
-                <div className="flex items-center">
-                  <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" value="" className="sr-only peer" />
-                    <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
-                  </label>
+              </div>
+              <div className="w-1/2">
+                <div className="flex justify-between items-center w-full bg-slate-100 rounded-2xl px-6 py-2 drop-shadow-lg">
+                  <div className="flex items-center gap-x-1">
+                    <span className="material-symbols-outlined text-light-700 text-lg">
+                      directions_car
+                    </span>
+                    <p className="text-light-700 text-sm">후방감지</p>
+                  </div>
+                  <div className="flex items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" value="" className="sr-only peer" />
+                      <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="flex gap-x-3 w-full">
-            <div className="w-1/2"></div>
-            <div className="w-1/2">
-              <button
-                type="button"
-                className="flex justify-center items-center gap-x-1 w-full bg-red-500 rounded-2xl py-2 drop-shadow-lg"
-                onClick={() => {
-                  navigate('/');
-                }}
-              >
-                <span className="material-symbols-outlined text-white text-lg">cancel</span>
-                <p className="text-white text-sm font-semibold">주행종료</p>
-              </button>
+            <div className="flex gap-x-3 w-full">
+              <div className="w-1/2"></div>
+              <div className="w-1/2">
+                <button
+                  type="button"
+                  className="flex justify-center items-center gap-x-1 w-full bg-red-500 rounded-2xl py-2 drop-shadow-lg"
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                >
+                  <span className="material-symbols-outlined text-white text-lg">cancel</span>
+                  <p className="text-white text-sm font-semibold">주행종료</p>
+                </button>
+              </div>
             </div>
           </div>
         </div>
