@@ -1,6 +1,8 @@
+import { startRidingApi } from "../apis/riding";
 import Navbar from "../components/common/Navbar";
 import { useUserLocation } from "../store/userStore";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MainPage() {
   const { longitude, latitude, speed } = useUserLocation();
@@ -13,6 +15,15 @@ function MainPage() {
       longitude,
       speed,
     });
+  }
+  const navigate = useNavigate();
+
+  async function handleClickRiding() {
+    const res = await startRidingApi();
+    if (res === 200) {
+      navigate("/riding");
+      window.postMessage("주행시작");
+    }
   }
 
   window.addEventListener("message", handleMessage);
@@ -44,9 +55,12 @@ function MainPage() {
             </Link>
           </div>
           <div>
-            <Link to="/riding" className="text-blue-500 hover:underline">
+            <div
+              className="text-blue-500 hover:underline"
+              onClick={handleClickRiding}
+            >
               주행
-            </Link>
+            </div>
           </div>
         </div>
       </div>
