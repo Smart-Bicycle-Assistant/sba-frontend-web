@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
         <Link to="/map">지도</Link>
       </div>
       <div className="flex justify-center items-center w-1/4">
-        <Link to="/bicycle">자전거</Link>
+        <Link to="/bicycle/detail">관리</Link>
       </div>
       <div className="flex justify-center items-center w-1/4">
         <Link to="/mypage">내 정보</Link>
