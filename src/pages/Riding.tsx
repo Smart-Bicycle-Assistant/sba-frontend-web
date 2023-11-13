@@ -92,67 +92,74 @@ const RidingPage: React.FC = () => {
         <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
         <div className="absolute top-0 left-1/2 w-1/2 h-screen flex justify-center items-center">
           <div className="w-full flex flex-col gap-y-3 py-8 pr-8">
-            <div className="flex flex-col gap-y-3 w-full bg-slate-100 p-5 rounded-2xl drop-shadow-lg">
+            <div className="w-full bg-slate-100 p-4 rounded-2xl drop-shadow-lg">
               <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col justify-center p-4 bg-white rounded-lg">
-                  <div className="flex items-center gap-x-1 text-gray-light">
-                    <span className="material-symbols-outlined text-xl">speed</span>
-                    <p className="text-sm">현재속도</p>
+                <div>
+                  <div className="flex flex-col justify-between gap-y-3 px-4 py-3 bg-white rounded-lg">
+                    <div className="flex items-center gap-x-1 text-gray-light">
+                      <span className="material-symbols-outlined text-xl">speed</span>
+                      <p className="text-sm">현재속도</p>
+                    </div>
+                    <div className="flex items-end gap-x-1">
+                      <p className="text-7xl text-red-500 font-semibold">
+                        {Math.round(speed * 3.6)}
+                      </p>
+                      <p className="text-base text-gray-light pb-3">km/h</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-x-1">
-                    <p className="text-3xl text-red-500 font-semibold">{Math.round(speed * 3.6)}</p>
-                    <p className="text-sm text-gray-light">km/h</p>
-                  </div>
-                </div>
-                <div className="flex flex-col justify-center p-4 rounded-lg text-sm">
-                  <p className="text-sm text-gray-light">최대속도</p>
-                  <div className="flex items-center gap-x-1">
-                    <p className="text-2xl font-semibold text-gray-dark">{maxSpeed}</p>
-                    <p className="text-sm text-gray-light">km/h</p>
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 bg-white rounded-lg">
-                <div className="flex flex-col justify-center p-4 text-sm">
-                  <div className="flex items-center gap-x-1 text-gray-light">
-                    <span className="material-symbols-outlined text-xl">directions_bike</span>
-                    <p className="text-sm">주행거리</p>
-                  </div>
-                  <div>
-                    {state.distance >= 1000 ? (
-                      <div className="flex items-center gap-x-1">
-                        <p className="text-3xl text-gray-dark font-semibold">
-                          {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
-                        </p>
-                        <p className="text-sm text-gray-light">km</p>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-x-1">
-                        <p className="text-3xl font-semibold">
-                          {Math.round(state.distance * 100) / 100}
-                        </p>
-                        <p className="text-sm">m</p>
-                      </div>
-                    )}
+                  <div className="flex gap-x-2 pl-2 pt-2">
+                    <div className="flex items-center gap-x-1 text-gray-light">
+                      {/* <span className="material-symbols-outlined text-xl">fast_forward</span> */}
+                      <p className="text-xs text-gray-light">최대속도</p>
+                    </div>
+                    <div className="flex items-center gap-x-1">
+                      <p className="text-2xl font-semibold text-gray-dark">{maxSpeed}</p>
+                      <p className="text-sm text-gray-light">km/h</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-col justify-center pr-4 py-4 text-sm">
-                  <div className="flex items-center gap-x-1 text-gray-light">
-                    <span className="material-symbols-outlined text-xl">schedule</span>
-                    <p className="text-sm">주행시간</p>
+                <div className="flex flex-col justify-center bg-white rounded-lg">
+                  <div className="flex flex-col justify-center px-4 py-3 text-sm">
+                    <div className="flex items-center gap-x-1 text-gray-light">
+                      <span className="material-symbols-outlined text-xl">directions_bike</span>
+                      <p className="text-sm">주행거리</p>
+                    </div>
+                    <div>
+                      {state.distance >= 1000 ? (
+                        <div className="flex items-center gap-x-1">
+                          <p className="text-2xl text-gray-dark font-semibold">
+                            {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
+                          </p>
+                          <p className="text-sm text-gray-light">km</p>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-x-1">
+                          <p className="text-2xl font-semibold">
+                            {Math.round(state.distance * 100) / 100}
+                          </p>
+                          <p className="text-sm text-gray-light">m</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    {time[0] === 0 ? (
-                      <div className="flex items-center gap-x-1">
-                        <p className="text-3xl font-semibold">{time[1]}</p>
-                        <p className="text-sm">분</p>
-                      </div>
-                    ) : (
-                      <div className="flex items-center gap-x-1">
-                        <p className="text-3xl font-semibold">{time[1]}</p>
-                        <p className="text-sm">분</p>
-                      </div>
-                    )}
+                  <div className="flex flex-col justify-center px-4 pb-3 text-sm">
+                    <div className="flex items-center gap-x-1 text-gray-light">
+                      <span className="material-symbols-outlined text-xl">schedule</span>
+                      <p className="text-sm">주행시간</p>
+                    </div>
+                    <div>
+                      {time[0] === 0 ? (
+                        <div className="flex items-center gap-x-1">
+                          <p className="text-2xl font-semibold">{time[1]}</p>
+                          <p className="text-sm text-gray-light">분</p>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-x-1">
+                          <p className="text-2xl font-semibold">{time[1]}</p>
+                          <p className="text-sm text-gray-light">분</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
