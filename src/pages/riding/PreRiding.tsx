@@ -41,7 +41,7 @@ export const PreRiding: React.FC = () => {
           <div className="absolute right-3 bottom-2 m-3">
             <input
               className="mr-2 bg-transparent border-b w-10 border-[#73AAFF] text-right text-white font-bold text-xl"
-              type="text"
+              type="number"
               onChange={handleInputChange}
             ></input>
             <span className="text-white text-lg font-bold">km/h</span>
