@@ -3,7 +3,7 @@ import { useLocationStore } from '../store/locationStore';
 import { useRidingStore } from '../store/ridingStore';
 import { useEffect, useState } from 'react';
 import CustomMarker from '../components/common/CustomMarker';
-import { convertMeterToKilometer } from '../apis/map';
+// import { convertMeterToKilometer } from '../apis/map';
 import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
