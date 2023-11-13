@@ -1,42 +1,28 @@
-import { startRidingApi } from '../apis/riding';
-import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
-import { useLocationStore } from '../store/locationStore';
-import { Link } from 'react-router-dom';
+import { startRidingApi } from "../apis/riding";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/common/Navbar";
+import { Link } from "react-router-dom";
+import { useLocationStore } from "../store/locationStore";
 
 function MainPage() {
   const { longitude, latitude, speed } = useLocationStore();
 
-  const { setLocation, setMaxSpeed } = useLocationStore();
-
-  function handleMessage(e: { data: string }) {
-    const { latitude, longitude, speed } = JSON.parse(e.data);
-    setLocation({
-      latitude,
-      longitude,
-      speed,
-    });
-    setMaxSpeed(speed);
-  }
   const navigate = useNavigate();
-
   async function handleClickRiding() {
     const res = await startRidingApi();
     if (res === 200) {
-      const message = '안녕, 리액트 네이티브!';
-      window.postMessage(message, '*');
-      navigate('/riding');
+      navigate("/riding");
     }
   }
-
-  window.addEventListener('message', handleMessage);
-
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <div className="py-4 px-2">
+        <div className="px-2 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/register/terms" className="text-blue-500 hover:underline">
+            <Link
+              to="/register/terms"
+              className="text-blue-500 hover:underline"
+            >
               회원가입
             </Link>
             <Link to="/login" className="text-blue-500 hover:underline">
@@ -44,9 +30,9 @@ function MainPage() {
             </Link>
 
             <div>
-              <p>Latitude: {latitude !== null ? latitude : 'N/A'}</p>
-              <p>Longitude: {longitude !== null ? longitude : 'N/A'}</p>
-              <p>Speed: {speed !== null ? speed : 'N/A'}</p>
+              <p>Latitude: {latitude !== null ? latitude : "N/A"}</p>
+              <p>Longitude: {longitude !== null ? longitude : "N/A"}</p>
+              <p>Speed: {speed !== null ? speed : "N/A"}</p>
             </div>
           </div>
           <div>
@@ -55,7 +41,10 @@ function MainPage() {
             </Link>
           </div>
           <div>
-            <div className="text-blue-500 hover:underline" onClick={handleClickRiding}>
+            <div
+              className="text-blue-500 hover:underline"
+              onClick={handleClickRiding}
+            >
               주행
             </div>
           </div>
