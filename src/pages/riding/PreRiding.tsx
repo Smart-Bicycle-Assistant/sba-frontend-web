@@ -1,8 +1,8 @@
-import Header from '../../components/common/Header';
-import { useNavigate } from 'react-router-dom';
-import PreRidingBox from '../../components/riding/PreRidingBox';
-import { useState } from 'react';
-import { useRidingStore } from '../../store/ridingStore';
+import Header from "../../components/common/Header";
+import { useNavigate } from "react-router-dom";
+import PreRidingBox from "../../components/riding/PreRidingBox";
+import { useState } from "react";
+import { useRidingStore } from "../../store/ridingStore";
 
 export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
@@ -19,9 +19,9 @@ export const PreRiding: React.FC = () => {
     if (!(packMode && !targetSpeed)) {
       setRiding({ packMode, targetSpeed, rearDetection });
       console.log(packMode, targetSpeed, rearDetection);
-      navigate('/');
+      navigate("/");
     } else {
-      console.log('목표 속도를 설정하세요');
+      console.log("목표 속도를 설정하세요");
     }
   };
 
@@ -37,14 +37,14 @@ export const PreRiding: React.FC = () => {
 
       {packMode && (
         <div className="rounded-lg bg-[#4D93FF] shadow-md py-7 m-4 relative h-32">
-          <p className="text-white text-2xl ml-5 font-bold ">목표속력</p>
-          <div className="absolute right-3 bottom-2 m-3">
+          <p className="ml-5 text-2xl font-bold text-white ">목표속력</p>
+          <div className="absolute m-3 right-3 bottom-2">
             <input
               className="mr-2 bg-transparent border-b w-10 border-[#73AAFF] text-right text-white font-bold text-xl"
               type="number"
               onChange={handleInputChange}
             ></input>
-            <span className="text-white text-lg font-bold">km/h</span>
+            <span className="text-lg font-bold text-white">km/h</span>
           </div>
         </div>
       )}

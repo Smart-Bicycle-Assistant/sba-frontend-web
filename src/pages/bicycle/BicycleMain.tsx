@@ -5,8 +5,15 @@ import Navbar from "../../components/common/Navbar";
 import { GetBicycleListApi } from "../../apis/bicycle";
 import { useEffect, useState } from "react";
 
+export interface Bicycle {
+  id: number;
+  bicycleName: string;
+  bicycleImage: string;
+  registrationDate?: string;
+}
+
 function BicycleMain() {
-  const [bicycles, setBicycles] = useState([]);
+  const [bicycles, setBicycles] = useState<Bicycle[]>([]);
 
   useEffect(() => {
     getBicycle();
@@ -15,6 +22,7 @@ function BicycleMain() {
   async function getBicycle() {
     try {
       const res = await GetBicycleListApi();
+      console.log(res.data);
       setBicycles(res.data);
     } catch (error) {
       console.error("Error fetching bicycle data:", error);
@@ -25,7 +33,7 @@ function BicycleMain() {
     <div>
       <Header menu="내 자전거" />
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-        {bicycles.map((bicycle) => (
+        {bicycles.map((bicycle: Bicycle) => (
           <BicycleCard
             key={bicycle.id}
             name={bicycle.bicycleName}
