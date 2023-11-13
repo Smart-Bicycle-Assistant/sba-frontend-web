@@ -4,7 +4,7 @@ import { useRidingStore } from '../store/ridingStore';
 import { useEffect, useState } from 'react';
 import CustomMarker from '../components/common/CustomMarker';
 import { convertMeterToKilometer } from '../apis/map';
-import { RidingLocationApi } from '../apis/riding';
+import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -13,6 +13,11 @@ const RidingPage: React.FC = () => {
   const { packMode, targetSpeed } = useRidingStore();
   const { latitude, longitude, speed, maxSpeed } = useLocationStore();
 
+  const [prevCoord, setPrevCoord] = useState<[number, number]>([
+    Number(state.currentCoord[0]),
+    Number(state.currentCoord[1]),
+  ]);
+  const [distance, setDistance] = useState<number>(0);
   const [mapCenter, setMapCenter] = useState<[number, number]>([latitude, longitude + 0.004]);
   const [time, setTime] = useState<[number, number]>([0, 0]);
 
@@ -40,16 +45,22 @@ const RidingPage: React.FC = () => {
   };
 
   useEffect(() => {
+    timer(state.startTime);
+    startTimer(state.startTime);
+  }, []);
+
+  useEffect(() => {
+    getDistance();
+    setMapCenter([latitude, longitude + 0.004]);
+    setPrevCoord([latitude, longitude]);
+  }, [latitude]);
+
+  useEffect(() => {
     setMapCenter([latitude, longitude]);
     const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
     console.log(res);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, packMode, targetSpeed]);
-
-  useEffect(() => {
-    timer(state.startTime);
-    startTimer(state.startTime);
-  }, []);
 
   const timer = (startTime: Date) => {
     const currentTime = new Date();
@@ -60,6 +71,31 @@ const RidingPage: React.FC = () => {
 
   const startTimer = (startTime: Date) => {
     setInterval(() => timer(startTime), 60000);
+  };
+
+  const getDistance = () => {
+    const x = longitude - prevCoord[1];
+    const y = latitude - prevCoord[0];
+
+    return setDistance(distance + Math.sqrt(x * x + y * y));
+  };
+
+  const ridingStop = async () => {
+    try {
+      const res = await postRidingRecordApi({
+        ridingTime: state.startTime.getTime(),
+        distance: state.distance,
+        maxSpeed: maxSpeed,
+        ridingDuration: new Date().getTime() - state.startTime.getTime(),
+      });
+
+      if (res.status === 200) {
+        console.log('Complete');
+        navigate('/');
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -128,7 +164,7 @@ const RidingPage: React.FC = () => {
                       {state.distance >= 1000 ? (
                         <div className="flex items-center gap-x-1">
                           <p className="text-2xl text-gray-dark font-semibold">
-                            {Math.round(convertMeterToKilometer(state.distance) * 100) / 100}
+                            {Math.round(convertMeterToKilometer(distance) * 100) / 100}
                           </p>
                           <p className="text-sm text-gray-light">km</p>
                         </div>
@@ -202,9 +238,7 @@ const RidingPage: React.FC = () => {
                 <button
                   type="button"
                   className="flex justify-center items-center gap-x-1 w-full bg-red-500 rounded-2xl py-2 drop-shadow-lg"
-                  onClick={() => {
-                    navigate('/');
-                  }}
+                  onClick={ridingStop}
                 >
                   <span className="material-symbols-outlined text-white text-lg">cancel</span>
                   <p className="text-white text-sm font-semibold">주행종료</p>

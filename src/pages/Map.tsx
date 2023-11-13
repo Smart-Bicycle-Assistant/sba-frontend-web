@@ -29,6 +29,7 @@ const MapPage: React.FC = () => {
   const handleRidingStart = () => {
     navigate('/riding', {
       state: {
+        currentCoord: [latitude, longitude],
         startCoord: startCoord,
         endCoord: endCoord,
         geometry: route?.geometry,

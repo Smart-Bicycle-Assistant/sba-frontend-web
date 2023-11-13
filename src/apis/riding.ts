@@ -1,7 +1,14 @@
-import { PackRidingType } from "../types";
-import { handleApiError } from "./errorHandling";
-import request from "./request";
-import { useUser } from "../store/userStore";
+import { PackRidingType } from '../types';
+import { handleApiError } from './errorHandling';
+import request from './request';
+import { useUser } from '../store/userStore';
+
+export type RidingRecordType = {
+  ridingTime: string;
+  distance: number;
+  maxSpeed: number;
+  ridingDuration: number;
+};
 
 export const RidingLocationApi = async (params: PackRidingType) => {
   try {
@@ -17,25 +24,28 @@ export const RidingLocationApi = async (params: PackRidingType) => {
 export const startRidingApi = async () => {
   const id = useUser.getState().id;
   try {
-    const response = await request.get(
-      `/riding_location/startRiding?memberId=${id}`
-    );
+    const response = await request.get(`/riding_location/startRiding?memberId=${id}`);
     return response.status;
   } catch (error) {
     return handleApiError(error);
   }
 };
 
-export const postRidingRecordApi = async () => {
+export const postRidingRecordApi = async ({
+  ridingTime,
+  distance,
+  maxSpeed,
+  ridingDuration,
+}: RidingRecordType) => {
   try {
-    const response = await request.post("/riding_record/post", {
-      memberId: "test1",
-      bicycleNo: "0",
-      ridingTime: "4",
-      distance: "0.5",
-      avgSpeed: "30.5",
-      maxSpeed: "45.9",
-      ridingDuration: "30",
+    const response = await request.post('/riding_record/post', {
+      memberId: useUser.getState().id,
+      bicycleNo: '1',
+      ridingTime: Number(ridingTime),
+      distance: distance,
+      avgSpeed: 30,
+      maxSpeed: maxSpeed,
+      ridingDuration: Number(ridingDuration),
     });
 
     return response.data;
