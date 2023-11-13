@@ -19,7 +19,7 @@ import {
   RidingPage,
 } from "./pages";
 
-import { useLocationStore } from "../store/locationStore";
+import { useLocationStore } from "../src/store/locationStore";
 
 const ROUTER = createBrowserRouter([
   {
