@@ -1,26 +1,37 @@
 import { Link } from "react-router-dom";
 import { BicycleCardProps } from "../../types";
-import bicycle from "../../assets/bicycle.png";
 
-function BicycleCard({ name, registrationDate, mileage }: BicycleCardProps) {
+const formatRegistrationDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+function BicycleCard({
+  name,
+  registrationDate = new Date(),
+  image,
+}: BicycleCardProps) {
   return (
-    <div className="border rounded-md p-5 pb-3 shadow-md">
+    <div className="px-5 py-2 border rounded-md shadow-md">
       <div className="flex items-center">
         <img
-          src={bicycle}
+          src={image}
           alt="logo"
-          className="w-10 h-10 rounded-full bg-gray-100"
+          className="w-12 h-12 mt-3 bg-gray-100 rounded-full"
         />
-        <p className="ml-2 font-semibold text-gray-700 pb-1">{name}</p>
+        <div className="mt-2 ml-4">
+          <p className="text-lg font-semibold text-gray-700">{name}</p>
+          <p className="text-xs text-gray-500">
+            등록일: {formatRegistrationDate(registrationDate)}
+          </p>
+        </div>
       </div>
-      <p className="text-xs text-gray-500 mb-1 pl-12">
-        등록일: {registrationDate}
-      </p>
-      <p className="text-xs text-gray-500 pl-12">주행기록: {mileage} km</p>
+
       <hr className="my-3" />
       <Link
         to="/bicycle/detail"
-        className="text-blue-500 text-center text-xs hover:underline block"
+        className="block mb-1 text-xs text-center text-blue-500 hover:underline"
       >
         자세히 보기
       </Link>

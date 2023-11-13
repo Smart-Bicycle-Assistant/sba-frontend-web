@@ -14,7 +14,7 @@ export const BicycleRegistrationApi = async ({
   const id = useUser.getState().id || "test2";
   console.log(id);
   try {
-    const response = await request.post("/member/register_bicycle", {
+    const response = await request.post("/management_record/register_bicycle", {
       ownerId: id,
       bicycleName: name,
       bicycleImage: image,
@@ -46,6 +46,15 @@ export const BicycleManagementApi = async (params: ManagementType) => {
   params.memberId = id;
   try {
     const response = await request.post("/management_record/post", params);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const GetBicycleListApi = async () => {
+  try {
+    const response = await request.get("management_record/get_bicycle_list");
     return response.data;
   } catch (error) {
     return handleApiError(error);
