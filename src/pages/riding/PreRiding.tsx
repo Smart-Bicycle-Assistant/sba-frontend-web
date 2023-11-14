@@ -8,6 +8,7 @@ export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
   const [rearDetection, setRearDetection] = useState<boolean>(false);
   const [targetSpeed, setTargetSpeed] = useState<number | null>(null);
+  const [destination, setDestination] = useState<boolean>(false);
   const navigate = useNavigate();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
@@ -17,8 +18,9 @@ export const PreRiding: React.FC = () => {
 
   const onSubmit = () => {
     if (!(packMode && !targetSpeed)) {
-      setRiding({ packMode, targetSpeed, rearDetection });
-      console.log(packMode, targetSpeed, rearDetection);
+      setRiding({ packMode, targetSpeed, rearDetection, destination });
+      console.log(packMode, targetSpeed, rearDetection, destination);
+      // destination ? navigate("/map") : navigate("/riding");
       navigate("/");
     } else {
       console.log("목표 속도를 설정하세요");
@@ -53,6 +55,12 @@ export const PreRiding: React.FC = () => {
         content="S_BA 확장 어플리케이션을 통해 주행 중 후방의 차량을 감지한 정보를 화면에서 확인할 수 있습니다."
         state={rearDetection}
         onClick={() => setRearDetection((prev) => !prev)}
+      />
+      <PreRidingBox
+        title="목적지 설정"
+        content="목적지 설정 후 추천 경로 안내를 받을 수 있습니다."
+        state={destination}
+        onClick={() => setDestination((prev) => !prev)}
       />
       <div className="fixed bottom-0 left-0 right-0 p-4" onClick={onSubmit}>
         <div className=" text-white py-2.5 px-4 rounded-lg w-full bg-customColor text-center bg-opacity-85 font-semibold">

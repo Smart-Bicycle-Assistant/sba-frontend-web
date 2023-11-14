@@ -50,14 +50,15 @@ const BicycleRegistration: React.FC = () => {
     console.log(res);
 
     const tireRes = await BicycleManagementApi({
-      bicycleNo: 1,
-      tire: 2,
+      bicycleId: 1,
+      frontTire: 2,
+      rearTire:2,
       brakes: 0,
       chain: 0,
       gears: 0,
-      front_tire: frontLifeSpan,
-      rear_tire: rearLifeSpan,
-      managementTime: 0,
+      frontTireLife: frontLifeSpan,
+      rearTireLife: rearLifeSpan,
+      managementTime: Date.now(),
     });
     console.log(tireRes);
     navigate("/bicycle");
@@ -67,55 +68,55 @@ const BicycleRegistration: React.FC = () => {
   return (
     <div>
       <Header menu="새 자전거 등록" showBackArrow={true} />
-      <div className=" p-5 max-w-md">
-        <div className="rounded-lg bg-white border-2 border-gray-100 py-5 relative h-24 m-3">
-          <p className="text-black text-sm ml-5 font-semibold">자전거 이름</p>
-          <div className="absolute right-3 bottom-2 m-3">
+      <div className="max-w-md p-5 ">
+        <div className="relative h-24 py-5 m-3 bg-white border-2 border-gray-100 rounded-lg">
+          <p className="ml-5 text-sm font-semibold text-black">자전거 이름</p>
+          <div className="absolute m-3 right-3 bottom-2">
             <input
-              className=" bg-transparent border-b w-20 border-gray-300 text-right pr-2 text-black font-semibold text-lg placeholder-gray-200"
+              className="w-20 pr-2 text-lg font-semibold text-right text-black placeholder-gray-200 bg-transparent border-b border-gray-300 "
               type="text"
               onChange={onNameChange}
             ></input>
           </div>
         </div>
 
-        <div className="rounded-lg bg-white border-2 border-gray-100  py-5 relative h-24  m-3">
-          <p className="text-black text-sm ml-5 font-semibold">
+        <div className="relative h-24 py-5 m-3 bg-white border-2 border-gray-100 rounded-lg">
+          <p className="ml-5 text-sm font-semibold text-black">
             앞타이어 기대수명
           </p>
-          <div className="absolute right-3 bottom-2 m-3">
+          <div className="absolute m-3 right-3 bottom-2">
             <input
-              className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
+              className="w-16 mr-2 text-lg font-bold text-right text-black placeholder-gray-200 bg-transparent border-b border-gray-300"
               type="number"
               placeholder="500"
               onChange={(e) => {
                 setFrontLifeSpan(Number(e.target.value));
               }}
             ></input>
-            <span className="text-black text-md font-bold">km</span>
+            <span className="font-bold text-black text-md">km</span>
           </div>
         </div>
 
-        <div className="rounded-lg  bg-white border-2 border-gray-100  py-5 relative h-24  m-3">
-          <p className="text-black text-sm ml-5 font-semibold">
+        <div className="relative h-24 py-5 m-3 bg-white border-2 border-gray-100 rounded-lg">
+          <p className="ml-5 text-sm font-semibold text-black">
             뒷타이어 기대수명
           </p>
-          <div className="absolute right-3 bottom-2 m-3">
+          <div className="absolute m-3 right-3 bottom-2">
             <input
-              className="mr-2 bg-transparent border-b w-16 border-gray-300 text-right text-black font-bold text-lg placeholder-gray-200"
+              className="w-16 mr-2 text-lg font-bold text-right text-black placeholder-gray-200 bg-transparent border-b border-gray-300"
               type="number"
               placeholder="500"
               onChange={(e) => {
                 setRearLifeSpan(Number(e.target.value));
               }}
             ></input>
-            <span className="text-black text-md font-bold">km</span>
+            <span className="font-bold text-black text-md">km</span>
           </div>
         </div>
 
-        <div className="rounded-lg  bg-white border-2 border-gray-100 py-5 relative h-24  m-3">
-          <div className=" pr-4 mb-6">
-            <p className="text-black text-sm ml-5 font-semibold">
+        <div className="relative h-24 py-5 m-3 bg-white border-2 border-gray-100 rounded-lg">
+          <div className="pr-4 mb-6 ">
+            <p className="ml-5 text-sm font-semibold text-black">
               자전거 이미지
             </p>
             <input
@@ -123,7 +124,7 @@ const BicycleRegistration: React.FC = () => {
               accept="image/*"
               onChange={onImageChange}
               required
-              className="text-xs w-full m-3 ml-5 rounded-md bg-transparent focus:ring-blue-500 focus:border-blue-500"
+              className="w-full m-3 ml-5 text-xs bg-transparent rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
 

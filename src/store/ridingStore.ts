@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface Riding {
   packMode: boolean;
@@ -11,6 +11,7 @@ interface RidingProps {
   packMode: boolean;
   targetSpeed: number | null;
   rearDetection: boolean;
+  destination: boolean;
 }
 
 export const useRidingStore = create<Riding>((set) => ({
@@ -22,6 +23,7 @@ export const useRidingStore = create<Riding>((set) => ({
       packMode: mode.packMode,
       targetSpeed: mode.targetSpeed,
       rearDetection: mode.rearDetection,
+      destination: mode.destination,
     }));
   },
 }));
