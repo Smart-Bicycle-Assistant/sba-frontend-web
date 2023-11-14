@@ -5,7 +5,7 @@ import usePartState from "../../hooks/usePartState";
 import { BicycleManagementApi, ManagementType } from "../../apis/bicycle";
 import { useState } from "react";
 
-export const PartManagement: React.FC<number> = () => {
+export const PartManagement: React.FC = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   async function handleUpdate() {
