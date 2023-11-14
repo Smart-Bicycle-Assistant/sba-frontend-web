@@ -1,9 +1,24 @@
 import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
 import bicycle from "../../assets/Logo.png";
+import { useLocation } from "react-router";
+import { BicycleManageListApi } from "../../apis/bicycle";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 const BicycleDetail = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
+
+  async function getManagementList() {
+    const res = await BicycleManageListApi(state);
+    console.log(res.data);
+  }
+
+  useEffect(() => {
+    getManagementList();
+    console.log(state);
+  }, []);
+
   return (
     <div>
       <Header menu="자전거 상세정보" showBackArrow={true} />
@@ -65,7 +80,7 @@ const BicycleDetail = () => {
             <button
               className="px-6 py-2 m-2 text-sm font-normal text-white rounded-md shadow-sm bg-customColor"
               onClick={() => {
-                navigate("/management/part");
+                navigate("/management/part", { state: state });
               }}
             >
               부품 정보 업데이트

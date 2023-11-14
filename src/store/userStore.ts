@@ -1,6 +1,6 @@
 // src/store/userStore.ts
 
-import { create } from 'zustand';
+import { create } from "zustand";
 
 interface User {
   id: string;
@@ -11,10 +11,10 @@ interface User {
 }
 
 export const useUser = create<User>((set) => ({
-  id: '',
-  email: '',
-  nickname: '',
-  jwt: '',
+  id: "",
+  email: "",
+  nickname: "",
+  jwt: "",
   setUser: (user: userProps) => {
     set(() => ({
       id: user.id,
@@ -31,3 +31,16 @@ interface userProps {
   nickname: string;
   jwt: string;
 }
+
+interface MainBike {
+  main: number;
+  setMain: (main: number) => void;
+}
+
+export const useMainBike = create<MainBike>((set) => ({
+  main: 0,
+  setMain: (bicycleId: number) => {
+    set(() => ({ main: bicycleId }));
+    console.log(bicycleId);
+  },
+}));

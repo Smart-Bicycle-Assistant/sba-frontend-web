@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../components/common/Navbar";
 import { Link } from "react-router-dom";
 import { useLocationStore } from "../store/locationStore";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/swiper.min.css";
 
 function MainPage() {
   const { longitude, latitude, speed } = useLocationStore();
@@ -36,8 +38,14 @@ function MainPage() {
             </div>
           </div>
           <div>
-            <Link to="/riding/before" className="text-blue-500 hover:underline">
+            <Link
+              to="/riding/before"
+              className="block text-blue-500 hover:underline"
+            >
               주행 전 설정
+            </Link>
+            <Link to="/bicycle" className="block text-blue-500 hover:underline">
+              내 자전거 목록
             </Link>
           </div>
           <div>
@@ -48,6 +56,17 @@ function MainPage() {
               주행
             </div>
           </div>
+          {/* <Swiper
+            spaceBetween={50}
+            slidesPerView={3}
+            onSlideChange={() => console.log("slide change")}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            <SwiperSlide>Slide 1</SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>Slide 4</SwiperSlide>
+          </Swiper> */}
         </div>
       </div>
       <Navbar />
