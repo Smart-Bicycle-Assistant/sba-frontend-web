@@ -27,13 +27,14 @@ export const BicycleRegistrationApi = async ({
 
 export type ManagementType = {
   memberId?: string;
-  bicycleNo: number;
-  tire: number;
+  bicycleId: number;
+  frontTire: number;
+  rearTire: number;
   brakes: number;
   chain: number;
   gears: number;
-  front_tire: number | null;
-  rear_tire: number | null;
+  frontTireLife: number;
+  rearTireLife: number;
   managementTime: number;
 };
 
@@ -55,6 +56,28 @@ export const BicycleManagementApi = async (params: ManagementType) => {
 export const GetBicycleListApi = async () => {
   try {
     const response = await request.get("management_record/get_bicycle_list");
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const GetManagementListApi = async (bicycleNo: number) => {
+  try {
+    const response = await request.get(
+      `/management_record/whole_list?bicycleId=${bicycleNo}`
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const BicycleManageListApi = async (bicycleNo: number) => {
+  try {
+    const response = await request.get(
+      `/management_record/whole_list?bicycleId=${bicycleNo}`
+    );
     return response.data;
   } catch (error) {
     return handleApiError(error);

@@ -18,6 +18,7 @@ export type RecordComponentType = RecordListType & {
 
 //Bicycle
 export type BicycleCardProps = {
+  bicycleId: number;
   name: string;
   registrationDate?: Date;
   image: string;

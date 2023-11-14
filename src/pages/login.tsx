@@ -31,7 +31,6 @@ function LoginPage() {
           nickname: res.data.nickname,
           jwt: res.data.token,
         });
-        console.log("data" + res.data.token);
         navigate("/");
         console.log(res);
       }
@@ -55,7 +54,7 @@ function LoginPage() {
           <div className="my-10">
             <input
               placeholder="아이디"
-              className="w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-3 text-xs bg-gray-100 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={id}
               onChange={onIdChange}
               onKeyDown={handleEnterKey}
@@ -63,7 +62,7 @@ function LoginPage() {
 
             <input
               placeholder="비밀번호"
-              className="w-full text-xs placeholder-slate-400 mt-4 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-3 mt-4 text-xs bg-gray-100 rounded-lg placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               type="password"
               value={password}
               onChange={onPasswordChange}

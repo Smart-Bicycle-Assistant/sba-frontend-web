@@ -3,6 +3,7 @@ type PartCardProps = {
   tire?: boolean;
   replace: boolean;
   check: boolean;
+  setLifeSpan?: (lifeSpan: number) => void | undefined;
   toggleReplace: () => void;
   toggleCheck: () => void;
 };
@@ -12,6 +13,7 @@ const PartCard: React.FC<PartCardProps> = ({
   tire = false,
   replace,
   check,
+  setLifeSpan,
   toggleReplace,
   toggleCheck,
 }) => {
@@ -42,15 +44,18 @@ const PartCard: React.FC<PartCardProps> = ({
           점검
         </button>
       </div>
-      {tire && replace && (
-        <div className="mt-1 right-3 bottom-2">
-          <span className="pt-2 pr-1 text-[11px] text-blue-500">기대수명 </span>
+      {tire && replace && setLifeSpan && (
+        <div className="mt-3 right-3 bottom-2">
+          <span className="pt-2 pr-1 text-[12px] text-blue-500">기대수명 </span>
           <input
-            className="mr-2 bg-transparent border-b w-14 border-[#73AAFF] text-right text-blue-500 font-bold text-md pr-1"
+            className=" bg-transparent border-b w-14 border-[#73AAFF] text-right text-blue-500 font-bold text-md pr-1"
             type="number"
-            onChange={() => {}}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              const newValue = event.target.value;
+              setLifeSpan(Number(newValue));
+            }}
           />
-          <span className="text-xs font-bold text-blue-500">km/h</span>
+          <span className="text-xs text-blue-500">km</span>
         </div>
       )}
     </div>

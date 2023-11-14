@@ -6,7 +6,7 @@ import { GetBicycleListApi } from "../../apis/bicycle";
 import { useEffect, useState } from "react";
 
 export interface Bicycle {
-  id: number;
+  bicycleId: number;
   bicycleName: string;
   bicycleImage: string;
   registrationDate?: string;
@@ -35,7 +35,8 @@ function BicycleMain() {
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {bicycles.map((bicycle: Bicycle) => (
           <BicycleCard
-            key={bicycle.id}
+            key={bicycle.bicycleId}
+            bicycleId={Number(bicycle.bicycleId)}
             name={bicycle.bicycleName}
             image={bicycle.bicycleImage}
           />
