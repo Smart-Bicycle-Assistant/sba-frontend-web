@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import { useUser } from '../../store/userStore';
+import { useState } from "react";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import { useUser } from "../../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 function MyPageModify() {
   const { id, email, nickname } = useUser();
 
   const [modify, setModify] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu={'회원 정보'} />
-        <div className="flex flex-col gap-y-8 px-8 py-8 mx-auto">
+        <Header menu={"회원 정보"} />
+        <div className="flex flex-col px-8 py-8 mx-auto gap-y-8">
           <div className="p-6 border border-gray-200 rounded-lg">
             <form className="flex flex-col gap-y-3.5 mb-6">
               <div>
@@ -54,18 +56,6 @@ function MyPageModify() {
                   value={email}
                 ></input>
               </div>
-              <div>
-                <p className="mb-2 text-xs text-gray-600">비밀번호</p>
-                <input
-                  type="password"
-                  className="w-full text-xs placeholder-slate-400 bg-gray-100 text-gray-400 rounded-lg py-3 px-3 mb-2"
-                  value="********"
-                  disabled={true}
-                ></input>
-                <p className="text-xs text-gray-600 text-right underline">
-                  비밀번호 확인하기
-                </p>
-              </div>
             </form>
             {modify ? (
               <button
@@ -82,6 +72,24 @@ function MyPageModify() {
                 변경하기
               </button>
             )}
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              className="text-xs text-gray-500 underline"
+              onClick={() => {
+                navigate("/password/reset");
+              }}
+            >
+              비밀번호 초기화
+            </button>
+            <button
+              className="text-xs text-gray-500 underline"
+              onClick={() => {
+                navigate("/password/change");
+              }}
+            >
+              비밀번호 변경
+            </button>
           </div>
         </div>
       </div>

@@ -19,6 +19,8 @@ import {
   RidingPage,
   ManagementDetail,
   Withdraw,
+  ChangePassword,
+  ResetPassword,
 } from "./pages";
 
 import { useLocationStore } from "../src/store/locationStore";
@@ -27,6 +29,14 @@ const ROUTER = createBrowserRouter([
   {
     path: "/",
     element: <MainPage />,
+  },
+  {
+    path: "/password/change",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/password/reset",
+    element: <ResetPassword />,
   },
   {
     path: "/riding/before",

@@ -17,8 +17,12 @@ import RidingPage from "./Riding";
 import PartManagement from "./management/ManagementUpdate";
 import ManagementDetail from "./management/ManagementDetail";
 import Withdraw from "../pages/user/Withdraw";
+import ChangePassword from "./user/ChangePassword";
+import ResetPassword from "./user/ResetPassword";
 
 export {
+  ChangePassword,
+  ResetPassword,
   MainPage,
   MapPage,
   RidingPage,
