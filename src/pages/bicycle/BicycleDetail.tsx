@@ -3,20 +3,29 @@ import Navbar from "../../components/common/Navbar";
 import bicycle from "../../assets/Logo.png";
 import { useLocation } from "react-router";
 import { BicycleManageListApi } from "../../apis/bicycle";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+export interface Management {
+  managementTime: number;
+  numFixed: number;
+  recordId: number;
+}
+
 const BicycleDetail = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const [managements, setManagements] = useState<Management[]>([]);
 
   async function getManagementList() {
     const res = await BicycleManageListApi(state);
+    if (res.status === 200) setManagements(res.data);
     console.log(res.data);
   }
 
   useEffect(() => {
     getManagementList();
-    console.log(state);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -36,9 +45,17 @@ const BicycleDetail = () => {
               </p>
             </div>
           </div>
+          <button
+            className="px-4 py-2 m-2 text-sm font-normal border rounded-md shadow-sm text-customColor"
+            onClick={() => {
+              navigate("/management/part", { state: state });
+            }}
+          >
+            부품 정보 업데이트
+          </button>
 
           <hr className="my-4" />
-          <div className="relative h-60">
+          {/* <div className="relative h-60">
             <img
               src={bicycle}
               alt="자전거 이미지"
@@ -75,17 +92,35 @@ const BicycleDetail = () => {
                 <p className="text-xs text-gray-500">2023-10-20</p>
               </div>
             </div>
-          </div>
-          <div className="flex justify-center mx-1 my-3 rounded-md">
-            <button
-              className="px-6 py-2 m-2 text-sm font-normal text-white rounded-md shadow-sm bg-customColor"
-              onClick={() => {
-                navigate("/management/part", { state: state });
-              }}
-            >
-              부품 정보 업데이트
-            </button>
-          </div>
+          </div> */}
+          <div className="flex justify-center mx-1 my-3 rounded-md"></div>
+          <div className="mt-8 mb-2 ml-1 font-thin">부품 교체/점검 기록</div>
+          {managements
+            .sort((a, b) => b.managementTime - a.managementTime)
+            .map((management: Management) => {
+              const date: Date = new Date(management.managementTime);
+              return (
+                <div
+                  onClick={() => {
+                    navigate("/management/detail", {
+                      state: {
+                        bicycleId: state,
+                        recordId: management.recordId,
+                      },
+                    });
+                  }}
+                  key={management.recordId}
+                  className="p-4 mb-4 border rounded-md shadow-md"
+                >
+                  <p className="mb-2 font-bold text-md">
+                    {date.toLocaleString()}
+                  </p>
+                  <p className="text-sm text-gray-700">
+                    교체한 부품 수: {management.numFixed}
+                  </p>
+                </div>
+              );
+            })}
         </div>
       </div>
       <Navbar />

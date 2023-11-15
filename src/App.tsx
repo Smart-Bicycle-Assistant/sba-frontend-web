@@ -17,6 +17,8 @@ import {
   PreRiding,
   PartManagement,
   RidingPage,
+  ManagementDetail,
+  Withdraw,
 } from "./pages";
 
 import { useLocationStore } from "../src/store/locationStore";
@@ -31,8 +33,16 @@ const ROUTER = createBrowserRouter([
     element: <PreRiding />,
   },
   {
+    path: "/withdraw",
+    element: <Withdraw />,
+  },
+  {
     path: "/management/part",
     element: <PartManagement />,
+  },
+  {
+    path: "/management/detail",
+    element: <ManagementDetail />,
   },
   {
     path: "/map",
