@@ -5,11 +5,13 @@ import { handleApiError } from "./errorHandling";
 export type BicycleRegistrationType = {
   name: string;
   image: string;
+  registerTime: number;
 };
 
 export const BicycleRegistrationApi = async ({
   name,
   image,
+  registerTime,
 }: BicycleRegistrationType) => {
   const id = useUser.getState().id || "test2";
   console.log(id);
@@ -18,6 +20,7 @@ export const BicycleRegistrationApi = async ({
       ownerId: id,
       bicycleName: name,
       bicycleImage: image,
+      registerTime: registerTime,
     });
     return response.data;
   } catch (error) {
@@ -55,7 +58,7 @@ export const BicycleManagementApi = async (params: ManagementType) => {
 
 export const GetBicycleListApi = async () => {
   try {
-    const response = await request.get("management_record/get_bicycle_list");
+    const response = await request.get("/management_record/get_bicycle_list");
     return response.data;
   } catch (error) {
     return handleApiError(error);
@@ -77,6 +80,23 @@ export const BicycleManageListApi = async (bicycleNo: number) => {
   try {
     const response = await request.get(
       `/management_record/whole_list?bicycleId=${bicycleNo}`
+    );
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
+export const getManagementDetailApi = async ({
+  bicycleId,
+  recordId,
+}: {
+  bicycleId: number;
+  recordId: number;
+}) => {
+  try {
+    const response = await request.get(
+      `/management_record/one?bicycleId=${bicycleId}&recordId=${recordId}`
     );
     return response.data;
   } catch (error) {

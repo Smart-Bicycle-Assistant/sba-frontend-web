@@ -46,13 +46,18 @@ const BicycleRegistration: React.FC = () => {
       return;
     }
 
-    const res = await BicycleRegistrationApi({ name, image: previewImage });
+    const res = await BicycleRegistrationApi({
+      name,
+      image: previewImage,
+      registerTime: Date.now(),
+    });
     console.log(res);
+    const bicycleId = res.message;
 
     const tireRes = await BicycleManagementApi({
-      bicycleId: 1,
+      bicycleId: Number(bicycleId),
       frontTire: 2,
-      rearTire:2,
+      rearTire: 2,
       brakes: 0,
       chain: 0,
       gears: 0,

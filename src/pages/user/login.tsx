@@ -1,9 +1,9 @@
-import useInput from "../hooks/useInput";
-import Header from "../components/common/Header";
+import useInput from "../../hooks/useInput";
+import Header from "../../components/common/Header";
 
-import { useUser } from "../store/userStore";
+import { useUser } from "../../store/userStore";
 import { Link, useNavigate } from "react-router-dom";
-import { LoginApi } from "../apis/user";
+import { LoginApi } from "../../apis/user";
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/common/Header";
-import Modal from "../../components/register/Modal";
+import Header from "../../../components/common/Header";
+import Modal from "../../../components/register/Modal";
 import { policyDummy1, policyDummy2 } from "./TermsPolicy";
 
 const isCheckedIcon = (isChecked: boolean) => {

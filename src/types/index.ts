@@ -16,11 +16,10 @@ export type RecordComponentType = RecordListType & {
   map: string;
 };
 
-//Bicycle
 export type BicycleCardProps = {
   bicycleId: number;
   name: string;
-  registrationDate?: Date;
+  registrationDate: Date;
   image: string;
 };
 

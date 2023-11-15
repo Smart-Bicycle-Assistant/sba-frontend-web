@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router";
 
-import Header from "../../components/common/Header";
+import Header from "../../../components/common/Header";
 
 const RegistrationSuccess: React.FC = () => {
   const { state } = useLocation();

@@ -9,7 +9,7 @@ export interface Bicycle {
   bicycleId: number;
   bicycleName: string;
   bicycleImage: string;
-  registrationDate?: string;
+  registerTime: number;
 }
 
 function BicycleMain() {
@@ -33,14 +33,19 @@ function BicycleMain() {
     <div>
       <Header menu="내 자전거" />
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
-        {bicycles.map((bicycle: Bicycle) => (
-          <BicycleCard
-            key={bicycle.bicycleId}
-            bicycleId={Number(bicycle.bicycleId)}
-            name={bicycle.bicycleName}
-            image={bicycle.bicycleImage}
-          />
-        ))}
+        {bicycles.map((bicycle: Bicycle) => {
+          const date: Date = new Date(bicycle.registerTime);
+          console.log(bicycle.registerTime, date);
+          return (
+            <BicycleCard
+              key={bicycle.bicycleId}
+              bicycleId={Number(bicycle.bicycleId)}
+              name={bicycle.bicycleName}
+              registrationDate={date}
+              image={bicycle.bicycleImage}
+            />
+          );
+        })}
         <Link
           to="/bicycle/registration"
           className="mt-5 text-xs text-center text-blue-400"

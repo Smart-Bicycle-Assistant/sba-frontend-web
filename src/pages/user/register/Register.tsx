@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/common/Header";
-import useInput from "../../hooks/useInput";
-import ValidationMessage from "../../components/register/ValidationMessage";
+import Header from "../../../components/common/Header";
+import useInput from "../../../hooks/useInput";
+import ValidationMessage from "../../../components/register/ValidationMessage";
 import { SetStateAction, useState } from "react";
-import { RegisterApi, ValidIdApi } from "../../apis/user";
+import { RegisterApi, ValidIdApi } from "../../../apis/user";
 
 function RegisterPage() {
   const navigate = useNavigate();

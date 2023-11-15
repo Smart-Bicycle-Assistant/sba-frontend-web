@@ -2,20 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { BicycleCardProps } from "../../types";
 import { useMainBike } from "../../store/userStore";
 
-const formatRegistrationDate = (date: Date): string => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
 function BicycleCard({
   bicycleId,
   name,
-  registrationDate = new Date(),
+  registrationDate,
   image,
 }: BicycleCardProps) {
   const { setMain } = useMainBike();
-
   const navigate = useNavigate();
 
   return (
@@ -32,7 +25,7 @@ function BicycleCard({
         <div className="mt-2 ml-4">
           <p className="text-lg font-semibold text-gray-700">{name}</p>
           <p className="text-xs text-gray-500">
-            등록일: {formatRegistrationDate(registrationDate)}
+            등록일: {registrationDate.toISOString().split("T")[0]}
           </p>
         </div>
       </div>
