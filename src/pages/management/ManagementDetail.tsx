@@ -2,10 +2,10 @@ import { useLocation } from "react-router-dom";
 import Header from "../../components/common/Header";
 import { getManagementDetailApi } from "../../apis/bicycle";
 import { useEffect, useState } from "react";
+import ManageRecordCard from "../../components/ManageRecordCard";
 
 type ManagementDetailProps = {
   bicycleId: number;
-  recordId: number;
   brakes: number;
   chain: number;
   frontTire: number;
@@ -22,15 +22,12 @@ export const ManagementDetail: React.FC = () => {
   const { bicycleId, recordId } = useLocation().state;
   const [managementDetail, setManagementDetail] =
     useState<ManagementDetailProps>();
-  // const [managementTime, setManagementTime] = useState<string>("");
 
   async function getManagementDetail() {
     try {
       const res = await getManagementDetailApi({ bicycleId, recordId });
       setManagementDetail(res.data);
-      // const data: Date = managementDetail && managementDetail.managementTime;
-      // setManagementTime(data.toLocaleString);
-      console.log;
+      console.log(res.data);
     } catch (error) {
       console.error("Error fetching management detail:", error);
     }
@@ -38,31 +35,35 @@ export const ManagementDetail: React.FC = () => {
 
   useEffect(() => {
     getManagementDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
       <Header menu="교체/점검 기록 조회" showBackArrow={true} />
+
       {managementDetail && (
         <div className="p-4 m-3 mb-4 border rounded-md shadow-md">
-          <p className="mb-2 font-bold text-md">
-            Bicycle ID: {managementDetail.bicycleId}
+          <p className="mb-5 text-sm text-gray-700">
+            {
+              new Date(managementDetail.managementTime)
+                .toISOString()
+                .split("T")[0]
+            }
           </p>
-          <p className="text-sm text-gray-700">
-            Record ID: {managementDetail.recordId}
-          </p>
-          {/* 추가 필요한 정보에 따라 렌더링 */}
-          {/* 예시로 brakes, chain, frontTire 등의 정보를 출력하도록 함 */}
-          <p className="text-sm text-gray-700">
-            Brakes: {managementDetail.brakes}
-          </p>
-          <p className="text-sm text-gray-700">
-            Chain: {managementDetail.chain}
-          </p>
-          <p className="text-sm text-gray-700">
-            Front Tire: {managementDetail.frontTire}
-          </p>
-          {/* 이하 추가 필요한 정보 계속 렌더링 */}
+          <ManageRecordCard
+            part="앞타이어"
+            type={managementDetail.frontTire}
+            lifeSpan={managementDetail.frontTireLife}
+          />
+          <ManageRecordCard
+            part="뒷타이어"
+            type={managementDetail.rearTire}
+            lifeSpan={managementDetail.rearTireLife}
+          />
+          <ManageRecordCard part="브레이크" type={managementDetail.brakes} />
+          <ManageRecordCard part="체인" type={managementDetail.chain} />
+          <ManageRecordCard part="기어" type={managementDetail.gears} />
         </div>
       )}
     </div>

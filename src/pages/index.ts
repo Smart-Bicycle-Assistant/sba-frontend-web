@@ -7,7 +7,7 @@ import MyPageModify from "./mypage/MyPageModify";
 import MyPageRecordAll from "./mypage/MyPageRecordAll";
 import MyPageRecordDetail from "./mypage/MyPageRecordDetail";
 import BicycleMain from "./bicycle/BicycleMain";
-import BicycleDetail from "./bicycle/BicycleDetail";
+import Management from "./management/Management";
 import BicycleRegistration from "./bicycle/BicycleRegistration";
 import RegisterTerms from "./user/register/RegisterTerms";
 import RegisterSuccess from "./user/register/RegisterSuccess";
@@ -30,7 +30,7 @@ export {
   MyPageRecordAll,
   MyPageRecordDetail,
   BicycleMain,
-  BicycleDetail,
+  Management,
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,

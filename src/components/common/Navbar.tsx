@@ -15,7 +15,8 @@ const Navbar: React.FC = () => {
       <div className="flex items-center justify-center w-1/4">
         <div
           onClick={() => {
-            navigate("/bicycle/detail"), { state: main };
+            console.log(main);
+            navigate("/management", { state: main });
           }}
         >
           관리

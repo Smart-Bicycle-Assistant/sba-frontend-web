@@ -35,7 +35,6 @@ function BicycleMain() {
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {bicycles.map((bicycle: Bicycle) => {
           const date: Date = new Date(bicycle.registerTime);
-          console.log(bicycle.registerTime, date);
           return (
             <BicycleCard
               key={bicycle.bicycleId}

@@ -24,7 +24,7 @@ export const PartManagement: React.FC = () => {
       const res = await BicycleManagementApi(managementData);
       console.log(res);
       console.log(res.status);
-      navigate("/bicycle/detail", { state: state });
+      navigate("/management", { state: state });
     }
   }
 

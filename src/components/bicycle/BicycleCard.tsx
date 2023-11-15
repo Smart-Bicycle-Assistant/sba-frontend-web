@@ -20,6 +20,7 @@ function BicycleCard({
           className="w-12 h-12 mt-3 bg-gray-100 rounded-full"
           onClick={() => {
             setMain(bicycleId);
+            //todo: 메인 자전거 지정 api 연결
           }}
         />
         <div className="mt-2 ml-4">
@@ -34,7 +35,7 @@ function BicycleCard({
       <div
         className="block mb-1 text-xs text-center text-blue-500 hover:underline"
         onClick={() => {
-          navigate("/bicycle/detail", { state: bicycleId });
+          navigate("/management", { state: bicycleId });
         }}
       >
         자세히 보기

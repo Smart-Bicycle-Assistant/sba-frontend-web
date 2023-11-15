@@ -51,10 +51,9 @@ const BicycleRegistration: React.FC = () => {
       image: previewImage,
       registerTime: Date.now(),
     });
-    console.log(res);
     const bicycleId = res.message;
 
-    const tireRes = await BicycleManagementApi({
+    const tireRes = res.status === 200 && await BicycleManagementApi({
       bicycleId: Number(bicycleId),
       frontTire: 2,
       rearTire: 2,
@@ -66,8 +65,11 @@ const BicycleRegistration: React.FC = () => {
       managementTime: Date.now(),
     });
     console.log(tireRes);
-    navigate("/bicycle");
-    setName("");
+    
+    if (tireRes.status === 200) {
+      navigate("/bicycle");
+      setName("");
+    }
   };
 
   return (

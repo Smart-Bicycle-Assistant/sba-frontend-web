@@ -14,7 +14,6 @@ export const BicycleRegistrationApi = async ({
   registerTime,
 }: BicycleRegistrationType) => {
   const id = useUser.getState().id || "test2";
-  console.log(id);
   try {
     const response = await request.post("/management_record/register_bicycle", {
       ownerId: id,
@@ -41,12 +40,8 @@ export type ManagementType = {
   managementTime: number;
 };
 
-// - fix 2
-// - check 1
-// - nothing 0
-
 export const BicycleManagementApi = async (params: ManagementType) => {
-  const id = useUser.getState().id || "test2";
+  const id = useUser.getState().id || "";
   params.memberId = id;
   try {
     const response = await request.post("/management_record/post", params);
@@ -59,17 +54,6 @@ export const BicycleManagementApi = async (params: ManagementType) => {
 export const GetBicycleListApi = async () => {
   try {
     const response = await request.get("/management_record/get_bicycle_list");
-    return response.data;
-  } catch (error) {
-    return handleApiError(error);
-  }
-};
-
-export const GetManagementListApi = async (bicycleNo: number) => {
-  try {
-    const response = await request.get(
-      `/management_record/whole_list?bicycleId=${bicycleNo}`
-    );
     return response.data;
   } catch (error) {
     return handleApiError(error);

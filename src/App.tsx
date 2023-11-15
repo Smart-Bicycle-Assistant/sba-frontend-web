@@ -10,7 +10,7 @@ import {
   MyPageRecordAll,
   MyPageRecordDetail,
   BicycleMain,
-  BicycleDetail,
+  Management,
   BicycleRegistration,
   RegisterTerms,
   RegisterSuccess,
@@ -85,8 +85,8 @@ const ROUTER = createBrowserRouter([
     element: <BicycleRegistration />,
   },
   {
-    path: "/bicycle/detail",
-    element: <BicycleDetail />,
+    path: "/management",
+    element: <Management />,
   },
   {
     path: "/register/terms",
