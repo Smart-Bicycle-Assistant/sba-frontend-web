@@ -1,6 +1,6 @@
 import MainPage from "./main";
-import RegisterPage from "./register/Register";
-import LoginPage from "./login";
+import RegisterPage from "./user/register/Register";
+import LoginPage from "./user/login";
 import MyPageMain from "./mypage/MyPageMain";
 import MyPageRecord from "./mypage/MyPageRecord";
 import MyPageModify from "./mypage/MyPageModify";
@@ -9,12 +9,14 @@ import MyPageRecordDetail from "./mypage/MyPageRecordDetail";
 import BicycleMain from "./bicycle/BicycleMain";
 import BicycleDetail from "./bicycle/BicycleDetail";
 import BicycleRegistration from "./bicycle/BicycleRegistration";
-import RegisterTerms from "./register/RegisterTerms";
-import RegisterSuccess from "./register/RegisterSuccess";
+import RegisterTerms from "./user/register/RegisterTerms";
+import RegisterSuccess from "./user/register/RegisterSuccess";
 import MapPage from "./Map";
 import PreRiding from "./riding/PreRiding";
 import RidingPage from "./Riding";
-import PartManagement from "./management/PartManagement";
+import PartManagement from "./management/ManagementUpdate";
+import ManagementDetail from "./management/ManagementDetail";
+import Withdraw from "../pages/user/Withdraw";
 
 export {
   MainPage,
@@ -34,4 +36,6 @@ export {
   RegisterSuccess,
   PreRiding,
   PartManagement,
+  ManagementDetail,
+  Withdraw,
 };
