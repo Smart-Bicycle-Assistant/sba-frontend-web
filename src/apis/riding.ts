@@ -40,7 +40,7 @@ export const postRidingRecordApi = async ({
   try {
     const response = await request.post('/riding_record/post', {
       memberId: useUser.getState().id,
-      bicycleNo: '1',
+      bicycleId: 25,
       ridingTime: Number(ridingTime),
       distance: distance,
       avgSpeed: 30,

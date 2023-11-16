@@ -1,5 +1,3 @@
-import { startRidingApi } from '../apis/riding';
-import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import Sample from '../assets/sample.png';
@@ -10,13 +8,6 @@ import Setting from '../assets/setting.svg?react';
 import User from '../assets/user.svg?react';
 
 function HomePage() {
-  const navigate = useNavigate();
-  async function handleClickRiding() {
-    const res = await startRidingApi();
-    if (res === 200) {
-      navigate('/riding');
-    }
-  }
   return (
     <div className="h-screen bg-gradient-to-b from-customColor from-0% to-white to-35%">
       <div className="h-auto min-h-screen">
@@ -62,19 +53,15 @@ function HomePage() {
                   <Compass />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
-                주행
-              </div>
+              <div className="text-black text-sm hover:underline">주행</div>
             </div>
             <div className="flex flex-col gap-y-2 items-center">
-              <Link to="/bicycle">
+              <Link to="/management">
                 <div className="p-3 rounded-lg bg-white shadow-lg">
                   <Record />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
-                관리
-              </div>
+              <div className="text-black text-sm hover:underline">관리</div>
             </div>
             <div className="flex flex-col gap-y-2 items-center">
               <Link to="/mypage/record">
@@ -82,9 +69,7 @@ function HomePage() {
                   <Setting />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
-                주행기록
-              </div>
+              <div className="text-black text-sm hover:underline">주행기록</div>
             </div>
             <div className="flex flex-col gap-y-2 items-center">
               <Link to="/mypage">
@@ -92,9 +77,7 @@ function HomePage() {
                   <User />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
-                마이페이지
-              </div>
+              <div className="text-black text-sm hover:underline">마이페이지</div>
             </div>
           </div>
         </div>
