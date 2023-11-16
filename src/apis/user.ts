@@ -6,7 +6,6 @@ import { handleApiError } from './errorHandling';
 export const LoginApi = async (params: LoginType) => {
   try {
     const response = await member_request.post(`/member/login`, params);
-    localStorage.setItem('token', response.data.token);
     return response.data;
   } catch (error) {
     return handleApiError(error);

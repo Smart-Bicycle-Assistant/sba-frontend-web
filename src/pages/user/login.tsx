@@ -24,6 +24,7 @@ function LoginPage() {
       console.log(res);
       if (res.message === 'OK') {
         setToken(res.data.token);
+        localStorage.setItem('token', res.data.token);
         setUser({
           id: res.data.id,
           email: res.data.email,
