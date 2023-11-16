@@ -66,4 +66,12 @@ export const ChangePasswordApi = async ({
   }
 };
 
+export const WithdrawApi = async () => {
+  try {
+    const response = await member_request.delete("/delete");
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
 //todo : 로그아웃 구현

@@ -41,6 +41,5 @@ export const useMainBike = create<MainBike>((set) => ({
   main: 0,
   setMain: (bicycleId: number) => {
     set(() => ({ main: bicycleId }));
-    // todo: 그냥 여기다 메인 자전거 지정 api 연결?
   },
 }));

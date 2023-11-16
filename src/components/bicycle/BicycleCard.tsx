@@ -20,7 +20,6 @@ function BicycleCard({
           className="w-12 h-12 mt-3 bg-gray-100 rounded-full"
           onClick={() => {
             setMain(bicycleId);
-            //todo: 메인 자전거 지정 api 연결
           }}
         />
         <div className="mt-2 ml-4">

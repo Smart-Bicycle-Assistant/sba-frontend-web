@@ -1,12 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/common/Header";
 import { useUser } from "../../store/userStore";
+import { WithdrawApi } from "../../apis/user";
 
 export const Withdraw: React.FC = () => {
   const { nickname } = useUser();
   const navigate = useNavigate();
 
   // todo 회원탈퇴 api 연결하기
+
+  async function handleWithdraw() {
+    const res = await WithdrawApi();
+    if (res.status == 200) {
+      alert("회원탈퇴 완료");
+      navigate("/");
+    }
+    
+  }
 
   return (
     <div>
@@ -33,7 +43,7 @@ export const Withdraw: React.FC = () => {
         <button
           className="text-white py-2.5 px-4 rounded-lg w-full bg-customColor"
           onClick={() => {
-            navigate("/");
+            handleWithdraw();
           }}
         >
           탈퇴하기
