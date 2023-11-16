@@ -49,14 +49,14 @@ const RidingPage: React.FC = () => {
   const handlePackRiding = async (
     latitude: number,
     longitude: number,
-    _packMode: boolean,
+    packMode: boolean,
     curSpeed: number | null
   ): Promise<LocationData[]> => {
     const res = await RidingLocationApi({
       longitude,
       latitude,
-      packMode: true,
-      targetSpeed: 30,
+      packMode,
+      targetSpeed,
       curSpeed: curSpeed,
     });
     // todo : 임시로 넣은 값 제거하기
@@ -78,10 +78,10 @@ const RidingPage: React.FC = () => {
 
   useEffect(() => {
     setMapCenter([latitude, longitude + 0.004]);
-    const res = handlePackRiding(latitude, longitude, packMode, targetSpeed);
+    const res = handlePackRiding(latitude, longitude, packMode, speed);
     console.log(res);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [latitude, longitude, packMode, targetSpeed]);
+  }, [latitude, longitude, speed, packMode, targetSpeed]);
 
   const timer = (startTime: Date) => {
     const currentTime = new Date();
