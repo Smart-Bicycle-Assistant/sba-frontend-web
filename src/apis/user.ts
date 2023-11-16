@@ -1,25 +1,30 @@
-import member_request from "./request";
-import { LoginType, RegisterType } from "../types";
-import axios from "axios";
-import { useUser } from "../store/userStore";
-import { handleApiError } from "./errorHandling";
+import member_request from './request';
+import request from './request';
+import { LoginType, RegisterType } from '../types';
+import { handleApiError } from './errorHandling';
 
 export const LoginApi = async (params: LoginType) => {
   try {
     const response = await member_request.post(`/member/login`, params);
-    const { jwt } = useUser.getState();
-    if (jwt) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-    }
+    localStorage.setItem('token', response.data.token);
     return response.data;
   } catch (error) {
     return handleApiError(error);
   }
 };
 
+export const RefreshApi = async () => {
+  try {
+    const res = await request.get(`/member/get_user_info`);
+    return res.data;
+  } catch (err) {
+    return handleApiError(err);
+  }
+};
+
 export const RegisterApi = async (params: RegisterType) => {
   try {
-    const response = await member_request.post("/member/register", params);
+    const response = await member_request.post('/member/register', params);
     return response.data;
   } catch (error) {
     return handleApiError(error);
@@ -55,7 +60,7 @@ export const ChangePasswordApi = async ({
   newPassword: string;
 }) => {
   try {
-    const response = await member_request.post("/member/change_password", {
+    const response = await member_request.post('/member/change_password', {
       id,
       password,
       newPassword,
@@ -68,7 +73,7 @@ export const ChangePasswordApi = async ({
 
 export const WithdrawApi = async () => {
   try {
-    const response = await member_request.delete("/delete");
+    const response = await member_request.delete('/delete');
     return response.data;
   } catch (error) {
     handleApiError(error);

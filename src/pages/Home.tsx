@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useUser } from '../store/userStore';
 
 import Sample from '../assets/sample.png';
 import Logo from '../assets/logo-white.svg?react';
@@ -8,6 +9,13 @@ import Setting from '../assets/setting.svg?react';
 import User from '../assets/user.svg?react';
 
 function HomePage() {
+  const { isLoggedIn, setLoggedOut } = useUser((state) => state);
+
+  const handleSignOut = () => {
+    localStorage.clear();
+    setLoggedOut();
+  };
+
   return (
     <div className="h-screen bg-gradient-to-b from-customColor from-0% to-white to-35%">
       <div className="h-auto min-h-screen">
@@ -19,18 +27,34 @@ function HomePage() {
               </div>
               <div className="text-2xl font-bold text-white">S-BA</div>
             </div>
-            <div className="flex gap-x-2">
-              <Link to="/login">
-                <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
-                  로그인
+            {isLoggedIn ? (
+              <div className="flex gap-x-2">
+                <button
+                  className="border rounded-full px-2 py-1 text-white text-sm hover:underline"
+                  onClick={handleSignOut}
+                >
+                  로그아웃
                 </button>
-              </Link>
-              <Link to="/register/terms">
-                <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
-                  회원가입
-                </button>
-              </Link>
-            </div>
+                <Link to="/mypage">
+                  <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                    회원가입
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-2">
+                <Link to="/login">
+                  <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                    로그인
+                  </button>
+                </Link>
+                <Link to="/register/terms">
+                  <button className="flex items-center text-white">
+                    <User stroke="#FFFFFF" />
+                  </button>
+                </Link>
+              </div>
+            )}
           </div>
           <div className="mb-10 p-8 bg-white rounded-3xl shadow-lg">
             <div className="flex gap-x-2">
@@ -74,7 +98,7 @@ function HomePage() {
             <div className="flex flex-col gap-y-2 items-center">
               <Link to="/mypage">
                 <div className="p-3 rounded-lg bg-white shadow-lg">
-                  <User />
+                  <User stroke="#333333" />
                 </div>
               </Link>
               <div className="text-black text-sm hover:underline">마이페이지</div>

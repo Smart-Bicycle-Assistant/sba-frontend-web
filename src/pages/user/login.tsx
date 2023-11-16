@@ -4,13 +4,15 @@ import Header from '../../components/common/Header';
 import { useUser } from '../../store/userStore';
 import { Link, useNavigate } from 'react-router-dom';
 import { LoginApi } from '../../apis/user';
+import { useToken } from '../../store/tokenStore';
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
   const { value: password, onChange: onPasswordChange, setValue: setPassword } = useInput();
   const navigate = useNavigate();
 
-  const { setUser } = useUser();
+  const { setUser, setLoggedIn } = useUser();
+  const { setToken } = useToken();
 
   const onSubmit = async () => {
     if (id === '' || password === '') {
@@ -21,12 +23,13 @@ function LoginPage() {
       const res = await LoginApi({ id, password });
       console.log(res);
       if (res.message === 'OK') {
+        setToken(res.data.token);
         setUser({
           id: res.data.id,
           email: res.data.email,
           nickname: res.data.nickname,
-          jwt: res.data.token,
         });
+        setLoggedIn();
         navigate('/');
         console.log(res);
       }

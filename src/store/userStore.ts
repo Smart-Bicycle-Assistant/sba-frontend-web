@@ -1,35 +1,37 @@
 // src/store/userStore.ts
 
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface User {
   id: string;
   email: string;
   nickname: string;
-  jwt: string;
+  isLoggedIn: boolean;
   setUser: (user: userProps) => void;
+  setLoggedIn: () => void;
+  setLoggedOut: () => void;
 }
 
 export const useUser = create<User>((set) => ({
-  id: "",
-  email: "",
-  nickname: "",
-  jwt: "",
+  id: '',
+  email: '',
+  nickname: '',
+  isLoggedIn: false,
   setUser: (user: userProps) => {
     set(() => ({
       id: user.id,
       email: user.email,
       nickname: user.nickname,
-      jwt: user.jwt,
     }));
   },
+  setLoggedIn: () => set(() => ({ isLoggedIn: true })),
+  setLoggedOut: () => set(() => ({ isLoggedIn: false })),
 }));
 
 interface userProps {
   id: string;
   email: string;
   nickname: string;
-  jwt: string;
 }
 
 interface MainBike {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useUser } from '../store/userStore';
+import { useToken } from '../store/tokenStore';
 const SERVER_URL = import.meta.env.VITE_SERVER_API;
 
 const request = axios.create({
@@ -10,7 +10,7 @@ const request = axios.create({
 });
 
 request.interceptors.request.use(async (config) => {
-  const { jwt } = useUser.getState();
+  const { jwt } = useToken.getState();
   if (jwt) {
     config.headers['Authorization'] = `Bearer ${jwt}`;
   }

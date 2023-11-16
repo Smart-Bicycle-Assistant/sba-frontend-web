@@ -1,6 +1,5 @@
-import request from "./request";
-import { useUser } from "../store/userStore";
-import { handleApiError } from "./errorHandling";
+import request from './request';
+import { handleApiError } from './errorHandling';
 
 export type BicycleRegistrationType = {
   name: string;
@@ -13,10 +12,8 @@ export const BicycleRegistrationApi = async ({
   image,
   registerTime,
 }: BicycleRegistrationType) => {
-  const id = useUser.getState().id || "test2";
   try {
-    const response = await request.post("/management_record/register_bicycle", {
-      ownerId: id,
+    const response = await request.post('/management_record/register_bicycle', {
       bicycleName: name,
       bicycleImage: image,
       registerTime: registerTime,
@@ -28,7 +25,6 @@ export const BicycleRegistrationApi = async ({
 };
 
 export type ManagementType = {
-  memberId?: string;
   bicycleId: number;
   frontTire: number;
   rearTire: number;
@@ -41,10 +37,8 @@ export type ManagementType = {
 };
 
 export const BicycleManagementApi = async (params: ManagementType) => {
-  const id = useUser.getState().id || "";
-  params.memberId = id;
   try {
-    const response = await request.post("/management_record/post", params);
+    const response = await request.post('/management_record/post', params);
     return response.data;
   } catch (error) {
     return handleApiError(error);
@@ -53,7 +47,7 @@ export const BicycleManagementApi = async (params: ManagementType) => {
 
 export const GetBicycleListApi = async () => {
   try {
-    const response = await request.get("/management_record/get_bicycle_list");
+    const response = await request.get('/management_record/get_bicycle_list');
     return response.data;
   } catch (error) {
     return handleApiError(error);
@@ -62,9 +56,7 @@ export const GetBicycleListApi = async () => {
 
 export const BicycleManageListApi = async (bicycleNo: number) => {
   try {
-    const response = await request.get(
-      `/management_record/whole_list?bicycleId=${bicycleNo}`
-    );
+    const response = await request.get(`/management_record/whole_list?bicycleId=${bicycleNo}`);
     return response.data;
   } catch (error) {
     return handleApiError(error);

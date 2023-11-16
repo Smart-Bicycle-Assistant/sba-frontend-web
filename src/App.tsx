@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
@@ -24,7 +25,10 @@ import {
   ResetPassword,
 } from './pages';
 
+import { useUser } from './store/userStore';
+import { useToken } from './store/tokenStore';
 import { useLocationStore } from '../src/store/locationStore';
+import { RefreshApi } from './apis/user';
 
 const ROUTER = createBrowserRouter([
   {
@@ -130,6 +134,33 @@ const ROUTER = createBrowserRouter([
 ]);
 
 function App() {
+  const { setUser, setLoggedIn } = useUser((state) => state);
+  const { setToken } = useToken((state) => state);
+
+  useEffect(() => {
+    const refreshData = async () => {
+      if (localStorage.getItem('token') === null) {
+        return;
+      }
+
+      setToken(localStorage.getItem('token') as string);
+
+      const res = await RefreshApi();
+
+      if (res.message === 'OK') {
+        setUser({
+          id: res.data.id,
+          email: res.data.email,
+          nickname: res.data.nickname,
+        });
+
+        setLoggedIn();
+      }
+    };
+
+    refreshData();
+  }, []);
+
   const { setLocation, setMaxSpeed } = useLocationStore();
 
   function handleMessage(e: { data: string }) {
