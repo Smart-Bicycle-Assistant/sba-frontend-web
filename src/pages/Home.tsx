@@ -116,11 +116,12 @@ function HomePage() {
           </div>
           <div className="mb-5">
             <swiper-container init={false} ref={swiperRef} pagination={true}>
-              {bicycleList.map((bicycle, index) => (
-                <swiper-slide>
-                  <BicycleSwiper bicycle={bicycle} activeIndex={activeIndex} index={index} />
-                </swiper-slide>
-              ))}
+              {bicycleList &&
+                bicycleList.map((bicycle, index) => (
+                  <swiper-slide>
+                    <BicycleSwiper bicycle={bicycle} activeIndex={activeIndex} index={index} />
+                  </swiper-slide>
+                ))}
             </swiper-container>
           </div>
           <div className="flex justify-between">
