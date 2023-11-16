@@ -1,4 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import BicycleSwiper from '../components/common/BicycleSwiper';
 
 import { useRef, useState } from 'react';
@@ -9,6 +11,7 @@ import { useEffect } from 'react';
 import { BicycleType } from '../types';
 
 import { register } from 'swiper/element/bundle';
+import { Swiper } from 'swiper/types';
 
 import Logo from '../assets/logo-white.svg?react';
 import Compass from '../assets/compass.svg?react';
@@ -18,6 +21,7 @@ import User from '../assets/user.svg?react';
 
 function HomePage() {
   const [bicycleList, setBicycleList] = useState<BicycleType[]>([]);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const swiperRef = useRef<any>(null);
 
@@ -33,38 +37,40 @@ function HomePage() {
 
   async function getBicycle() {
     const res = await GetBicycleListApi();
-
     setBicycleList(res.data);
     setMain(res.data[0].bicycleId);
   }
 
   useEffect(() => {
-    register();
+    const fetchData = async () => {
+      await getBicycle();
+      swiperRef.current.initialize(); // Initialize swiper after fetching data
+    };
 
-    swiperRef.current.addEventListener('swiperslidechange', (e: CustomEvent) => {
-      console.log(e.detail);
-    });
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    register();
 
     const params = {
       slidesPerView: 1,
       spaceBetween: 30,
       on: {
-        slideChange() {
-          console.log('Slide Change');
+        slideChange(e: Swiper) {
+          setActiveIndex(e.activeIndex);
         },
       },
     };
 
     Object.assign(swiperRef.current, params);
+  }, [bicycleList]);
 
-    swiperRef.current.initialize();
-
-    if (!main) {
-      getBicycle();
+  useEffect(() => {
+    if (bicycleList[activeIndex]?.bicycleId) {
+      setMain(bicycleList[activeIndex].bicycleId);
     }
-  }, []);
-
-  //todo: 홈 화면 로딩 시 메인 자전거 임의 지정. 추후 제거 필요
+  }, [activeIndex]);
 
   return (
     <div className="h-screen bg-gradient-to-b from-customColor from-0% to-white to-35%">
@@ -109,10 +115,10 @@ function HomePage() {
             )}
           </div>
           <div className="mb-5">
-            <swiper-container ref={swiperRef} pagination={true}>
+            <swiper-container init={false} ref={swiperRef} pagination={true}>
               {bicycleList.map((bicycle, index) => (
                 <swiper-slide>
-                  <BicycleSwiper bicycle={bicycle} index={index} />
+                  <BicycleSwiper bicycle={bicycle} activeIndex={activeIndex} index={index} />
                 </swiper-slide>
               ))}
             </swiper-container>

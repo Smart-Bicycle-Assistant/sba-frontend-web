@@ -4,15 +4,18 @@ import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import RecordComponent from '../../components/mypage/RecordComponent';
 
+import { useMainBike } from '../../store/userStore';
 import { RecordListApi } from '../../apis/myPage';
 import { RecordComponentType } from '../../types';
 
 const MyPageRecordAll: React.FC = () => {
   const [recordList, setRecordList] = useState<RecordComponentType[]>([]);
 
+  const { main } = useMainBike();
+
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await RecordListApi(26);
+      const res = await RecordListApi(main);
       console.log(res);
       setRecordList(res.data);
     };

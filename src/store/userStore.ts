@@ -1,6 +1,7 @@
 // src/store/userStore.ts
 
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware';
 
 interface User {
   id: string;
@@ -39,9 +40,11 @@ interface MainBike {
   setMain: (main: number) => void;
 }
 
-export const useMainBike = create<MainBike>((set) => ({
-  main: 0,
-  setMain: (bicycleId: number) => {
-    set(() => ({ main: bicycleId }));
-  },
-}));
+export const useMainBike = create<MainBike>()(
+  devtools((set) => ({
+    main: 0,
+    setMain: (bicycleId: number) => {
+      set(() => ({ main: bicycleId }));
+    },
+  }))
+);

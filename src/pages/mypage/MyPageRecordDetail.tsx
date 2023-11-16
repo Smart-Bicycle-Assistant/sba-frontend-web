@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import { RecordOneApi } from '../../apis/myPage';
+import { useMainBike } from '../../store/userStore';
 import { formatToTwoDecimals, formatSpeed } from '../../utils/format';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import Chart from 'react-apexcharts';
@@ -26,7 +27,9 @@ const MyPageRecordDetail: React.FC = () => {
   const [geometryData, setGeometryData] = useState<[number, number][]>([]);
   const [speedData, setSpeedData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<string[]>([]);
+
   const { recordNo } = useParams();
+  const { main } = useMainBike();
 
   const calculateXAxis = (ridingDuration: number) => {
     let unit = '';
@@ -106,7 +109,7 @@ const MyPageRecordDetail: React.FC = () => {
 
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await RecordOneApi({ bicycleId: 26, recordId: Number(recordNo) });
+      const res = await RecordOneApi({ bicycleId: main, recordId: Number(recordNo) });
       setRecordData(res.data);
       setGeometryData(
         JSON.parse(res.data.map).map((el: { latitude: number; longitude: number }) => [
