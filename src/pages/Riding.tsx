@@ -1,19 +1,13 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import { useLocationStore } from "../store/locationStore";
-import { useRidingStore } from "../store/ridingStore";
-import { useEffect, useState } from "react";
-import { CustomMarker, redMarker } from "../components/common/CustomMarker";
-import { calculateDistance } from "../utils/riding";
-import { RidingLocationApi, postRidingRecordApi } from "../apis/riding";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-  Tooltip,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocationStore } from '../store/locationStore';
+import { useRidingStore } from '../store/ridingStore';
+import { useEffect, useState } from 'react';
+import { CustomMarker, redMarker } from '../components/common/CustomMarker';
+import { calculateDistance } from '../utils/riding';
+import { formatToTwoDecimals, formatSpeed } from '../utils/format';
+import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 interface LocationData {
   nickname: string;
@@ -38,10 +32,7 @@ const RidingPage: React.FC = () => {
     Number(state.currentCoord[1]),
   ]);
   const [distance, setDistance] = useState<number>(0);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([
-    latitude,
-    longitude + 0.004,
-  ]);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([latitude, longitude + 0.004]);
   const [time, setTime] = useState<[number, number]>([0, 0]);
 
   const navigate = useNavigate();
@@ -96,8 +87,7 @@ const RidingPage: React.FC = () => {
 
   const getDistance = () => {
     return setDistance(
-      distance +
-        calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1])
+      distance + calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1])
     );
   };
 
@@ -111,8 +101,8 @@ const RidingPage: React.FC = () => {
       });
 
       if (res.status === 200) {
-        console.log("Complete");
-        navigate("/");
+        console.log('Complete');
+        navigate('/');
       }
     } catch (err) {
       console.log(err);
@@ -121,17 +111,11 @@ const RidingPage: React.FC = () => {
 
   return (
     <div>
-      <div>
-        <p>Latitude: {latitude}</p>
-        <p>Longtitude: {longitude}</p>
-        <p>prevCoord: {(prevCoord[0], prevCoord[1])}</p>
-        <p>distance: {distance}</p>
-      </div>
       <div className="flex w-full h-screen">
         <div className="static w-full">
           <MapContainer
             style={{
-              position: "static",
+              position: 'static',
               width: `100vw`,
               height: `100vh`,
               zIndex: 0,
@@ -159,14 +143,14 @@ const RidingPage: React.FC = () => {
                     position={[marker.latitude, marker.longitude]}
                     icon={CustomMarker}
                   >
-                    <Tooltip permanent>
+                    <Tooltip direction="top" offset={[25, 20]} permanent>
                       <span>{marker.nickname}</span>
                     </Tooltip>
                   </Marker>
                 </div>
               ))}
 
-            {state && <Polyline positions={state.geometry} color={"#0064FF"} />}
+            {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
           <div className="absolute top-0 flex items-center justify-center w-1/2 h-screen left-1/2">
@@ -176,15 +160,11 @@ const RidingPage: React.FC = () => {
                   <div>
                     <div className="flex flex-col justify-between px-4 py-3 bg-white rounded-lg gap-y-3">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          speed
-                        </span>
+                        <span className="text-xl material-symbols-outlined">speed</span>
                         <p className="text-sm">현재속도</p>
                       </div>
                       <div className="flex items-end gap-x-1">
-                        <p className="font-semibold text-red-500 text-7xl">
-                          {Math.round(speed * 3.6)}
-                        </p>
+                        <p className="font-semibold text-red-500 text-7xl">{speed * 3.6}</p>
                         <p className="pb-3 text-base text-gray-light">km/h</p>
                       </div>
                     </div>
@@ -194,7 +174,7 @@ const RidingPage: React.FC = () => {
                       </div>
                       <div className="flex items-center gap-x-1">
                         <p className="text-2xl font-semibold text-gray-dark">
-                          {Math.round(maxSpeed * 3.6)}
+                          {formatToTwoDecimals(formatSpeed(maxSpeed * 3.6))}
                         </p>
                         <p className="text-sm text-gray-light">km/h</p>
                       </div>
@@ -203,15 +183,13 @@ const RidingPage: React.FC = () => {
                   <div className="flex flex-col justify-center bg-white rounded-lg">
                     <div className="flex flex-col justify-center px-4 py-3 text-sm">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          directions_bike
-                        </span>
+                        <span className="text-xl material-symbols-outlined">directions_bike</span>
                         <p className="text-sm">주행거리</p>
                       </div>
                       <div>
                         <div className="flex items-center gap-x-1">
                           <p className="text-2xl font-semibold text-gray-dark">
-                            {Math.round(distance * 100) / 100}
+                            {formatToTwoDecimals(distance)}
                           </p>
                           <p className="text-sm text-gray-light">km</p>
                         </div>
@@ -219,9 +197,7 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex flex-col justify-center px-4 pb-3 text-sm">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          schedule
-                        </span>
+                        <span className="text-xl material-symbols-outlined">schedule</span>
                         <p className="text-sm">주행시간</p>
                       </div>
                       <div>
@@ -252,11 +228,7 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          value=""
-                          className="sr-only peer"
-                        />
+                        <input type="checkbox" value="" className="sr-only peer" />
                         <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                       </label>
                     </div>
@@ -272,11 +244,7 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          value=""
-                          className="sr-only peer"
-                        />
+                        <input type="checkbox" value="" className="sr-only peer" />
                         <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                       </label>
                     </div>
@@ -291,9 +259,7 @@ const RidingPage: React.FC = () => {
                     className="flex items-center justify-center w-full py-2 bg-red-500 gap-x-1 rounded-2xl drop-shadow-lg"
                     onClick={ridingStop}
                   >
-                    <span className="text-lg text-white material-symbols-outlined">
-                      cancel
-                    </span>
+                    <span className="text-lg text-white material-symbols-outlined">cancel</span>
                     <p className="text-sm font-semibold text-white">주행종료</p>
                   </button>
                 </div>

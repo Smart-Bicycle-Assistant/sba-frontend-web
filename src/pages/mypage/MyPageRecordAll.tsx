@@ -12,7 +12,7 @@ const MyPageRecordAll: React.FC = () => {
 
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await RecordListApi(25);
+      const res = await RecordListApi(26);
       console.log(res);
       setRecordList(res.data);
     };

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { RecordListType } from '../../types';
+import { formatDuration } from '../../utils/format';
 
 type MyPageRecordDetailProps = {
   data: RecordListType;
@@ -7,11 +8,11 @@ type MyPageRecordDetailProps = {
 
 const handleRidingDuration = (ridingDuration: number) => {
   if (ridingDuration > 3600000) {
-    return <span>{Math.round((ridingDuration / (1000 * 60 * 60)) * 100) / 100}시간</span>;
+    return <span>{formatDuration(ridingDuration, 1000 * 60 * 60, '시간')}</span>;
   } else if (ridingDuration > 60000) {
-    return <span>{Math.round((ridingDuration / (1000 * 60)) * 100) / 100}분</span>;
+    return <span>{formatDuration(ridingDuration, 1000 * 60, '분')}</span>;
   } else {
-    return <span>{Math.round((ridingDuration / 1000) * 100) / 100}초</span>;
+    return <span>{formatDuration(ridingDuration, 1000, '초')}</span>;
   }
 };
 
@@ -34,7 +35,7 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
           <div className="flex gap-x-2">
             <p className="text-neutral-500">주행</p>
             <p>
-              총 {handleRidingDuration(ridingDuration)}, {ridingDistance}km
+              총 {handleRidingDuration(ridingDuration)}, {Math.round(ridingDistance * 100) / 100}km
             </p>
           </div>
         </div>

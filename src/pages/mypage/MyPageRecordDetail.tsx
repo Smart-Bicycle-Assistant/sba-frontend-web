@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import { RecordOneApi } from '../../apis/myPage';
+import { formatToTwoDecimals, formatSpeed } from '../../utils/format';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import Chart from 'react-apexcharts';
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
@@ -23,21 +24,58 @@ type RecordDetailType = {
 const MyPageRecordDetail: React.FC = () => {
   const [recordData, setRecordData] = useState<RecordDetailType>();
   const [geometryData, setGeometryData] = useState<[number, number][]>([]);
+  const [speedData, setSpeedData] = useState<number[]>([]);
+  const [xAxis, setXAxis] = useState<string[]>([]);
   const { recordNo } = useParams();
+
+  const calculateXAxis = (ridingDuration: number) => {
+    let unit = '';
+    let divisor = 0;
+
+    if (ridingDuration > 3600000) {
+      unit = '시간';
+      divisor = 1000 * 60 * 60;
+    } else if (ridingDuration > 60000) {
+      unit = '분';
+      divisor = 1000 * 60;
+    } else {
+      unit = '초';
+      divisor = 1000;
+    }
+
+    const interval = formatToTwoDecimals(ridingDuration / divisor) / 7;
+
+    return Array.from(
+      { length: 7 },
+      (_, index) => String(formatToTwoDecimals((index + 1) * interval)) + unit
+    );
+  };
+
+  const calculateSpeed = (speed: number[]) => {
+    const interval = speed.length / 7;
+
+    const sliceSpeed = Array.from({ length: 7 }, (_, index) =>
+      speed.slice(index * interval, (index + 1) * interval)
+    );
+
+    return sliceSpeed.map(
+      (speedArr) => speedArr.reduce((total, curr) => total + curr, 0) / interval
+    );
+  };
 
   const chartState = {
     series: [
       {
         name: '주행 거리',
-        data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        data: [10, 41, 35, 51, 49, 62, 69],
       },
       {
         name: '속도',
-        data: [50, 48, 51, 53, 45, 40, 34, 56, 60],
+        data: speedData,
       },
       {
         name: '평균 속도',
-        data: [49, 49, 50, 48, 50, 50, 49, 50, 51],
+        data: [49, 49, 50, 48, 50, 50, 49],
       },
     ],
     options: {
@@ -61,14 +99,14 @@ const MyPageRecordDetail: React.FC = () => {
         },
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        categories: xAxis,
       },
     },
   };
 
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await RecordOneApi({ bicycleId: 25, recordId: Number(recordNo) });
+      const res = await RecordOneApi({ bicycleId: 26, recordId: Number(recordNo) });
       setRecordData(res.data);
       setGeometryData(
         JSON.parse(res.data.map).map((el: { latitude: number; longitude: number }) => [
@@ -76,6 +114,8 @@ const MyPageRecordDetail: React.FC = () => {
           el.longitude,
         ])
       );
+      setSpeedData(calculateSpeed(JSON.parse(res.data.listSpeed)));
+      setXAxis(calculateXAxis(res.data.ridingDuration));
     };
 
     loadRecordList();
@@ -110,6 +150,9 @@ const MyPageRecordDetail: React.FC = () => {
                 </div>
                 <div>
                   <p className="text-xl font-semibold">2023년 8월 15일 주행 기록</p>
+                </div>
+                <div>
+                  <button onClick={() => calculateSpeed(speedData)}>버튼</button>
                 </div>
               </div>
               <div>
@@ -175,19 +218,19 @@ const MyPageRecordDetail: React.FC = () => {
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       주행 거리
                     </p>
-                    <p>{recordData.distance}km</p>
+                    <p>{formatToTwoDecimals(recordData.distance)}km</p>
                   </div>
                   <div className="flex items-center gap-x-4 p-4 bg-primary-100 rounded-lg shadow-sm text-sm">
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       최대 속도
                     </p>
-                    <p>{recordData.maxSpeed}km/h</p>
+                    <p>{formatToTwoDecimals(formatSpeed(recordData.maxSpeed))}km/h</p>
                   </div>
                   <div className="flex items-center gap-x-4 p-4 bg-primary-100 rounded-lg shadow-sm text-sm">
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       평균 속도
                     </p>
-                    <p>{recordData.avgSpeed}km/h</p>
+                    <p>{formatToTwoDecimals(recordData.avgSpeed)}km/h</p>
                   </div>
                 </div>
               </div>

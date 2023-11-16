@@ -1,7 +1,7 @@
-import { PackRidingType } from "../types";
-import { handleApiError } from "./errorHandling";
-import { useMainBike } from "../store/userStore";
-import request from "./request";
+import { PackRidingType } from '../types';
+import { handleApiError } from './errorHandling';
+import { useMainBike } from '../store/userStore';
+import request from './request';
 
 export type RidingRecordType = {
   ridingTime: string;
@@ -37,11 +37,11 @@ export const postRidingRecordApi = async ({
   ridingDuration,
 }: RidingRecordType) => {
   try {
-    const response = await request.post("/riding_record/post", {
+    const response = await request.post('/riding_record/post', {
       bicycleId: useMainBike.getState().main,
       ridingTime: Number(ridingTime),
       distance: distance,
-      avgSpeed: 30,
+      avgSpeed: distance / Number(ridingDuration),
       maxSpeed: maxSpeed,
       ridingDuration: Number(ridingDuration),
     });
