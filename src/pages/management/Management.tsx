@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { Bicycle, ManagementStatus, BicycleStatus } from "../../types";
 import DownArrowIcon from "../../assets/DownArrowIcon";
 import PartStatusDisplay from "../../components/management/PartStatusDisplay";
-import RightArrow from "../../assets/rightArrow.svg?react";
 
 const Management = () => {
   const { state } = useLocation();
