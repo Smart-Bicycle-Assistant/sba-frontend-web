@@ -151,9 +151,6 @@ const MyPageRecordDetail: React.FC = () => {
                 <div>
                   <p className="text-xl font-semibold">2023년 8월 15일 주행 기록</p>
                 </div>
-                <div>
-                  <button onClick={() => calculateSpeed(speedData)}>버튼</button>
-                </div>
               </div>
               <div>
                 <p className="pb-4 font-semibold">경로 다시보기</p>

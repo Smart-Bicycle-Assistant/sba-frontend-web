@@ -23,6 +23,14 @@ export type BicycleCardProps = {
   image: string;
 };
 
+export type BicycleType = {
+  bicycleId: number;
+  bicycleImage: string;
+  bicycleName: string;
+  distance: number;
+  registerTime: number;
+};
+
 export type AddressType = {
   label: string;
   x: number;

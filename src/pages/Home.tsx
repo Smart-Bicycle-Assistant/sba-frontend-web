@@ -1,32 +1,64 @@
-import { Link } from "react-router-dom";
-import { useUser } from "../store/userStore";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import BicycleSwiper from '../components/common/BicycleSwiper';
 
-import Sample from "../assets/sample.png";
-import Logo from "../assets/logo-white.svg?react";
-import Compass from "../assets/compass.svg?react";
-import Record from "../assets/record.svg?react";
-import Setting from "../assets/setting.svg?react";
-import User from "../assets/user.svg?react";
-import { GetBicycleListApi } from "../apis/bicycle";
-import { useEffect } from "react";
-import { useMainBike } from "../store/userStore";
-import { useNavigate } from "react-router-dom";
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser, useMainBike } from '../store/userStore';
+import { GetBicycleListApi } from '../apis/bicycle';
+import { useEffect } from 'react';
+import { BicycleType } from '../types';
+
+import { register } from 'swiper/element/bundle';
+
+import Logo from '../assets/logo-white.svg?react';
+import Compass from '../assets/compass.svg?react';
+import Record from '../assets/record.svg?react';
+import Setting from '../assets/setting.svg?react';
+import User from '../assets/user.svg?react';
 
 function HomePage() {
+  const [bicycleList, setBicycleList] = useState<BicycleType[]>([]);
+
+  const swiperRef = useRef<any>(null);
+
+  const { main, setMain } = useMainBike((state) => state);
   const { isLoggedIn, setLoggedOut } = useUser((state) => state);
+
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.clear();
     setLoggedOut();
   };
-  const { main, setMain } = useMainBike();
+
   async function getBicycle() {
     const res = await GetBicycleListApi();
+
+    setBicycleList(res.data);
     setMain(res.data[0].bicycleId);
   }
-  const navigate = useNavigate();
 
   useEffect(() => {
+    register();
+
+    swiperRef.current.addEventListener('swiperslidechange', (e: CustomEvent) => {
+      console.log(e.detail);
+    });
+
+    const params = {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      on: {
+        slideChange() {
+          console.log('Slide Change');
+        },
+      },
+    };
+
+    Object.assign(swiperRef.current, params);
+
+    swiperRef.current.initialize();
+
     if (!main) {
       getBicycle();
     }
@@ -76,19 +108,14 @@ function HomePage() {
               </div>
             )}
           </div>
-          <div className="p-8 mb-10 bg-white shadow-lg rounded-3xl">
-            <div className="flex gap-x-2">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">
-                <p className="text-sm font-semibold text-primary-default">1</p>
-              </div>
-              <div className="flex items-center justify-center px-2 border rounded-full border-rose-500">
-                <p className="text-sm font-semibold text-rose-500">메인</p>
-              </div>
-            </div>
-            <div className="py-4 text-xl font-semibold">자전거 이름 필드</div>
-            <div className="flex justify-center py-16">
-              <img src={Sample} alt="main"></img>
-            </div>
+          <div className="mb-5">
+            <swiper-container ref={swiperRef} pagination={true}>
+              {bicycleList.map((bicycle, index) => (
+                <swiper-slide>
+                  <BicycleSwiper bicycle={bicycle} index={index} />
+                </swiper-slide>
+              ))}
+            </swiper-container>
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col items-center gap-y-2">
@@ -103,12 +130,11 @@ function HomePage() {
               <div
                 className="p-3 bg-white rounded-lg shadow-lg"
                 onClick={() => {
-                  navigate("/management", { state: main });
+                  navigate('/management', { state: main });
                 }}
               >
                 <Record />
               </div>
-
               <div className="text-sm text-black hover:underline">관리</div>
             </div>
             <div className="flex flex-col items-center gap-y-2">
@@ -125,9 +151,7 @@ function HomePage() {
                   <User stroke="#333333" />
                 </div>
               </Link>
-              <div className="text-sm text-black hover:underline">
-                마이페이지
-              </div>
+              <div className="text-sm text-black hover:underline">마이페이지</div>
             </div>
           </div>
         </div>
