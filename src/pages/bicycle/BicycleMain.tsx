@@ -20,13 +20,9 @@ function BicycleMain() {
   }, []);
 
   async function getBicycle() {
-    try {
-      const res = await GetBicycleListApi();
-      console.log(res.data);
-      setBicycles(res.data);
-    } catch (error) {
-      console.error("Error fetching bicycle data:", error);
-    }
+    const res = await GetBicycleListApi();
+    console.log(res.data);
+    setBicycles(res.data);
   }
 
   return (

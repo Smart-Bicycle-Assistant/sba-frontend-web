@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useUser } from '../store/userStore';
 
-import Sample from '../assets/sample.png';
-import Logo from '../assets/logo-white.svg?react';
-import Compass from '../assets/compass.svg?react';
-import Record from '../assets/record.svg?react';
-import Setting from '../assets/setting.svg?react';
-import User from '../assets/user.svg?react';
+import Sample from "../assets/sample.png";
+import Logo from "../assets/logo-white.svg?react";
+import Compass from "../assets/compass.svg?react";
+import Record from "../assets/record.svg?react";
+import Setting from "../assets/setting.svg?react";
+import User from "../assets/user.svg?react";
+import { GetBicycleListApi } from "../apis/bicycle";
+import { useEffect } from "react";
+import { useMainBike } from "../store/userStore";
 
 function HomePage() {
   const { isLoggedIn, setLoggedOut } = useUser((state) => state);
@@ -15,6 +18,19 @@ function HomePage() {
     localStorage.clear();
     setLoggedOut();
   };
+  const { main, setMain } = useMainBike();
+  async function getBicycle() {
+    const res = await GetBicycleListApi();
+    setMain(res.data[0].bicycleId);
+  }
+
+  useEffect(() => {
+    if (!main) {
+      getBicycle();
+    }
+  }, []);
+
+  //todo: 홈 화면 로딩 시 메인 자전거 임의 지정. 추후 제거 필요
 
   return (
     <div className="h-screen bg-gradient-to-b from-customColor from-0% to-white to-35%">
@@ -30,13 +46,13 @@ function HomePage() {
             {isLoggedIn ? (
               <div className="flex gap-x-2">
                 <button
-                  className="border rounded-full px-2 py-1 text-white text-sm hover:underline"
+                  className="px-2 py-1 text-sm text-white border rounded-full hover:underline"
                   onClick={handleSignOut}
                 >
                   로그아웃
                 </button>
                 <Link to="/mypage">
-                  <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                  <button className="px-2 py-1 text-sm text-white border rounded-full hover:underline">
                     회원가입
                   </button>
                 </Link>
@@ -44,7 +60,7 @@ function HomePage() {
             ) : (
               <div className="flex items-center gap-x-2">
                 <Link to="/login">
-                  <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                  <button className="px-2 py-1 text-sm text-white border rounded-full hover:underline">
                     로그인
                   </button>
                 </Link>
@@ -56,52 +72,54 @@ function HomePage() {
               </div>
             )}
           </div>
-          <div className="mb-10 p-8 bg-white rounded-3xl shadow-lg">
+          <div className="p-8 mb-10 bg-white shadow-lg rounded-3xl">
             <div className="flex gap-x-2">
-              <div className="flex items-center justify-center w-6 h-6 bg-primary-200 rounded-full">
-                <p className="text-sm text-primary-default font-semibold">1</p>
+              <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">
+                <p className="text-sm font-semibold text-primary-default">1</p>
               </div>
-              <div className="flex items-center justify-center px-2 border border-rose-500 rounded-full">
-                <p className="text-sm text-rose-500 font-semibold">메인</p>
+              <div className="flex items-center justify-center px-2 border rounded-full border-rose-500">
+                <p className="text-sm font-semibold text-rose-500">메인</p>
               </div>
             </div>
-            <div className="text-xl font-semibold py-4">자전거 이름 필드</div>
+            <div className="py-4 text-xl font-semibold">자전거 이름 필드</div>
             <div className="flex justify-center py-16">
               <img src={Sample} alt="main"></img>
             </div>
           </div>
           <div className="flex justify-between">
-            <div className="flex flex-col gap-y-2 items-center">
+            <div className="flex flex-col items-center gap-y-2">
               <Link to="/map">
-                <div className="p-3 rounded-lg bg-white shadow-lg">
+                <div className="p-3 bg-white rounded-lg shadow-lg">
                   <Compass />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline">주행</div>
+              <div className="text-sm text-black hover:underline">주행</div>
             </div>
-            <div className="flex flex-col gap-y-2 items-center">
+            <div className="flex flex-col items-center gap-y-2">
               <Link to="/management">
-                <div className="p-3 rounded-lg bg-white shadow-lg">
+                <div className="p-3 bg-white rounded-lg shadow-lg">
                   <Record />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline">관리</div>
+              <div className="text-sm text-black hover:underline">관리</div>
             </div>
-            <div className="flex flex-col gap-y-2 items-center">
+            <div className="flex flex-col items-center gap-y-2">
               <Link to="/mypage/record">
-                <div className="p-3 rounded-lg bg-white shadow-lg">
+                <div className="p-3 bg-white rounded-lg shadow-lg">
                   <Setting />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline">주행기록</div>
+              <div className="text-sm text-black hover:underline">주행기록</div>
             </div>
-            <div className="flex flex-col gap-y-2 items-center">
+            <div className="flex flex-col items-center gap-y-2">
               <Link to="/mypage">
-                <div className="p-3 rounded-lg bg-white shadow-lg">
+                <div className="p-3 bg-white rounded-lg shadow-lg">
                   <User stroke="#333333" />
                 </div>
               </Link>
-              <div className="text-black text-sm hover:underline">마이페이지</div>
+              <div className="text-sm text-black hover:underline">
+                마이페이지
+              </div>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { StepType } from '../../types';
+import { StepType } from "../../types";
 
 type RoutingProps = {
   step: StepType[];
