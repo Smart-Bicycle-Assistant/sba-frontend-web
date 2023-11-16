@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import Header from "../../components/common/Header";
 import { getManagementDetailApi } from "../../apis/bicycle";
 import { useEffect, useState } from "react";
-import ManageRecordCard from "../../components/ManageRecordCard";
+import ManageRecordCard from "../../components/management/ManageRecordCard";
 
 type ManagementDetailProps = {
   bicycleId: number;

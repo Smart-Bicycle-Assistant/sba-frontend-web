@@ -4,13 +4,7 @@ import Header from "../../components/common/Header";
 import Navbar from "../../components/common/Navbar";
 import { GetBicycleListApi } from "../../apis/bicycle";
 import { useEffect, useState } from "react";
-
-export interface Bicycle {
-  bicycleId: number;
-  bicycleName: string;
-  bicycleImage: string;
-  registerTime: number;
-}
+import { Bicycle } from "../../types";
 
 function BicycleMain() {
   const [bicycles, setBicycles] = useState<Bicycle[]>([]);
@@ -30,14 +24,14 @@ function BicycleMain() {
       <Header menu="내 자전거" />
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {bicycles.map((bicycle: Bicycle) => {
-          const date: Date = new Date(bicycle.registerTime);
           return (
             <BicycleCard
               key={bicycle.bicycleId}
-              bicycleId={Number(bicycle.bicycleId)}
-              name={bicycle.bicycleName}
-              registrationDate={date}
-              image={bicycle.bicycleImage}
+              bicycleId={bicycle.bicycleId}
+              bicycleName={bicycle.bicycleName}
+              registerTime={bicycle.registerTime}
+              bicycleImage={bicycle.bicycleImage}
+              distance={bicycle.distance}
             />
           );
         })}

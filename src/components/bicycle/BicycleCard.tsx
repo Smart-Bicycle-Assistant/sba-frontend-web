@@ -1,13 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { BicycleCardProps } from "../../types";
+import { Bicycle } from "../../types";
 import { useMainBike } from "../../store/userStore";
+import { formatToTwoDecimals } from "../../utils/format";
 
 function BicycleCard({
   bicycleId,
-  name,
-  registrationDate,
-  image,
-}: BicycleCardProps) {
+  bicycleName,
+  bicycleImage,
+  registerTime,
+  distance,
+}: Bicycle) {
   const { setMain } = useMainBike();
   const navigate = useNavigate();
 
@@ -15,7 +17,7 @@ function BicycleCard({
     <div className="px-5 py-2 border rounded-md shadow-md">
       <div className="flex items-center">
         <img
-          src={image}
+          src={bicycleImage}
           alt="logo"
           className="w-12 h-12 mt-3 bg-gray-100 rounded-full"
           onClick={() => {
@@ -23,9 +25,13 @@ function BicycleCard({
           }}
         />
         <div className="mt-2 ml-4">
-          <p className="text-lg font-semibold text-gray-700">{name}</p>
+          <p className="text-lg font-semibold text-gray-700">{bicycleName}</p>
           <p className="text-xs text-gray-500">
-            등록일: {registrationDate.toISOString().split("T")[0]}
+            등록일: {new Date(registerTime).toISOString().split("T")[0]}
+          </p>
+          <p className="text-xs text-gray-500">
+            주행거리: {formatToTwoDecimals(distance)} km
+            {/* todo: utils에 소수점 함수 적용하기 */}
           </p>
         </div>
       </div>

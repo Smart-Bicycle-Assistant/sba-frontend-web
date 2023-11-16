@@ -16,12 +16,7 @@ export type RecordComponentType = RecordListType & {
   map: string;
 };
 
-export type BicycleCardProps = {
-  bicycleId: number;
-  name: string;
-  registrationDate: Date;
-  image: string;
-};
+
 
 export type BicycleType = {
   bicycleId: number;
@@ -69,3 +64,34 @@ export type PackRidingType = {
   targetSpeed: number | null;
   curSpeed: number | null;
 };
+
+export interface Bicycle {
+  bicycleId: number;
+  bicycleName: string;
+  bicycleImage: string;
+  registerTime: number;
+  distance: number;
+}
+
+export type BicycleCardProps = {
+  bicycleId: number;
+  name: string;
+  registrationDate: Date;
+  image: string;
+};
+
+export interface ManagementStatus {
+  managementTime: number;
+  numFixed: number;
+  recordId: number;
+}
+export interface BicycleStatus {
+  bicycleName: string;
+  brakeExchangeTime: number;
+  chainExchangeTime: number;
+  frontTireExchangeTime: number;
+  frontTireLeftLife: string;
+  gearExchangeTime: number;
+  rearTireExchangeTime: number;
+  rearTireLeftLife: string;
+}
