@@ -102,7 +102,7 @@ const RidingPage: React.FC = () => {
 
       if (res.status === 200) {
         console.log('Complete');
-        navigate('/');
+        navigate('/home');
       }
     } catch (err) {
       console.log(err);
