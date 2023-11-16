@@ -61,8 +61,8 @@ const MyPageRecordDetail: React.FC = () => {
       speed.slice(index * interval, (index + 1) * interval)
     );
 
-    return sliceSpeed.map(
-      (speedArr) => speedArr.reduce((total, curr) => total + curr, 0) / interval
+    return sliceSpeed.map((speedArr) =>
+      formatToTwoDecimals(speedArr.reduce((total, curr) => total + curr, 0) / interval)
     );
   };
 

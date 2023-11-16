@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import Header from "../../components/common/Header";
-import { useUser } from "../../store/userStore";
-import { WithdrawApi } from "../../apis/user";
+import { useNavigate } from 'react-router-dom';
+import Header from '../../components/common/Header';
+import { useUser } from '../../store/userStore';
+import { WithdrawApi } from '../../apis/user';
 
 export const Withdraw: React.FC = () => {
   const { nickname } = useUser();
@@ -12,10 +12,9 @@ export const Withdraw: React.FC = () => {
   async function handleWithdraw() {
     const res = await WithdrawApi();
     if (res.status == 200) {
-      alert("회원탈퇴 완료");
-      navigate("/");
+      alert('회원탈퇴 완료');
+      navigate('/home');
     }
-    
   }
 
   return (
@@ -24,7 +23,7 @@ export const Withdraw: React.FC = () => {
       <div className="mt-10 ml-5">
         <div className="flex text-lg text-semibold">
           <p className="mr-1 text-xl font-bold text-customColor">{nickname}</p>
-          <p>{" 님,"}</p>
+          <p>{' 님,'}</p>
         </div>
         <p>탈퇴하기 전에 확인해주세요</p>
       </div>

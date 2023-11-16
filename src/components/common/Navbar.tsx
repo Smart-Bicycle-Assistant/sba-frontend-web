@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useMainBike } from "../../store/userStore";
+import { Link, useNavigate } from 'react-router-dom';
+import { useMainBike } from '../../store/userStore';
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="fixed bottom-0 flex w-full text-sm bg-white border-t-2 h-14">
       <div className="flex items-center justify-center w-1/4">
-        <Link to="/">홈</Link>
+        <Link to="/home">홈</Link>
       </div>
       <div className="flex items-center justify-center w-1/4">
         <Link to="/map">지도</Link>
@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
         <div
           onClick={() => {
             console.log(main);
-            navigate("/management", { state: main });
+            navigate('/management', { state: main });
           }}
         >
           관리

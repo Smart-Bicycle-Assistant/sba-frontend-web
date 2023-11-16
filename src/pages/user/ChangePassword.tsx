@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { ChangePasswordApi } from "../../apis/user";
-import Header from "../../components/common/Header";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { ChangePasswordApi } from '../../apis/user';
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
 
 export const ChangePassword: React.FC = () => {
   const [formData, setFormData] = useState({
-    id: "",
-    password: "",
-    newPassword: "",
+    id: '',
+    password: '',
+    newPassword: '',
   });
   const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,8 +24,8 @@ export const ChangePassword: React.FC = () => {
     const response = await ChangePasswordApi(formData);
     console.log(response);
     if (response.status == 200) {
-      alert("비밀번호가 변경되었습니다.");
-      navigate("/");
+      alert('비밀번호가 변경되었습니다.');
+      navigate('/');
     } else {
       alert(response.message);
     }
@@ -48,9 +48,7 @@ export const ChangePassword: React.FC = () => {
             />
           </div>
           <div className="py-4">
-            <label className="block mb-2 text-sm text-gray-600">
-              현재 비밀번호
-            </label>
+            <label className="block mb-2 text-sm text-gray-600">현재 비밀번호</label>
             <input
               type="password"
               name="password"
@@ -62,9 +60,7 @@ export const ChangePassword: React.FC = () => {
             />
           </div>
           <div className="py-4">
-            <label className="block mb-2 text-sm text-gray-600">
-              새로운 비밀번호
-            </label>
+            <label className="block mb-2 text-sm text-gray-600">새로운 비밀번호</label>
             <input
               type="password"
               name="newPassword"

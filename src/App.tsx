@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
   HomePage,
+  OnBoardingPage,
   MapPage,
   MainPage,
   RegisterPage,
@@ -33,6 +34,10 @@ import { RefreshApi } from './apis/user';
 const ROUTER = createBrowserRouter([
   {
     path: '/',
+    element: <OnBoardingPage />,
+  },
+  {
+    path: '/home',
     element: <HomePage />,
   },
   {

@@ -33,6 +33,7 @@ function HomePage() {
   const handleSignOut = () => {
     localStorage.clear();
     setLoggedOut();
+    navigate('/');
   };
 
   async function getBicycle() {

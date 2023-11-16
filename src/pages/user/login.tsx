@@ -31,7 +31,7 @@ function LoginPage() {
           nickname: res.data.nickname,
         });
         setLoggedIn();
-        navigate('/');
+        navigate('/home');
         console.log(res);
       }
     } catch (error) {
