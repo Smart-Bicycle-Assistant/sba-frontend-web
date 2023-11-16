@@ -74,7 +74,9 @@ const RidingPage: React.FC = () => {
   };
 
   const getDistance = () => {
-    return setDistance(calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1]));
+    return setDistance(
+      distance + calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1])
+    );
   };
 
   const ridingStop = async () => {
