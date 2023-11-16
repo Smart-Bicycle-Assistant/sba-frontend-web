@@ -127,7 +127,7 @@ function HomePage() {
           </div>
           <div className="flex justify-between">
             <div className="flex flex-col items-center gap-y-2">
-              <Link to="/map">
+              <Link to="/riding/before">
                 <div className="p-3 bg-white rounded-lg shadow-lg">
                   <Compass />
                 </div>

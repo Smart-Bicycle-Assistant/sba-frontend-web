@@ -6,6 +6,7 @@ declare global {
 }
 
 const places = new window.kakao.maps.services.Places();
+const geocoder = new window.kakao.maps.services.Geocoder();
 
 export const keywordSearch = <T>(input: string): Promise<T[]> => {
   return new Promise((resolve, reject) => {
@@ -18,6 +19,25 @@ export const keywordSearch = <T>(input: string): Promise<T[]> => {
     };
 
     places.keywordSearch(input, callback);
+  });
+};
+
+export const getAddr = (lat: number, lng: number): Promise<string> => {
+  const coord = new window.kakao.maps.LatLng(lat, lng);
+
+  return new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const callback = function (result: any, status: any) {
+      if (status === window.kakao.maps.services.Status.OK) {
+        const arr = { ...result };
+        const _arr = arr[0].road_address.address_name;
+        resolve(_arr);
+      } else {
+        reject(status);
+      }
+    };
+
+    geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
   });
 };
 

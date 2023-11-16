@@ -1,3 +1,4 @@
+import PackModal from '../components/common/PackModal';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useLocationStore } from '../store/locationStore';
 import { useRidingStore } from '../store/ridingStore';
@@ -23,17 +24,20 @@ interface packRidingUser {
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
-  const { packMode, targetSpeed } = useRidingStore();
+  const { packMode, targetSpeed, rearDetection, setRearDetection, setPackMode } = useRidingStore();
   const { latitude, longitude, speed, maxSpeed } = useLocationStore();
+
   const [packUsers, setPackUsers] = useState<packRidingUser[]>([]);
 
   const [prevCoord, setPrevCoord] = useState<[number, number]>([
     Number(state.currentCoord[0]),
     Number(state.currentCoord[1]),
   ]);
+
   const [distance, setDistance] = useState<number>(0);
   const [mapCenter, setMapCenter] = useState<[number, number]>([latitude, longitude + 0.004]);
   const [time, setTime] = useState<[number, number]>([0, 0]);
+  const [openModal, setOpenModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -109,6 +113,18 @@ const RidingPage: React.FC = () => {
     }
   };
 
+  const toggleModalHandler = () => {
+    setOpenModal(!openModal);
+  };
+
+  const packChangeHandler = () => {
+    if (!packMode === true) {
+      setOpenModal(true);
+    }
+
+    setPackMode(!packMode);
+  };
+
   return (
     <div>
       <div className="flex w-full h-screen">
@@ -133,7 +149,6 @@ const RidingPage: React.FC = () => {
             <Marker position={[latitude, longitude]} icon={redMarker}>
               <Popup>me~</Popup>
             </Marker>
-
             {packUsers &&
               packUsers.map((marker, index) => (
                 <div>
@@ -149,7 +164,6 @@ const RidingPage: React.FC = () => {
                   </Marker>
                 </div>
               ))}
-
             {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
@@ -164,7 +178,9 @@ const RidingPage: React.FC = () => {
                         <p className="text-sm">현재속도</p>
                       </div>
                       <div className="flex items-end gap-x-1">
-                        <p className="font-semibold text-red-500 text-7xl">{speed * 3.6}</p>
+                        <p className="font-semibold text-red-500 text-7xl">
+                          {formatToTwoDecimals(formatSpeed(speed))}
+                        </p>
                         <p className="pb-3 text-base text-gray-light">km/h</p>
                       </div>
                     </div>
@@ -228,7 +244,12 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" className="sr-only peer" />
+                        <input
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={packMode}
+                          onChange={() => packChangeHandler()}
+                        />
                         <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                       </label>
                     </div>
@@ -244,7 +265,13 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex items-center">
                       <label className="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" value="" className="sr-only peer" />
+                        <input
+                          type="checkbox"
+                          value=""
+                          className="sr-only peer"
+                          checked={rearDetection}
+                          onChange={() => setRearDetection(!rearDetection)}
+                        />
                         <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
                       </label>
                     </div>
@@ -268,6 +295,13 @@ const RidingPage: React.FC = () => {
           </div>
         </div>
       </div>
+      {openModal && (
+        <div className="fixed left-0 top-0 flex justify-center items-center w-full h-full bg-black bg-opacity-50 rounded-lg">
+          <div className="flex flex-col gap-y-3 animate-fade-in-down">
+            <PackModal toggleModalHandler={toggleModalHandler} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

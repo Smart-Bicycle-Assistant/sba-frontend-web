@@ -9,11 +9,14 @@ export const PreRiding: React.FC = () => {
   const [rearDetection, setRearDetection] = useState<boolean>(false);
   const [targetSpeed, setTargetSpeed] = useState<number | null>(null);
   const [destination, setDestination] = useState<boolean>(false);
+
   const navigate = useNavigate();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setTargetSpeed(Number(newValue));
   };
+
   const { setRiding } = useRidingStore();
 
   const onSubmit = () => {
@@ -21,7 +24,7 @@ export const PreRiding: React.FC = () => {
       setRiding({ packMode, targetSpeed, rearDetection, destination });
       console.log(packMode, targetSpeed, rearDetection, destination);
       // destination ? navigate("/map") : navigate("/riding");
-      navigate('/');
+      navigate('/map');
     } else {
       console.log('목표 속도를 설정하세요');
     }
@@ -36,7 +39,6 @@ export const PreRiding: React.FC = () => {
         state={packMode}
         onClick={() => setpackMode((prev) => !prev)}
       />
-
       {packMode && (
         <div className="rounded-lg bg-[#4D93FF] shadow-md py-7 m-4 relative h-32">
           <p className="ml-5 text-2xl font-bold text-white ">목표속력</p>
