@@ -7,7 +7,8 @@ import Navbar from '../components/common/Navbar';
 import CustomMarker from '../components/common/CustomMarker';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import { RouteType } from '../types';
-import { decodePolyline, getBicycleDirectionApi } from '../apis/map';
+import { decodePolyline } from '../utils/map';
+import { getBicycleDirectionApi } from '../apis/map';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import 'leaflet/dist/leaflet.css';
 
@@ -30,10 +31,7 @@ const MapPage: React.FC = () => {
     navigate('/riding', {
       state: {
         currentCoord: [latitude, longitude],
-        startCoord: startCoord,
-        endCoord: endCoord,
         geometry: route?.geometry,
-        distance: route?.distance,
         startTime: new Date(),
       },
     });
@@ -111,7 +109,7 @@ const MapPage: React.FC = () => {
                     A pretty CSS3 popup. <br /> Easily customizable.
                   </Popup>
                 </Marker>
-                <Polyline positions={route.geometry} color={'red'} />
+                <Polyline positions={route.geometry} color={'#0064FF'} />
               </MapContainer>
             </div>
             <div

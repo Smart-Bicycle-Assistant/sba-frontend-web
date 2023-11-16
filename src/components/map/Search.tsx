@@ -1,6 +1,6 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import useInput from '../../hooks/useInput';
-import { keywordSearch } from '../../apis/map';
+import { keywordSearch } from '../../utils/map';
 import { AddressType } from '../../types';
 
 type SearchPageType = 'DEFAULT' | 'START' | 'END';

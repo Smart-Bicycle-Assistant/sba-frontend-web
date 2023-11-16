@@ -3,7 +3,7 @@ import { useLocationStore } from '../store/locationStore';
 import { useRidingStore } from '../store/ridingStore';
 import { useEffect, useState } from 'react';
 import CustomMarker from '../components/common/CustomMarker';
-// import { convertMeterToKilometer } from '../apis/map';
+import { calculateDistance } from '../utils/riding';
 import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -74,17 +74,14 @@ const RidingPage: React.FC = () => {
   };
 
   const getDistance = () => {
-    const x = longitude - prevCoord[1];
-    const y = latitude - prevCoord[0];
-
-    return setDistance(distance + Math.sqrt(x * x + y * y));
+    return setDistance(calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1]));
   };
 
   const ridingStop = async () => {
     try {
       const res = await postRidingRecordApi({
         ridingTime: state.startTime.getTime(),
-        distance: state.distance,
+        distance: distance,
         maxSpeed: maxSpeed,
         ridingDuration: new Date().getTime() - state.startTime.getTime(),
       });
@@ -130,7 +127,7 @@ const RidingPage: React.FC = () => {
                 A pretty CSS3 popup. <br /> Easily customizable.
               </Popup>
             </Marker>
-            {state && <Polyline positions={state.geometry} color={'red'} />}
+            {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen flex justify-center items-center">
@@ -152,7 +149,6 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex gap-x-2 pl-2 pt-2">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        {/* <span className="material-symbols-outlined text-xl">fast_forward</span> */}
                         <p className="text-xs text-gray-light">최대속도</p>
                       </div>
                       <div className="flex items-center gap-x-1">
@@ -170,22 +166,12 @@ const RidingPage: React.FC = () => {
                         <p className="text-sm">주행거리</p>
                       </div>
                       <div>
-                        {state.distance >= 1000 ? (
-                          <div className="flex items-center gap-x-1">
-                            <p className="text-2xl text-gray-dark font-semibold">
-                              {/* {Math.round(convertMeterToKilometer(distance) * 100) / 100} */}
-                              {distance}
-                            </p>
-                            <p className="text-sm text-gray-light">km</p>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-x-1">
-                            <p className="text-2xl font-semibold">
-                              {Math.round(state.distance * 100) / 100}
-                            </p>
-                            <p className="text-sm text-gray-light">m</p>
-                          </div>
-                        )}
+                        <div className="flex items-center gap-x-1">
+                          <p className="text-2xl text-gray-dark font-semibold">
+                            {Math.round(distance * 100) / 100}
+                          </p>
+                          <p className="text-sm text-gray-light">km</p>
+                        </div>
                       </div>
                     </div>
                     <div className="flex flex-col justify-center px-4 pb-3 text-sm">
