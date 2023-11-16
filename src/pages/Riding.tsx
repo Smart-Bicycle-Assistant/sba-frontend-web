@@ -150,20 +150,21 @@ const RidingPage: React.FC = () => {
               <Popup>me~</Popup>
             </Marker>
 
-            {packUsers.map((marker, index) => (
-              <div>
-                <p>{marker.nickname}</p>
-                <Marker
-                  key={index}
-                  position={[marker.latitude, marker.longitude]}
-                  icon={CustomMarker}
-                >
-                  <Tooltip permanent>
-                    <span>{marker.nickname}</span>
-                  </Tooltip>
-                </Marker>
-              </div>
-            ))}
+            {packUsers &&
+              packUsers.map((marker, index) => (
+                <div>
+                  <p>{marker.nickname}</p>
+                  <Marker
+                    key={index}
+                    position={[marker.latitude, marker.longitude]}
+                    icon={CustomMarker}
+                  >
+                    <Tooltip permanent>
+                      <span>{marker.nickname}</span>
+                    </Tooltip>
+                  </Marker>
+                </div>
+              ))}
 
             {state && <Polyline positions={state.geometry} color={"#0064FF"} />}
           </MapContainer>

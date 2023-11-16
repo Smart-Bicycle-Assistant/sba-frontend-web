@@ -1,4 +1,4 @@
-const ManageRecordCare = ({
+const ManageRecordCard = ({
   part,
   type,
   lifeSpan,
@@ -22,4 +22,4 @@ const ManageRecordCare = ({
   }
 };
 
-export default ManageRecordCare;
+export default ManageRecordCard;

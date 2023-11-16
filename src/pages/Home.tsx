@@ -1,15 +1,16 @@
-import { Link } from 'react-router-dom';
-import { useUser } from '../store/userStore';
+import { Link } from "react-router-dom";
+import { useUser } from "../store/userStore";
 
-import Sample from '../assets/sample.png';
-import Logo from '../assets/logo-white.svg?react';
-import Compass from '../assets/compass.svg?react';
-import Record from '../assets/record.svg?react';
-import Setting from '../assets/setting.svg?react';
-import User from '../assets/user.svg?react';
-import { GetBicycleListApi } from '../apis/bicycle';
-import { useEffect } from 'react';
-import { useMainBike } from '../store/userStore';
+import Sample from "../assets/sample.png";
+import Logo from "../assets/logo-white.svg?react";
+import Compass from "../assets/compass.svg?react";
+import Record from "../assets/record.svg?react";
+import Setting from "../assets/setting.svg?react";
+import User from "../assets/user.svg?react";
+import { GetBicycleListApi } from "../apis/bicycle";
+import { useEffect } from "react";
+import { useMainBike } from "../store/userStore";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const { isLoggedIn, setLoggedOut } = useUser((state) => state);
@@ -23,6 +24,7 @@ function HomePage() {
     const res = await GetBicycleListApi();
     setMain(res.data[0].bicycleId);
   }
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!main) {
@@ -47,7 +49,7 @@ function HomePage() {
               <div className="flex items-center gap-x-2">
                 <div>
                   <button
-                    className="border rounded-full px-2 py-1 text-white text-sm hover:underline"
+                    className="px-2 py-1 text-sm text-white border rounded-full hover:underline"
                     onClick={handleSignOut}
                   >
                     로그아웃
@@ -67,7 +69,7 @@ function HomePage() {
                   </button>
                 </Link>
                 <Link to="/register/terms">
-                  <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                  <button className="px-2 py-1 text-sm text-white border rounded-full hover:underline">
                     회원가입
                   </button>
                 </Link>
@@ -98,11 +100,15 @@ function HomePage() {
               <div className="text-sm text-black hover:underline">주행</div>
             </div>
             <div className="flex flex-col items-center gap-y-2">
-              <Link to="/management">
-                <div className="p-3 bg-white rounded-lg shadow-lg">
-                  <Record />
-                </div>
-              </Link>
+              <div
+                className="p-3 bg-white rounded-lg shadow-lg"
+                onClick={() => {
+                  navigate("/management", { state: main });
+                }}
+              >
+                <Record />
+              </div>
+
               <div className="text-sm text-black hover:underline">관리</div>
             </div>
             <div className="flex flex-col items-center gap-y-2">
@@ -119,7 +125,9 @@ function HomePage() {
                   <User stroke="#333333" />
                 </div>
               </Link>
-              <div className="text-sm text-black hover:underline">마이페이지</div>
+              <div className="text-sm text-black hover:underline">
+                마이페이지
+              </div>
             </div>
           </div>
         </div>
