@@ -41,7 +41,7 @@ export const postRidingRecordApi = async ({
       bicycleId: useMainBike.getState().main,
       ridingTime: Number(ridingTime),
       distance: distance,
-      avgSpeed: distance / Number(ridingDuration),
+      avgSpeed: distance / (Number(ridingDuration) / 1000),
       maxSpeed: maxSpeed,
       ridingDuration: Number(ridingDuration),
     });

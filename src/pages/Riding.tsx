@@ -174,7 +174,7 @@ const RidingPage: React.FC = () => {
                       </div>
                       <div className="flex items-center gap-x-1">
                         <p className="text-2xl font-semibold text-gray-dark">
-                          {formatToTwoDecimals(formatSpeed(maxSpeed * 3.6))}
+                          {formatToTwoDecimals(formatSpeed(maxSpeed))}
                         </p>
                         <p className="text-sm text-gray-light">km/h</p>
                       </div>
