@@ -114,7 +114,7 @@ const Search: React.FC<SearchProps> = ({ getDirections, setStartCoord, setEndCoo
       )}
       <input
         type="submit"
-        className="bg-customColor w-full font-medium text-sm text-white py-2.5 px-4 rounded-lg hover:bg-opacity-80"
+        className="bg-primary-default w-full font-medium text-sm text-white py-2.5 px-4 rounded-lg hover:bg-opacity-80"
         value="검색"
       ></input>
     </form>

@@ -1,6 +1,7 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
+  HomePage,
   MapPage,
   MainPage,
   RegisterPage,
@@ -21,105 +22,109 @@ import {
   Withdraw,
   ChangePassword,
   ResetPassword,
-} from "./pages";
+} from './pages';
 
-import { useLocationStore } from "../src/store/locationStore";
+import { useLocationStore } from '../src/store/locationStore';
 
 const ROUTER = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/main',
     element: <MainPage />,
   },
   {
-    path: "/password/change",
+    path: '/password/change',
     element: <ChangePassword />,
   },
   {
-    path: "/password/reset",
+    path: '/password/reset',
     element: <ResetPassword />,
   },
   {
-    path: "/riding/before",
+    path: '/riding/before',
     element: <PreRiding />,
   },
   {
-    path: "/withdraw",
+    path: '/withdraw',
     element: <Withdraw />,
   },
   {
-    path: "/management/part",
+    path: '/management/part',
     element: <PartManagement />,
   },
   {
-    path: "/management/detail",
+    path: '/management/detail',
     element: <ManagementDetail />,
   },
   {
-    path: "/map",
+    path: '/map',
     element: <MapPage />,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <LoginPage />,
   },
   {
-    path: "/register",
+    path: '/register',
     element: <RegisterPage />,
   },
   {
-    path: "/mypage",
+    path: '/mypage',
     element: <MyPageMain />,
   },
   {
-    path: "/mypage/modify",
+    path: '/mypage/modify',
     element: <MyPageModify />,
   },
   {
-    path: "/mypage/record",
+    path: '/mypage/record',
     element: <MyPageRecord />,
   },
   {
-    path: "/mypage/record/all",
+    path: '/mypage/record/all',
     element: <MyPageRecordAll />,
   },
   {
-    path: "/mypage/record/:recordNo",
+    path: '/mypage/record/:recordNo',
     element: <MyPageRecordDetail />,
   },
   {
-    path: "/bicycle",
+    path: '/bicycle',
     element: <BicycleMain />,
   },
   {
-    path: "/bicycle/registration",
+    path: '/bicycle/registration',
     element: <BicycleRegistration />,
   },
   {
-    path: "/management",
+    path: '/management',
     element: <Management />,
   },
   {
-    path: "/register/terms",
+    path: '/register/terms',
     element: <RegisterTerms />,
   },
   {
-    path: "/register/success",
+    path: '/register/success',
     element: <RegisterSuccess />,
   },
   {
-    path: "/bicycle/registration",
+    path: '/bicycle/registration',
     element: <BicycleRegistration />,
   },
   {
-    path: "/register/terms",
+    path: '/register/terms',
     element: <RegisterTerms />,
   },
   {
-    path: "/register/success",
+    path: '/register/success',
     element: <RegisterSuccess />,
   },
   {
-    path: "/riding",
+    path: '/riding',
     element: <RidingPage />,
   },
 ]);
@@ -137,7 +142,7 @@ function App() {
     setMaxSpeed(speed);
   }
 
-  window.addEventListener("message", handleMessage);
+  window.addEventListener('message', handleMessage);
 
   return <RouterProvider router={ROUTER} />;
 }

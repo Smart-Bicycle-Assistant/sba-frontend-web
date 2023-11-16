@@ -3,8 +3,10 @@ export const theme = {
   extend: {
     colors: {
       primary: {
+        200: '#D9E5FD',
         400: '#2724B7',
-        default: '#3730F2',
+        default: '#0064FF',
+        600: '#3730F2',
         900: '#06051A',
       },
       gray: {

@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
-import Header from "../../../components/common/Header";
-import useInput from "../../../hooks/useInput";
-import ValidationMessage from "../../../components/register/ValidationMessage";
-import { SetStateAction, useState } from "react";
-import { RegisterApi, ValidIdApi } from "../../../apis/user";
+import { useNavigate } from 'react-router-dom';
+import Header from '../../../components/common/Header';
+import useInput from '../../../hooks/useInput';
+import ValidationMessage from '../../../components/register/ValidationMessage';
+import { SetStateAction, useState } from 'react';
+import { RegisterApi, ValidIdApi } from '../../../apis/user';
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -14,17 +14,15 @@ function RegisterPage() {
   const { value: emailId, onChange: onEmailIdChange } = useInput();
   const [validationId, setValidationId] = useState(false);
 
-  const [emailOption, setEmailOption] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
+  const [emailOption, setEmailOption] = useState('');
+  const [emailAddress, setEmailAddress] = useState('');
 
-  const onEmailOptionChange = (e: {
-    target: { value: SetStateAction<string> };
-  }) => {
+  const onEmailOptionChange = (e: { target: { value: SetStateAction<string> } }) => {
     const selectedOption = e.target.value;
     setEmailOption(selectedOption);
 
-    if (selectedOption === "직접 입력") {
-      setEmailAddress("");
+    if (selectedOption === '직접 입력') {
+      setEmailAddress('');
     } else {
       setEmailAddress(selectedOption);
     }
@@ -38,7 +36,7 @@ function RegisterPage() {
     emailAddress: string
   ): boolean => {
     const values = [id, password, nickname, emailId, emailAddress];
-    return values.some((value) => value === "");
+    return values.some((value) => value === '');
   };
 
   const onSubmit = async () => {
@@ -50,8 +48,8 @@ function RegisterPage() {
     });
     console.log(res);
     if (res.status === 200) {
-      console.log("회원가입 성공");
-      navigate("/register/success", { state: id });
+      console.log('회원가입 성공');
+      navigate('/register/success', { state: id });
     }
     console.log(res);
   };
@@ -72,19 +70,17 @@ function RegisterPage() {
             />
             <button
               className={`w-4/12 my-1 h-12 text-sm rounded-lg py-1 px-3 ${
-                id !== "" && validationId === false
-                  ? "bg-customColor text-white"
-                  : "bg-gray-200 text-gray-500"
+                id !== '' && validationId === false
+                  ? 'bg-primary-default text-white'
+                  : 'bg-gray-200 text-gray-500'
               }`}
               onClick={async () => {
                 const result = await ValidIdApi(id);
                 console.log(result);
-                result.message == "OK"
-                  ? setValidationId(true)
-                  : setValidationId(false);
+                result.message == 'OK' ? setValidationId(true) : setValidationId(false);
               }}
             >
-              {validationId == true ? "확인완료" : "중복확인"}
+              {validationId == true ? '확인완료' : '중복확인'}
             </button>
           </div>
           <ValidationMessage value={id} type="id" />
@@ -108,11 +104,7 @@ function RegisterPage() {
               type="password"
               onChange={onCheckChange}
             />
-            <ValidationMessage
-              value={check}
-              passwordCheck={password}
-              type="passwordCheck"
-            />
+            <ValidationMessage value={check} passwordCheck={password} type="passwordCheck" />
           </div>
         </div>
 
@@ -138,7 +130,7 @@ function RegisterPage() {
               onChange={onEmailIdChange}
             />
             <p className="text-gray-400 h-full text-left pt-3">@</p>
-            {emailOption === "직접 입력" ? (
+            {emailOption === '직접 입력' ? (
               <input
                 className="my-1 w-full h-12 text-sm placeholder-slate-300 bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={emailAddress}
@@ -150,7 +142,7 @@ function RegisterPage() {
             ) : (
               <select
                 className={`my-1 w-full h-12 text-sm bg-gray-100 rounded-lg py-1 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  emailOption === "" ? "text-gray-400" : "text-black"
+                  emailOption === '' ? 'text-gray-400' : 'text-black'
                 }`}
                 value={emailOption}
                 onChange={onEmailOptionChange}
@@ -171,19 +163,13 @@ function RegisterPage() {
         <button
           className={` text-white py-2.5 px-4 rounded-lg w-full ${
             isFormInvalid(id, password, nickname, emailId, emailAddress)
-              ? "bg-gray-300"
-              : "bg-customColor"
+              ? 'bg-gray-300'
+              : 'bg-primary-default'
           }`}
-          disabled={isFormInvalid(
-            id,
-            password,
-            nickname,
-            emailId,
-            emailAddress
-          )}
+          disabled={isFormInvalid(id, password, nickname, emailId, emailAddress)}
           onClick={() => {
             onSubmit();
-            navigate("/register/success");
+            navigate('/register/success');
           }}
         >
           회원가입

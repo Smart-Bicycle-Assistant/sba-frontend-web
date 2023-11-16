@@ -1,0 +1,106 @@
+import { startRidingApi } from '../apis/riding';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import Sample from '../assets/sample.png';
+import Logo from '../assets/logo-white.svg?react';
+import Compass from '../assets/compass.svg?react';
+import Record from '../assets/record.svg?react';
+import Setting from '../assets/setting.svg?react';
+import User from '../assets/user.svg?react';
+
+function HomePage() {
+  const navigate = useNavigate();
+  async function handleClickRiding() {
+    const res = await startRidingApi();
+    if (res === 200) {
+      navigate('/riding');
+    }
+  }
+  return (
+    <div className="h-screen bg-gradient-to-b from-customColor from-0% to-white to-35%">
+      <div className="h-auto min-h-screen">
+        <div className="p-8">
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex itmes-center gap-x-2">
+              <div className="flex items-center">
+                <Logo className="w-6 h-6" />
+              </div>
+              <div className="text-2xl font-bold text-white">S-BA</div>
+            </div>
+            <div className="flex gap-x-2">
+              <Link to="/login">
+                <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                  로그인
+                </button>
+              </Link>
+              <Link to="/register/terms">
+                <button className="border rounded-full px-2 py-1 text-white text-sm hover:underline">
+                  회원가입
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="mb-10 p-8 bg-white rounded-3xl shadow-lg">
+            <div className="flex gap-x-2">
+              <div className="flex items-center justify-center w-6 h-6 bg-primary-200 rounded-full">
+                <p className="text-sm text-primary-default font-semibold">1</p>
+              </div>
+              <div className="flex items-center justify-center px-2 border border-rose-500 rounded-full">
+                <p className="text-sm text-rose-500 font-semibold">메인</p>
+              </div>
+            </div>
+            <div className="text-xl font-semibold py-4">자전거 이름 필드</div>
+            <div className="flex justify-center py-16">
+              <img src={Sample} alt="main"></img>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex flex-col gap-y-2 items-center">
+              <Link to="/map">
+                <div className="p-3 rounded-lg bg-white shadow-lg">
+                  <Compass />
+                </div>
+              </Link>
+              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
+                주행
+              </div>
+            </div>
+            <div className="flex flex-col gap-y-2 items-center">
+              <Link to="/bicycle">
+                <div className="p-3 rounded-lg bg-white shadow-lg">
+                  <Record />
+                </div>
+              </Link>
+              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
+                관리
+              </div>
+            </div>
+            <div className="flex flex-col gap-y-2 items-center">
+              <Link to="/mypage/record">
+                <div className="p-3 rounded-lg bg-white shadow-lg">
+                  <Setting />
+                </div>
+              </Link>
+              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
+                주행기록
+              </div>
+            </div>
+            <div className="flex flex-col gap-y-2 items-center">
+              <Link to="/mypage">
+                <div className="p-3 rounded-lg bg-white shadow-lg">
+                  <User />
+                </div>
+              </Link>
+              <div className="text-black text-sm hover:underline" onClick={handleClickRiding}>
+                마이페이지
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default HomePage;

@@ -1,24 +1,16 @@
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faCircle } from "@fortawesome/free-regular-svg-icons";
-import { useNavigate } from "react-router-dom";
-import Header from "../../../components/common/Header";
-import Modal from "../../../components/register/Modal";
-import { policyDummy1, policyDummy2 } from "./TermsPolicy";
+import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle, faCircle } from '@fortawesome/free-regular-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import Header from '../../../components/common/Header';
+import Modal from '../../../components/register/Modal';
+import { policyDummy1, policyDummy2 } from './TermsPolicy';
 
 const isCheckedIcon = (isChecked: boolean) => {
   return isChecked ? (
-    <FontAwesomeIcon
-      icon={faCheckCircle}
-      color="#0064FF"
-      className="pr-3 font-thin text-xl"
-    />
+    <FontAwesomeIcon icon={faCheckCircle} color="#0064FF" className="pr-3 font-thin text-xl" />
   ) : (
-    <FontAwesomeIcon
-      icon={faCircle}
-      color="gray"
-      className="pr-3 font-thin text-xl"
-    />
+    <FontAwesomeIcon icon={faCircle} color="gray" className="pr-3 font-thin text-xl" />
   );
 };
 
@@ -30,12 +22,7 @@ interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
   return (
     <div className="flex items-center space-x-2">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        className="sr-only"
-      />
+      <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
       {isCheckedIcon(checked)}
     </div>
   );
@@ -77,22 +64,22 @@ const Terms: React.FC = () => {
 
   const agreements: Agreement[] = [
     {
-      label: "[필수] 서비스 이용약관 동의",
+      label: '[필수] 서비스 이용약관 동의',
       checked: agreedToTerms,
       onChange: handleAgreeToTerms,
       content: policyDummy1,
     },
     {
-      label: "[필수] 개인정보 수집/이용 동의",
+      label: '[필수] 개인정보 수집/이용 동의',
       checked: agreedToPrivacyPolicy,
       onChange: handleAgreeToPrivacyPolicy,
       content: policyDummy2,
     },
     {
-      label: "[선택] 메일/문자 수신 동의",
+      label: '[선택] 메일/문자 수신 동의',
       checked: optInForEmails,
       onChange: handleOptInForEmails,
-      content: "메일/문자 수신 동의 내용...",
+      content: '메일/문자 수신 동의 내용...',
     },
   ];
 
@@ -126,10 +113,7 @@ const Terms: React.FC = () => {
                 onClick={agreement.onChange}
                 key={index}
               >
-                <Checkbox
-                  checked={agreement.checked}
-                  onChange={agreement.onChange}
-                />
+                <Checkbox checked={agreement.checked} onChange={agreement.onChange} />
                 <span className="text-sm">{agreement.label}</span>
                 <div
                   className="absolute right-8 text-gray-600"
@@ -137,7 +121,7 @@ const Terms: React.FC = () => {
                     openModal(agreement.content);
                   }}
                 >
-                  {">"}
+                  {'>'}
                 </div>
               </div>
             ))}
@@ -147,13 +131,11 @@ const Terms: React.FC = () => {
         <div className="fixed bottom-0 left-0 right-0 p-4">
           <button
             className={`${
-              agreedToPrivacyPolicy && agreedToTerms
-                ? "bg-customColor"
-                : "bg-gray-400"
+              agreedToPrivacyPolicy && agreedToTerms ? 'bg-primary-default' : 'bg-gray-400'
             } text-white py-2.5 px-4 rounded-lg w-full`}
             onClick={() => {
               if (agreedToPrivacyPolicy && agreedToTerms) {
-                navigate("/register");
+                navigate('/register');
               }
             }}
           >

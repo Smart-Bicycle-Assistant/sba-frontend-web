@@ -1,8 +1,8 @@
-import Header from "../../components/common/Header";
-import { useNavigate } from "react-router-dom";
-import PreRidingBox from "../../components/riding/PreRidingBox";
-import { useState } from "react";
-import { useRidingStore } from "../../store/ridingStore";
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
+import PreRidingBox from '../../components/riding/PreRidingBox';
+import { useState } from 'react';
+import { useRidingStore } from '../../store/ridingStore';
 
 export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
@@ -21,9 +21,9 @@ export const PreRiding: React.FC = () => {
       setRiding({ packMode, targetSpeed, rearDetection, destination });
       console.log(packMode, targetSpeed, rearDetection, destination);
       // destination ? navigate("/map") : navigate("/riding");
-      navigate("/");
+      navigate('/');
     } else {
-      console.log("목표 속도를 설정하세요");
+      console.log('목표 속도를 설정하세요');
     }
   };
 
@@ -63,7 +63,7 @@ export const PreRiding: React.FC = () => {
         onClick={() => setDestination((prev) => !prev)}
       />
       <div className="fixed bottom-0 left-0 right-0 p-4" onClick={onSubmit}>
-        <div className=" text-white py-2.5 px-4 rounded-lg w-full bg-customColor text-center bg-opacity-85 font-semibold">
+        <div className=" text-white py-2.5 px-4 rounded-lg w-full bg-primary-default text-center bg-opacity-85 font-semibold">
           START
         </div>
       </div>
