@@ -146,7 +146,7 @@ function HomePage() {
               <div className="text-sm text-black hover:underline">관리</div>
             </div>
             <div className="flex flex-col items-center gap-y-2">
-              <Link to="/mypage/record">
+              <Link to="/mypage/record/all">
                 <div className="p-3 bg-white rounded-lg shadow-lg">
                   <Setting />
                 </div>

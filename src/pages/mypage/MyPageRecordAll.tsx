@@ -28,7 +28,7 @@ const MyPageRecordAll: React.FC = () => {
         <Header menu={'주행 기록'} />
         <div className="content">
           {recordList && (
-            <div className="flex flex-col gap-y-3">
+            <div className="flex flex-col gap-y-4">
               {recordList.map((el, index) => (
                 <div key={index}>
                   <RecordComponent data={el} />

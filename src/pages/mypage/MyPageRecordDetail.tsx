@@ -4,7 +4,7 @@ import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import { RecordOneApi } from '../../apis/myPage';
 import { useMainBike } from '../../store/userStore';
-import { formatToTwoDecimals, formatSpeed } from '../../utils/format';
+import { formatToTwoDecimals, formatSpeed, formatDate } from '../../utils/format';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import Chart from 'react-apexcharts';
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
@@ -124,19 +124,6 @@ const MyPageRecordDetail: React.FC = () => {
     loadRecordList();
   }, []);
 
-  const formatDate = (date: number) => {
-    const ridingTime = new Date(date);
-
-    const month = ridingTime.getMonth() + 1;
-    const day = ridingTime.getDate();
-    const hours = ridingTime.getHours();
-    const minutes = ridingTime.getMinutes();
-
-    const formattedTime = `${month}월 ${day}일 ${hours}시 ${minutes}분`;
-
-    return <p>{formattedTime}</p>;
-  };
-
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
@@ -145,14 +132,18 @@ const MyPageRecordDetail: React.FC = () => {
           <div>
             <div className="flex flex-col gap-y-8 px-8 py-8 mx-auto">
               <div>
-                <div className="flex items-center gap-x-2 text-sm pb-3">
-                  <div className="w-6 h-6 bg-neutral-200 rounded-full">
-                    {/* <img src="" alt="bike"></img> */}
+                <div className="flex pb-2">
+                  <div className="flex items-center gap-x-1.5 text-sm bg-primary-200 rounded-xl px-2 py-0.5">
+                    <span className="material-symbols-outlined text-primary-default text-base font-medium">
+                      directions_bike
+                    </span>
+                    <p className="font-base text-xs">자전거 1</p>
                   </div>
-                  <p className="font-base text-xs">자전거 1</p>
                 </div>
                 <div>
-                  <p className="text-xl font-semibold">2023년 8월 15일 주행 기록</p>
+                  <p className="text-xl font-semibold">
+                    {formatDate(recordData.ridingTime, 'DEFAULT')} 주행 기록
+                  </p>
                 </div>
               </div>
               <div>
@@ -186,7 +177,7 @@ const MyPageRecordDetail: React.FC = () => {
                         <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">출발</p>
                       </div>
                       <div className="flex flex-col gap-y-1">
-                        <p>{formatDate(recordData.ridingTime)}</p>
+                        <p>{formatDate(recordData.ridingTime, 'DETAIL')}</p>
                         <p>경기도 어디시 어디구 어디동 17-1</p>
                       </div>
                     </div>
@@ -196,7 +187,9 @@ const MyPageRecordDetail: React.FC = () => {
                         <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">도착</p>
                       </div>
                       <div className="flex flex-col gap-y-1">
-                        <p>{formatDate(recordData.ridingTime + recordData.ridingDuration)}</p>
+                        <p>
+                          {formatDate(recordData.ridingTime + recordData.ridingDuration, 'DETAIL')}
+                        </p>
                         <p>경기도 거기시 거기구 거기동 426</p>
                       </div>
                     </div>

@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import Header from "../../components/common/Header";
-import Navbar from "../../components/common/Navbar";
+import { Link } from 'react-router-dom';
+import Header from '../../components/common/Header';
+import Navbar from '../../components/common/Navbar';
 
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 
 const MyPageRecord: React.FC = () => {
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu={"주행 기록"} />
+        <Header menu={'주행 기록'} />
         <div className="flex flex-col gap-y-8 px-8 py-8 mx-auto">
           <div>
             <div className="pb-4">

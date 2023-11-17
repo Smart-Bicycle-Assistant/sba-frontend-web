@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { formatDate } from '../../utils/format';
 import { RecordListType } from '../../types';
 import { formatDuration } from '../../utils/format';
 
@@ -22,15 +23,17 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
     <div className="border rounded-lg shadow-sm">
       <div className="border-b p-4">
         <div className="flex items-center gap-x-3 text-sm pb-1">
-          <div className="w-8 h-8 bg-neutral-200 rounded-full">
-            <img src="" alt="bike"></img>
+          <div className="flex justify-center items-center w-8 h-8 bg-primary-200 rounded-full">
+            <span className="material-symbols-outlined text-primary-default text-lg font-medium">
+              directions_bike
+            </span>
           </div>
           <p className="font-medium">자전거 1</p>
         </div>
         <div className="flex flex-col gap-y-1 pl-11 text-xs">
           <div className="flex gap-x-2">
             <p className="text-neutral-500">날짜</p>
-            <p>{new Date(ridingTime).toISOString().split('T')[0]}</p>
+            <p>{formatDate(ridingTime, 'DEFAULT')}</p>
           </div>
           <div className="flex gap-x-2">
             <p className="text-neutral-500">주행</p>
@@ -41,8 +44,8 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
         </div>
       </div>
       <Link to={`/mypage/record/${recordId}`}>
-        <div className="py-3">
-          <p className="text-center text-xs">자세히 보기</p>
+        <div className="py-3 bg-primary-default rounded-b-lg">
+          <p className="text-center text-xs text-white">자세히 보기</p>
         </div>
       </Link>
     </div>
