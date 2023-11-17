@@ -58,12 +58,12 @@ export const PreRiding: React.FC = () => {
         state={rearDetection}
         onClick={() => setRearDetection((prev) => !prev)}
       />
-      <PreRidingBox
+      {/* <PreRidingBox
         title="목적지 설정"
         content="목적지 설정 후 추천 경로 안내를 받을 수 있습니다."
         state={destination}
         onClick={() => setDestination((prev) => !prev)}
-      />
+      /> */}
       <div className="fixed bottom-0 left-0 right-0 p-4" onClick={onSubmit}>
         <div className=" text-white py-2.5 px-4 rounded-lg w-full bg-primary-default text-center bg-opacity-85 font-semibold">
           START

@@ -138,6 +138,8 @@ const RidingPage: React.FC = () => {
             }}
             center={mapCenter}
             zoom={16}
+            minZoom={11}
+            maxZoom={16}
             scrollWheelZoom={true}
             attributionControl={false}
             className="leaflet-container"
