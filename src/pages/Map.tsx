@@ -138,6 +138,7 @@ const MapPage: React.FC = () => {
               }}
               center={[37.56675, 126.97842]}
               zoom={13}
+              minZoom={9}
               scrollWheelZoom={true}
               attributionControl={false}
               className="leaflet-container"

@@ -6,7 +6,7 @@ import redPin from '../../assets/pin_red.svg';
 export const CustomMarker = L.icon({
   iconUrl: pin,
   iconSize: [50, 50],
-  iconAnchor: [0, 50],
+  iconAnchor: [12, 31],
 });
 
 export const redMarker = L.icon({
