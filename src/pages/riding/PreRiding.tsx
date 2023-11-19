@@ -8,7 +8,7 @@ export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
   const [rearDetection, setRearDetection] = useState<boolean>(false);
   const [targetSpeed, setTargetSpeed] = useState<number | null>(null);
-  const [destination, setDestination] = useState<boolean>(false);
+  // const [destination, setDestination] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ export const PreRiding: React.FC = () => {
 
   const onSubmit = () => {
     if (!(packMode && !targetSpeed)) {
-      setRiding({ packMode, targetSpeed, rearDetection, destination });
-      console.log(packMode, targetSpeed, rearDetection, destination);
+      setRiding({ packMode, targetSpeed, rearDetection, destination: false });
+      console.log(packMode, targetSpeed, rearDetection, false);
       // destination ? navigate("/map") : navigate("/riding");
       navigate('/map');
     } else {
