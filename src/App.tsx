@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
@@ -30,8 +30,8 @@ import { useUser } from './store/userStore';
 import { useToken } from './store/tokenStore';
 import { useLocationStore } from '../src/store/locationStore';
 import { useRidingStore } from './store/ridingStore';
+import { useModalStore } from './store/modalStore';
 import { RefreshApi } from './apis/user';
-import AlertModal from './components/common/AlertModal';
 
 const ROUTER = createBrowserRouter([
   {
@@ -144,12 +144,6 @@ function App() {
   const { setUser, setLoggedIn } = useUser((state) => state);
   const { setToken } = useToken((state) => state);
 
-  const [openModal, setOpenModal] = useState<boolean>(false);
-
-  const toggleModalHandler = () => {
-    setOpenModal(!openModal);
-  };
-
   useEffect(() => {
     const refreshData = async () => {
       if (localStorage.getItem('token') === null) {
@@ -176,6 +170,7 @@ function App() {
 
   const { setLocation, setMaxSpeed } = useLocationStore();
   const { isRiding, rearDetection } = useRidingStore();
+  const { setAlertModal } = useModalStore();
   const eventHandlerRef = useRef<((e: MessageEvent) => void) | null>(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -226,7 +221,11 @@ function App() {
     console.log('Received Size Message:', sizeMessage);
     if (sizeMessage.boxCount) {
       if (isRiding && rearDetection) {
-        alert('rear detection warning!');
+        const timer = setTimeout(() => {
+          setAlertModal(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
       }
     }
   }
@@ -247,12 +246,7 @@ function App() {
 
   window.addEventListener('message', handleMessage);
 
-  return (
-    <div>
-      <RouterProvider router={ROUTER} />
-      {openModal && <AlertModal toggleModalHandler={toggleModalHandler} />}
-    </div>
-  );
+  return <RouterProvider router={ROUTER} />;
 }
 
 export default App;
