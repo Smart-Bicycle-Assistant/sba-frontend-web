@@ -1,13 +1,13 @@
-import Header from '../../components/common/Header';
-import { useNavigate } from 'react-router-dom';
-import PreRidingBox from '../../components/riding/PreRidingBox';
-import { useState } from 'react';
-import { useRidingStore } from '../../store/ridingStore';
+import Header from "../../components/common/Header";
+import { useNavigate } from "react-router-dom";
+import PreRidingBox from "../../components/riding/PreRidingBox";
+import { useState } from "react";
+import { useRidingStore } from "../../store/ridingStore";
 
 export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
   const [rearDetection, setRearDetection] = useState<boolean>(false);
-  const [targetSpeed, setTargetSpeed] = useState<number | null>(null);
+  const [targetSpeed, setTargetSpeed] = useState<number>(0);
   // const [destination, setDestination] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -24,9 +24,9 @@ export const PreRiding: React.FC = () => {
       setRiding({ packMode, targetSpeed, rearDetection, destination: false });
       console.log(packMode, targetSpeed, rearDetection, false);
       // destination ? navigate("/map") : navigate("/riding");
-      navigate('/map');
+      navigate("/map");
     } else {
-      console.log('목표 속도를 설정하세요');
+      console.log("목표 속도를 설정하세요");
     }
   };
 
