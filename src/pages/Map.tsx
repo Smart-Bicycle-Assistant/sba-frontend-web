@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocationStore } from '../store/locationStore';
+import { useRidingStore } from '../store/ridingStore';
 import Search from '../components/map/Search';
 import Routing from '../components/map/Routing';
 import Navbar from '../components/common/Navbar';
@@ -20,6 +21,7 @@ const MapPage: React.FC = () => {
   const [routingPageOpen, setRoutingPageOpen] = useState<boolean>(false);
 
   const { latitude, longitude } = useLocationStore();
+  const { setIsRiding } = useRidingStore();
 
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ const MapPage: React.FC = () => {
   };
 
   const handleRidingStart = () => {
+    setIsRiding(true);
     navigate('/riding', {
       state: {
         currentCoord: [latitude, longitude],
