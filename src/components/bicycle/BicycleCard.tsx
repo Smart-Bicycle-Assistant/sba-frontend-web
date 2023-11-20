@@ -31,7 +31,6 @@ function BicycleCard({
           </p>
           <p className="text-xs text-gray-500">
             주행거리: {formatToTwoDecimals(distance)} km
-            {/* todo: utils에 소수점 함수 적용하기 */}
           </p>
         </div>
       </div>
