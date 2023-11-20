@@ -232,6 +232,7 @@ function App() {
     }
   }
 
+
   useEffect(() => {
     if (eventHandlerRef.current) {
       window.removeEventListener('message', eventHandlerRef.current);
