@@ -166,36 +166,36 @@ function App() {
     refreshData();
   }, []);
 
-  const { setLocation, setMaxSpeed } = useLocationStore();
-  const eventHandlerRef = useRef<((e: MessageEvent) => void) | null>(null);
+  // const { setLocation, setMaxSpeed } = useLocationStore();
+  // const eventHandlerRef = useRef<((e: MessageEvent) => void) | null>(null);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  function handleMessage(e: { data: string }) {
-    // alert(e.data);
-    const { latitude, longitude, speed } = JSON.parse(e.data);
-    setLocation({
-      latitude,
-      longitude,
-      speed,
-    });
-    setMaxSpeed(speed);
-  }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // function handleMessage(e: { data: string }) {
+  //   // alert(e.data);
+  //   const { latitude, longitude, speed } = JSON.parse(e.data);
+  //   setLocation({
+  //     latitude,
+  //     longitude,
+  //     speed,
+  //   });
+  //   setMaxSpeed(speed);
+  // }
 
-  useEffect(() => {
-    if (eventHandlerRef.current) {
-      window.removeEventListener('message', eventHandlerRef.current);
-    }
-    eventHandlerRef.current = handleMessage;
-    window.addEventListener('message', eventHandlerRef.current);
+  // useEffect(() => {
+  //   if (eventHandlerRef.current) {
+  //     window.removeEventListener('message', eventHandlerRef.current);
+  //   }
+  //   eventHandlerRef.current = handleMessage;
+  //   window.addEventListener('message', eventHandlerRef.current);
 
-    return () => {
-      if (eventHandlerRef.current) {
-        window.removeEventListener('message', eventHandlerRef.current);
-      }
-    };
-  }, [handleMessage]);
+  //   return () => {
+  //     if (eventHandlerRef.current) {
+  //       window.removeEventListener('message', eventHandlerRef.current);
+  //     }
+  //   };
+  // }, [handleMessage]);
 
-  window.addEventListener('message', handleMessage);
+  // window.addEventListener('message', handleMessage);
 
   return <RouterProvider router={ROUTER} />;
 }

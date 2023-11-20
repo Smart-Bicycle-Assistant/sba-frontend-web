@@ -26,7 +26,6 @@ type RecordDetailType = {
 const MyPageRecordDetail: React.FC = () => {
   const [recordData, setRecordData] = useState<RecordDetailType>();
   const [geometryData, setGeometryData] = useState<[number, number][]>([]);
-  // const [distanceData, setDistanceData] = useState<number[]>([]);
   const [speedData, setSpeedData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<string[]>([]);
 
@@ -59,39 +58,6 @@ const MyPageRecordDetail: React.FC = () => {
     );
   };
 
-  // const calculateGeometry = (geometry: [number, number][]) => {
-  //   const interval = geometry.length / 7;
-
-  //   const sliceGeometry = Array.from({ length: 7 }, (_, index) =>
-  //     geometry.slice(index * interval, (index + 1) * interval)
-  //   );
-
-  //   console.log(sliceGeometry);
-
-  //   const result = sliceGeometry.map((geometryArr) =>
-  //     geometryArr.reduce((total, curr, idx, arr) => {
-  //       console.log(geometryArr);
-  //       if (idx > 0) {
-  //         const [lat1, lng1] = arr[idx - 1];
-  //         const [lat2, lng2] = arr[idx];
-  //         return total += calculateDistance(lat1, lng1, lat2, lng2);
-  //       }
-  //       return 0;
-  //     }, 0)
-  //   );
-
-  //   console.log(result);
-
-  //   console.log(
-  //     result.map((el, idx) => {
-  //       if (idx > 0) {
-  //         return result[idx - 1] + el;
-  //       }
-  //       return el;
-  //     })
-  //   );
-  // };
-
   const calculateSpeed = (speed: number[]) => {
     const interval = speed.length / 7;
 
@@ -106,10 +72,6 @@ const MyPageRecordDetail: React.FC = () => {
 
   const chartState = {
     series: [
-      {
-        name: '주행 거리',
-        data: [10, 41, 35, 51, 49, 62, 69],
-      },
       {
         name: '속도',
         data: speedData,
@@ -216,6 +178,7 @@ const MyPageRecordDetail: React.FC = () => {
                       style={{ height: '10rem', borderRadius: '0.5rem' }}
                       center={[geometryData[0][0], geometryData[0][1]]}
                       zoom={15}
+                      minZoom={11}
                       scrollWheelZoom={true}
                       attributionControl={false}
                       className="leaflet-container"

@@ -6,13 +6,10 @@ const Navbar: React.FC = () => {
   const { main } = useMainBike();
   return (
     <div className="fixed bottom-0 flex w-full text-sm bg-white border-t-2 h-14">
-      <div className="flex items-center justify-center w-1/4">
-        <Link to="/home">홈</Link>
+      <div className="flex flex-col items-center justify-center w-1/4">
+        <Link to="/map">주행</Link>
       </div>
-      <div className="flex items-center justify-center w-1/4">
-        <Link to="/map">지도</Link>
-      </div>
-      <div className="flex items-center justify-center w-1/4">
+      <div className="flex flex-col items-center justify-center w-1/4">
         <div
           onClick={() => {
             console.log(main);
@@ -22,7 +19,13 @@ const Navbar: React.FC = () => {
           관리
         </div>
       </div>
-      <div className="flex items-center justify-center w-1/4">
+      <div className="flex flex-col items-center justify-center w-1/4">
+        <Link to="/home">홈</Link>
+      </div>
+      <div className="flex flex-col items-center justify-center w-1/4">
+        <Link to="/mypage/record/all">기록</Link>
+      </div>
+      <div className="flex flex-col items-center justify-center w-1/4">
         <Link to="/mypage">내 정보</Link>
       </div>
     </div>
