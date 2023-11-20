@@ -9,7 +9,7 @@ import { CustomMarker, redMarker } from '../components/common/CustomMarker';
 import { calculateDistance } from '../utils/riding';
 import { formatToTwoDecimals, formatSpeed } from '../utils/format';
 import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 interface LocationData {
@@ -23,6 +23,16 @@ interface packRidingUser {
   longitude: number;
   latitude: number;
 }
+
+const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
+  const map = useMap();
+
+  useEffect(() => {
+    map.setView([lat, lng]);
+  }, [lat, lng]);
+
+  return null;
+};
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
@@ -174,6 +184,7 @@ const RidingPage: React.FC = () => {
                 </div>
               ))}
             {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
+            <RecenterAutomatically lat={latitude} lng={longitude} />
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
           <div className="absolute top-0 flex items-center justify-center w-1/2 h-screen left-1/2">
