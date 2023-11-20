@@ -25,10 +25,10 @@ const LifeExpectancyProgressBar: React.FC<LifeExpectancyProps> = ({
   }
 
   return (
-    <div className="w-full h-2 bg-gray-200 rounded-full dark:bg-gray-200">
+    <div className="w-[85%] h-2 ml-6 bg-gray-200 mb-1 rounded-full dark:bg-gray-200">
       <div
-        className={`h-2.5 rounded-full ${colorClass}`}
-        style={{ width: `${progress}%` }}
+        className={`h-2 rounded-full ${colorClass}`}
+        style={{ width: `${Math.min(100, progress)}%` }}
       ></div>
     </div>
   );

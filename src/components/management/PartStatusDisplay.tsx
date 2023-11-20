@@ -48,10 +48,10 @@ const PartStatusDisplay: React.FC<PartStatusProps> = ({
           }
         />
 
-        <div className="text-sm">
-          <div className="flex flex-col w-full px-3 py-2 text-sm rounded-lg gap-y-4 bg-sky-50">
+        <div className="">
+          <div className="flex flex-col w-full pr-3 py-2 text-[75%] rounded-lg gap-y-4 bg-sky-50">
             <div className="flex items-center gap-x-2 ">
-              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-fit">
+              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-[73px] text-center">
                 앞타이어
               </div>
               <p>
@@ -76,9 +76,9 @@ const PartStatusDisplay: React.FC<PartStatusProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col w-full px-3 py-2 text-sm rounded-lg gap-y-4 bg-sky-50">
+          <div className="flex flex-col w-full pr-3 py-2 text-[75%] rounded-lg gap-y-4 bg-sky-50">
             <div className="flex items-center gap-x-2 ">
-              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-fit">
+              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-[73px] text-center">
                 뒷타이어
               </div>
               <p>

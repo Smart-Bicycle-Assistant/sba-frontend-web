@@ -5,7 +5,7 @@ interface PartInfoProps {
 
 const PartInfo: React.FC<PartInfoProps> = ({ label, exchangeTime }) => {
   return (
-    <div className="flex flex-col w-full px-3 py-2 text-sm gap-y-4">
+    <div className="flex flex-col w-full pr-3 py-2 text-[75%] gap-y-4">
       <div className="flex items-center gap-x-2">
         <div className="w-[73px] px-3 py-1 text-white rounded-lg bg-customColor text-center mx-8">
           {label}
