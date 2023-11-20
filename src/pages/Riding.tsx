@@ -136,6 +136,7 @@ const RidingPage: React.FC = () => {
   return (
     <div>
       <div className="flex w-full h-screen">
+        <div>{mapCenter}</div>
         <div className="static w-full">
           <MapContainer
             style={{
