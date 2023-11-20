@@ -71,7 +71,6 @@ const RidingPage: React.FC = () => {
 
   useEffect(() => {
     getDistance();
-    setMapCenter([latitude, longitude + 0.004]);
     setPrevCoord([latitude, longitude]);
   }, [latitude]);
 
@@ -136,7 +135,6 @@ const RidingPage: React.FC = () => {
   return (
     <div>
       <div className="flex w-full h-screen">
-        <div>{mapCenter}</div>
         <div className="static w-full">
           <MapContainer
             style={{
@@ -145,7 +143,7 @@ const RidingPage: React.FC = () => {
               height: `100vh`,
               zIndex: 0,
             }}
-            center={mapCenter}
+            center={[latitude, longitude]}
             zoom={16}
             minZoom={11}
             scrollWheelZoom={true}
