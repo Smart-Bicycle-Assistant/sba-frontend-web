@@ -5,6 +5,7 @@ import Navbar from '../../components/common/Navbar';
 import { RecordOneApi } from '../../apis/myPage';
 import { useMainBike } from '../../store/userStore';
 import { formatToTwoDecimals, formatSpeed, formatDate } from '../../utils/format';
+import { getAddr } from '../../utils/map';
 import { MapPinIcon } from '@heroicons/react/20/solid';
 import Chart from 'react-apexcharts';
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
@@ -25,8 +26,12 @@ type RecordDetailType = {
 const MyPageRecordDetail: React.FC = () => {
   const [recordData, setRecordData] = useState<RecordDetailType>();
   const [geometryData, setGeometryData] = useState<[number, number][]>([]);
+  // const [distanceData, setDistanceData] = useState<number[]>([]);
   const [speedData, setSpeedData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<string[]>([]);
+
+  const [startAddr, setStartAddr] = useState<string>('');
+  const [endAddr, setEndAddr] = useState<string>('');
 
   const { recordNo } = useParams();
   const { main } = useMainBike();
@@ -54,6 +59,39 @@ const MyPageRecordDetail: React.FC = () => {
     );
   };
 
+  // const calculateGeometry = (geometry: [number, number][]) => {
+  //   const interval = geometry.length / 7;
+
+  //   const sliceGeometry = Array.from({ length: 7 }, (_, index) =>
+  //     geometry.slice(index * interval, (index + 1) * interval)
+  //   );
+
+  //   console.log(sliceGeometry);
+
+  //   const result = sliceGeometry.map((geometryArr) =>
+  //     geometryArr.reduce((total, curr, idx, arr) => {
+  //       console.log(geometryArr);
+  //       if (idx > 0) {
+  //         const [lat1, lng1] = arr[idx - 1];
+  //         const [lat2, lng2] = arr[idx];
+  //         return total += calculateDistance(lat1, lng1, lat2, lng2);
+  //       }
+  //       return 0;
+  //     }, 0)
+  //   );
+
+  //   console.log(result);
+
+  //   console.log(
+  //     result.map((el, idx) => {
+  //       if (idx > 0) {
+  //         return result[idx - 1] + el;
+  //       }
+  //       return el;
+  //     })
+  //   );
+  // };
+
   const calculateSpeed = (speed: number[]) => {
     const interval = speed.length / 7;
 
@@ -75,10 +113,6 @@ const MyPageRecordDetail: React.FC = () => {
       {
         name: '속도',
         data: speedData,
-      },
-      {
-        name: '평균 속도',
-        data: [49, 49, 50, 48, 50, 50, 49],
       },
     ],
     options: {
@@ -107,6 +141,21 @@ const MyPageRecordDetail: React.FC = () => {
     },
   };
 
+  const formatAddr = (
+    lat: number,
+    lng: number,
+    setAddr: React.Dispatch<React.SetStateAction<string>>
+  ) => {
+    getAddr(lat, lng)
+      .then((result) => {
+        console.log(result);
+        setAddr(result);
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+      });
+  };
+
   useEffect(() => {
     const loadRecordList = async () => {
       const res = await RecordOneApi({ bicycleId: main, recordId: Number(recordNo) });
@@ -123,6 +172,19 @@ const MyPageRecordDetail: React.FC = () => {
 
     loadRecordList();
   }, []);
+
+  useEffect(() => {
+    if (geometryData.length > 0) {
+      formatAddr(geometryData[0][0], geometryData[0][1], setStartAddr);
+      formatAddr(
+        geometryData[geometryData.length - 1][0],
+        geometryData[geometryData.length - 1][1],
+        setEndAddr
+      );
+
+      // calculateGeometry(geometryData);
+    }
+  }, [geometryData]);
 
   return (
     <div className="h-screen">
@@ -178,7 +240,7 @@ const MyPageRecordDetail: React.FC = () => {
                       </div>
                       <div className="flex flex-col gap-y-1">
                         <p>{formatDate(recordData.ridingTime, 'DETAIL')}</p>
-                        <p>경기도 어디시 어디구 어디동 17-1</p>
+                        <p>{startAddr}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-x-4">
@@ -190,7 +252,7 @@ const MyPageRecordDetail: React.FC = () => {
                         <p>
                           {formatDate(recordData.ridingTime + recordData.ridingDuration, 'DETAIL')}
                         </p>
-                        <p>경기도 거기시 거기구 거기동 426</p>
+                        <p>{endAddr}</p>
                       </div>
                     </div>
                   </div>
