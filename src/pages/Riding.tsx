@@ -81,6 +81,7 @@ const RidingPage: React.FC = () => {
   }, [latitude, longitude, speed, packMode, targetSpeed]);
 
   useEffect(() => {
+    console.log(mapCenter);
     setMapCenter([latitude, longitude + 0.004]);
   }, [latitude, longitude]);
 
