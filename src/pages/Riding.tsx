@@ -24,7 +24,8 @@ interface packRidingUser {
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
-  const { packMode, targetSpeed, rearDetection, setRearDetection, setPackMode } = useRidingStore();
+  const { packMode, targetSpeed, rearDetection, setIsRiding, setRearDetection, setPackMode } =
+    useRidingStore();
   const { latitude, longitude, speed, maxSpeed } = useLocationStore();
 
   const [packUsers, setPackUsers] = useState<packRidingUser[]>([]);
@@ -106,6 +107,7 @@ const RidingPage: React.FC = () => {
 
       if (res.status === 200) {
         console.log('Complete');
+        setIsRiding(false);
         navigate('/home');
       }
     } catch (err) {
