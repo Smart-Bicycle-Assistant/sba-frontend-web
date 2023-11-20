@@ -139,7 +139,6 @@ const RidingPage: React.FC = () => {
             center={mapCenter}
             zoom={16}
             minZoom={11}
-            maxZoom={16}
             scrollWheelZoom={true}
             attributionControl={false}
             className="leaflet-container"
@@ -180,7 +179,7 @@ const RidingPage: React.FC = () => {
                         <p className="text-sm">현재속도</p>
                       </div>
                       <div className="flex items-end gap-x-1">
-                        <p className="font-semibold text-red-500 text-7xl">
+                        <p className="font-semibold text-red-500 text-6xl">
                           {formatToTwoDecimals(formatSpeed(speed))}
                         </p>
                         <p className="pb-3 text-base text-gray-light">km/h</p>

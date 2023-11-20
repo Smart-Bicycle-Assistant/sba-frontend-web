@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import BicycleSwiper from '../components/common/BicycleSwiper';
+import BicycleSwiper from "../components/common/BicycleSwiper";
 
-import { useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useUser, useMainBike } from '../store/userStore';
-import { GetBicycleListApi } from '../apis/bicycle';
-import { useEffect } from 'react';
-import { BicycleType } from '../types';
+import { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useUser, useMainBike } from "../store/userStore";
+import { GetBicycleListApi } from "../apis/bicycle";
+import { useEffect } from "react";
+import { BicycleType } from "../types";
 
-import { register } from 'swiper/element/bundle';
-import { Swiper } from 'swiper/types';
+import { register } from "swiper/element/bundle";
+import { Swiper } from "swiper/types";
 
-import Logo from '../assets/logo-white.svg?react';
-import Compass from '../assets/compass.svg?react';
-import Record from '../assets/record.svg?react';
-import Setting from '../assets/setting.svg?react';
-import User from '../assets/user.svg?react';
+import Logo from "../assets/logo-white.svg?react";
+import Compass from "../assets/compass.svg?react";
+import Record from "../assets/record.svg?react";
+import Setting from "../assets/setting.svg?react";
+import User from "../assets/user.svg?react";
 
 function HomePage() {
   const [bicycleList, setBicycleList] = useState<BicycleType[]>([]);
@@ -25,7 +25,7 @@ function HomePage() {
 
   const swiperRef = useRef<any>(null);
 
-  const { main, setMain } = useMainBike((state) => state);
+  const { setMain } = useMainBike((state) => state);
   const { isLoggedIn, setLoggedOut } = useUser((state) => state);
 
   const navigate = useNavigate();
@@ -33,7 +33,7 @@ function HomePage() {
   const handleSignOut = () => {
     localStorage.clear();
     setLoggedOut();
-    navigate('/');
+    navigate("/");
   };
 
   async function getBicycle() {
@@ -120,7 +120,11 @@ function HomePage() {
               {bicycleList &&
                 bicycleList.map((bicycle, index) => (
                   <swiper-slide>
-                    <BicycleSwiper bicycle={bicycle} activeIndex={activeIndex} index={index} />
+                    <BicycleSwiper
+                      bicycle={bicycle}
+                      activeIndex={activeIndex}
+                      index={index}
+                    />
                   </swiper-slide>
                 ))}
             </swiper-container>
@@ -138,7 +142,7 @@ function HomePage() {
               <div
                 className="p-3 bg-white rounded-lg shadow-lg"
                 onClick={() => {
-                  navigate('/management', { state: main });
+                  navigate("/management");
                 }}
               >
                 <Record />
@@ -159,7 +163,9 @@ function HomePage() {
                   <User stroke="#333333" />
                 </div>
               </Link>
-              <div className="text-sm text-black hover:underline">마이페이지</div>
+              <div className="text-sm text-black hover:underline">
+                마이페이지
+              </div>
             </div>
           </div>
         </div>

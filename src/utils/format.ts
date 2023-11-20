@@ -3,7 +3,7 @@ export const formatDuration = (duration: number, divisor: number, unit: string) 
 };
 
 export const formatToTwoDecimals = (number: number) => {
-  return Math.round(number * 100) / 100;
+  return Math.round(number * 10) / 10;
 };
 
 export const formatSpeed = (speed: number) => {
