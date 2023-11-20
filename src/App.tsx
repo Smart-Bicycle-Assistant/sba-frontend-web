@@ -171,14 +171,65 @@ function App() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleMessage(e: { data: string }) {
-    // alert(e.data);
-    const { latitude, longitude, speed } = JSON.parse(e.data);
+    try {
+      const messageObject = JSON.parse(e.data);
+
+      if (isLocationMessage(messageObject)) {
+        handleLocationMessage(messageObject);
+      } else if (isSizeMessage(messageObject)) {
+        handleSizeMessage(messageObject);
+      } else {
+        console.log("Unsupported message type");
+      }
+    } catch (error) {
+      console.error("Error parsing the message:", error);
+    }
+  }
+
+  function isLocationMessage(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    obj: any
+  ): obj is { latitude: number; longitude: number; speed: number } {
+    return (
+      obj.latitude !== undefined &&
+      obj.longitude !== undefined &&
+      obj.speed !== undefined
+    );
+  }
+
+  function isSizeMessage(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    obj: any
+  ): obj is { Width: number; Height: number; boxCount: number } {
+    return (
+      obj.Width !== undefined &&
+      obj.Height !== undefined &&
+      obj.boxCount !== undefined
+    );
+  }
+
+  function handleLocationMessage(locationMessage: {
+    latitude: number;
+    longitude: number;
+    speed: number;
+  }) {
     setLocation({
-      latitude,
-      longitude,
-      speed,
+      latitude: locationMessage.latitude,
+      longitude: locationMessage.longitude,
+      speed: locationMessage.speed,
     });
-    setMaxSpeed(speed);
+    setMaxSpeed(locationMessage.speed);
+  }
+
+  function handleSizeMessage(sizeMessage: {
+    Width: number;
+    Height: number;
+    boxCount: number;
+  }) {
+    console.log("Received Size Message:", sizeMessage);
+    if (sizeMessage.boxCount) {
+      alert("rear detection warning!");
+    }
   }
 
   useEffect(() => {
