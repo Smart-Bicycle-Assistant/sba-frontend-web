@@ -76,12 +76,14 @@ const RidingPage: React.FC = () => {
   }, [latitude]);
 
   useEffect(() => {
-    setMapCenter([latitude, longitude + 0.004]);
-    console.log(latitude, longitude, packMode, speed);
     const res = handlePackRiding(latitude, longitude, packMode, speed);
     console.log(res);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, speed, packMode, targetSpeed]);
+
+  useEffect(() => {
+    setMapCenter([latitude, longitude + 0.004]);
+  }, [latitude, longitude]);
 
   const timer = (startTime: Date) => {
     const currentTime = new Date();
