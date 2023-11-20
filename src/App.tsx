@@ -230,11 +230,10 @@ function App() {
     Height: number;
     boxCount: number;
   }) {
-    // alert(
-    //   `Received Size Message: ${sizeMessage.boxCount} ${sizeMessage.Width} ${sizeMessage.Height}`
-    // );
+    
     if (sizeMessage.boxCount) {
       if (isRiding && rearDetection) {
+        setAlertModal(true);
         const timer = setTimeout(() => {
           setAlertModal(false);
         }, 3000);
@@ -243,6 +242,8 @@ function App() {
       }
     }
   }
+
+  
 
   useEffect(() => {
     if (eventHandlerRef.current) {
@@ -257,6 +258,18 @@ function App() {
       }
     };
   }, [handleMessage]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      handleSizeMessage({
+        Width: 1,
+        Height: 1,
+        boxCount: 1,
+      });
+    }, 10000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   window.addEventListener("message", handleMessage);
 
