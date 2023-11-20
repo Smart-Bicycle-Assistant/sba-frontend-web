@@ -230,7 +230,7 @@ function App() {
     Height: number;
     boxCount: number;
   }) {
-    alert(`Received Size Message: ${isRiding}`);
+    alert(`Received Size Message: ${sizeMessage.boxCount}`);
     if (sizeMessage.boxCount) {
       if (isRiding && rearDetection) {
         const timer = setTimeout(() => {
