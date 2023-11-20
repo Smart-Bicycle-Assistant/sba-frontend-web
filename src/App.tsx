@@ -230,9 +230,9 @@ function App() {
     Height: number;
     boxCount: number;
   }) {
-    alert(
-      `Received Size Message: ${sizeMessage.boxCount} ${sizeMessage.Width} ${sizeMessage.Height}`
-    );
+    // alert(
+    //   `Received Size Message: ${sizeMessage.boxCount} ${sizeMessage.Width} ${sizeMessage.Height}`
+    // );
     if (sizeMessage.boxCount) {
       if (isRiding && rearDetection) {
         const timer = setTimeout(() => {
