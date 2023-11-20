@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import {
   LoginPage,
@@ -29,7 +29,9 @@ import {
 import { useUser } from './store/userStore';
 import { useToken } from './store/tokenStore';
 import { useLocationStore } from '../src/store/locationStore';
+import { useRidingStore } from './store/ridingStore';
 import { RefreshApi } from './apis/user';
+import AlertModal from './components/common/AlertModal';
 
 const ROUTER = createBrowserRouter([
   {
@@ -142,6 +144,12 @@ function App() {
   const { setUser, setLoggedIn } = useUser((state) => state);
   const { setToken } = useToken((state) => state);
 
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const toggleModalHandler = () => {
+    setOpenModal(!openModal);
+  };
+
   useEffect(() => {
     const refreshData = async () => {
       if (localStorage.getItem('token') === null) {
@@ -167,6 +175,7 @@ function App() {
   }, []);
 
   const { setLocation, setMaxSpeed } = useLocationStore();
+  const { isRiding, rearDetection } = useRidingStore();
   const eventHandlerRef = useRef<((e: MessageEvent) => void) | null>(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -179,10 +188,10 @@ function App() {
       } else if (isSizeMessage(messageObject)) {
         handleSizeMessage(messageObject);
       } else {
-        console.log("Unsupported message type");
+        console.log('Unsupported message type');
       }
     } catch (error) {
-      console.error("Error parsing the message:", error);
+      console.error('Error parsing the message:', error);
     }
   }
 
@@ -190,22 +199,14 @@ function App() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
   ): obj is { latitude: number; longitude: number; speed: number } {
-    return (
-      obj.latitude !== undefined &&
-      obj.longitude !== undefined &&
-      obj.speed !== undefined
-    );
+    return obj.latitude !== undefined && obj.longitude !== undefined && obj.speed !== undefined;
   }
 
   function isSizeMessage(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
   ): obj is { Width: number; Height: number; boxCount: number } {
-    return (
-      obj.Width !== undefined &&
-      obj.Height !== undefined &&
-      obj.boxCount !== undefined
-    );
+    return obj.Width !== undefined && obj.Height !== undefined && obj.boxCount !== undefined;
   }
 
   function handleLocationMessage(locationMessage: {
@@ -221,17 +222,14 @@ function App() {
     setMaxSpeed(locationMessage.speed);
   }
 
-  function handleSizeMessage(sizeMessage: {
-    Width: number;
-    Height: number;
-    boxCount: number;
-  }) {
-    console.log("Received Size Message:", sizeMessage);
+  function handleSizeMessage(sizeMessage: { Width: number; Height: number; boxCount: number }) {
+    console.log('Received Size Message:', sizeMessage);
     if (sizeMessage.boxCount) {
-      alert("rear detection warning!");
+      if (isRiding && rearDetection) {
+        alert('rear detection warning!');
+      }
     }
   }
-
 
   useEffect(() => {
     if (eventHandlerRef.current) {
@@ -249,7 +247,12 @@ function App() {
 
   window.addEventListener('message', handleMessage);
 
-  return <RouterProvider router={ROUTER} />;
+  return (
+    <div>
+      <RouterProvider router={ROUTER} />
+      {openModal && <AlertModal toggleModalHandler={toggleModalHandler} />}
+    </div>
+  );
 }
 
 export default App;
