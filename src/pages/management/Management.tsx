@@ -24,7 +24,7 @@ const Management = () => {
     const res = await BicycleManageListApi(bicycleId);
     const { status, data } = res;
     const { records, bicycleStatus } = data;
-
+    console.log(data);
     if (status === 200) {
       setManagements(records);
       setPartStatus(bicycleStatus);
@@ -79,7 +79,7 @@ const Management = () => {
         </button>
 
         {dropdownOpen && (
-          <div className="absolute left-0 w-20 mt-2 text-center origin-top-left bg-white rounded-md shadow-md ">
+          <div className="absolute left-0 w-24 mt-2 text-center origin-top-left bg-white rounded-md shadow-md ">
             <div className="py-1">
               {bicycleList.map((bicycle) => (
                 <button
@@ -119,6 +119,7 @@ const Management = () => {
               .sort((a, b) => b.managementTime - a.managementTime)
               .map((management: ManagementStatus) => {
                 const date: Date = new Date(management.managementTime);
+                console.log(management.recordId);
                 return (
                   <div
                     onClick={() => {
@@ -128,6 +129,10 @@ const Management = () => {
                           recordId: management.recordId,
                         },
                       });
+                      console.log(
+                        selectedBicycle?.bicycleId,
+                        management.recordId
+                      );
                     }}
                     key={management.recordId}
                     className="flex p-3 m-2 text-[75%] transition duration-300 ease-in-out transform rounded-lg cursor-pointer gap-y-4 bg-sky-50 hover:scale-105"
