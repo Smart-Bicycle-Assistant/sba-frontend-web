@@ -44,7 +44,7 @@ export const ManagementDetail: React.FC = () => {
 
       {managementDetail && (
         <div className="p-4 m-3 mb-4 border rounded-md shadow-md">
-          <p className="mb-5 text-sm text-gray-700">
+          <p className="mt-2 mb-3 ml-3 text-sm text-gray-700">
             {
               new Date(managementDetail.managementTime)
                 .toISOString()

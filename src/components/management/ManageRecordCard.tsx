@@ -25,7 +25,7 @@ const ManageRecordCard = ({
       className={`flex bg-sky-50  rounded-lg m-2 flex-col pr-3 py-2 text-[75%] gap-y-4 ${textColor}`}
     >
       <div className="flex items-center gap-x-2">
-        <div className="w-[73px] px-3 py-1 text-white rounded-lg bg-customColor text-center mx-8">
+        <div className="w-[73px] px-2 py-1 text-white rounded-lg bg-customColor text-center mx-8">
           {part}
         </div>
         <div className="flex items-center gap-2">
@@ -33,7 +33,7 @@ const ManageRecordCard = ({
             {type === 1 ? "점검" : "교체"}
           </p>
           {type === 2 && lifeSpan && (
-            <p className="text-[8px] text-gray-700">
+            <p className="text-[8px] text-gray-700 mt-1">
               (기대 수명: {lifeSpan}km)
             </p>
           )}
