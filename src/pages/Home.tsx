@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import BicycleSwiper from "../components/common/BicycleSwiper";
+import BicycleSwiper from '../components/common/BicycleSwiper';
 
-import { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useUser, useMainBike } from "../store/userStore";
-import { GetBicycleListApi } from "../apis/bicycle";
-import { useEffect } from "react";
-import { BicycleType } from "../types";
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useUser, useMainBike } from '../store/userStore';
+import { GetBicycleListApi } from '../apis/bicycle';
+import { useEffect } from 'react';
+import { BicycleType } from '../types';
 
-import { register } from "swiper/element/bundle";
-import { Swiper } from "swiper/types";
+import { register } from 'swiper/element/bundle';
+import { Swiper } from 'swiper/types';
 
-import Logo from "../assets/logo-white.svg?react";
-import Compass from "../assets/compass.svg?react";
-import Record from "../assets/record.svg?react";
-import Setting from "../assets/setting.svg?react";
-import User from "../assets/user.svg?react";
+import Logo from '../assets/logo-white.svg?react';
+import Compass from '../assets/compass.svg?react';
+import Record from '../assets/record.svg?react';
+import Setting from '../assets/setting.svg?react';
+import User from '../assets/user.svg?react';
 
 function HomePage() {
   const [bicycleList, setBicycleList] = useState<BicycleType[]>([]);
@@ -33,13 +33,16 @@ function HomePage() {
   const handleSignOut = () => {
     localStorage.clear();
     setLoggedOut();
-    navigate("/");
+    navigate('/');
   };
 
   async function getBicycle() {
     const res = await GetBicycleListApi();
     setBicycleList(res.data);
-    setMain(res.data[0].bicycleId);
+
+    if (res.data[0]) {
+      setMain(res.data[0].bicycleId);
+    }
   }
 
   useEffect(() => {
@@ -117,16 +120,19 @@ function HomePage() {
           </div>
           <div className="mb-5">
             <swiper-container init={false} ref={swiperRef} pagination={true}>
-              {bicycleList &&
+              {bicycleList && bicycleList.length > 0 ? (
                 bicycleList.map((bicycle, index) => (
                   <swiper-slide>
-                    <BicycleSwiper
-                      bicycle={bicycle}
-                      activeIndex={activeIndex}
-                      index={index}
-                    />
+                    <BicycleSwiper bicycle={bicycle} activeIndex={activeIndex} index={index} />
                   </swiper-slide>
-                ))}
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center gap-y-0.5 w-full h-[85vw] p-8 mx-2 mb-10 bg-slate-100 shadow-lg rounded-3xl text-center text-slate-500 text-sm">
+                  <span className="material-symbols-outlined text-3xl pb-2">directions_bike</span>
+                  <p>등록된 자전거가 없습니다.</p>
+                  <p>마이페이지에서 자전거를 등록해 주세요.</p>
+                </div>
+              )}
             </swiper-container>
           </div>
           <div className="flex justify-between">
@@ -142,7 +148,7 @@ function HomePage() {
               <div
                 className="p-3 bg-white rounded-lg shadow-lg"
                 onClick={() => {
-                  navigate("/management");
+                  navigate('/management');
                 }}
               >
                 <Record />
@@ -163,9 +169,7 @@ function HomePage() {
                   <User stroke="#333333" />
                 </div>
               </Link>
-              <div className="text-sm text-black hover:underline">
-                마이페이지
-              </div>
+              <div className="text-sm text-black hover:underline">마이페이지</div>
             </div>
           </div>
         </div>
