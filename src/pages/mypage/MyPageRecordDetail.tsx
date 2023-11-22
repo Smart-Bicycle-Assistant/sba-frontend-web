@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import { RecordOneApi } from '../../apis/myPage';
-import { useMainBike } from '../../store/userStore';
-import { formatToTwoDecimals, formatSpeed, formatDate } from '../../utils/format';
-import { getAddr } from '../../utils/map';
-import { MapPinIcon } from '@heroicons/react/20/solid';
-import Chart from 'react-apexcharts';
-import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import { RecordOneApi } from "../../apis/myPage";
+import { useMainBike } from "../../store/userStore";
+import {
+  formatToTwoDecimals,
+  formatSpeed,
+  formatDate,
+} from "../../utils/format";
+import { getAddr } from "../../utils/map";
+import { MapPinIcon } from "@heroicons/react/20/solid";
+import Chart from "react-apexcharts";
+import { MapContainer, TileLayer, Polyline } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 type RecordDetailType = {
   avgSpeed: number;
@@ -29,24 +33,24 @@ const MyPageRecordDetail: React.FC = () => {
   const [speedData, setSpeedData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<string[]>([]);
 
-  const [startAddr, setStartAddr] = useState<string>('');
-  const [endAddr, setEndAddr] = useState<string>('');
+  const [startAddr, setStartAddr] = useState<string>("");
+  const [endAddr, setEndAddr] = useState<string>("");
 
   const { recordNo } = useParams();
   const { main } = useMainBike();
 
   const calculateXAxis = (ridingDuration: number) => {
-    let unit = '';
+    let unit = "";
     let divisor = 0;
 
     if (ridingDuration > 3600000) {
-      unit = '시간';
+      unit = "시간";
       divisor = 1000 * 60 * 60;
     } else if (ridingDuration > 60000) {
-      unit = '분';
+      unit = "분";
       divisor = 1000 * 60;
     } else {
-      unit = '초';
+      unit = "초";
       divisor = 1000;
     }
 
@@ -73,7 +77,7 @@ const MyPageRecordDetail: React.FC = () => {
   const chartState = {
     series: [
       {
-        name: '속도',
+        name: "속도",
         data: speedData,
       },
     ],
@@ -88,12 +92,12 @@ const MyPageRecordDetail: React.FC = () => {
         enabled: false,
       },
       stroke: {
-        curve: 'smooth' as const,
+        curve: "smooth" as const,
         width: 3,
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
           opacity: 0.5,
         },
       },
@@ -120,13 +124,18 @@ const MyPageRecordDetail: React.FC = () => {
 
   useEffect(() => {
     const loadRecordList = async () => {
-      const res = await RecordOneApi({ bicycleId: main, recordId: Number(recordNo) });
+      const res = await RecordOneApi({
+        bicycleId: main,
+        recordId: Number(recordNo),
+      });
       setRecordData(res.data);
       setGeometryData(
-        JSON.parse(res.data.map).map((el: { latitude: number; longitude: number }) => [
-          el.latitude,
-          el.longitude,
-        ])
+        JSON.parse(res.data.map).map(
+          (el: { latitude: number; longitude: number }) => [
+            el.latitude,
+            el.longitude,
+          ]
+        )
       );
       setSpeedData(calculateSpeed(JSON.parse(res.data.listSpeed)));
       setXAxis(calculateXAxis(res.data.ridingDuration));
@@ -154,28 +163,28 @@ const MyPageRecordDetail: React.FC = () => {
         <Header menu="주행 기록" />
         {recordData && geometryData && (
           <div>
-            <div className="flex flex-col gap-y-8 px-8 py-8 mx-auto">
+            <div className="flex flex-col px-8 py-8 mx-auto gap-y-8">
               <div>
                 <div className="flex pb-2">
                   <div className="flex items-center gap-x-1.5 text-sm bg-primary-200 rounded-xl px-2 py-0.5">
-                    <span className="material-symbols-outlined text-primary-default text-base font-medium">
+                    <span className="text-base font-medium material-symbols-outlined text-primary-default">
                       directions_bike
                     </span>
-                    <p className="font-base text-xs">자전거 1</p>
+                    <p className="text-xs font-base">자전거 1</p>
                   </div>
                 </div>
                 <div>
                   <p className="text-xl font-semibold">
-                    {formatDate(recordData.ridingTime, 'DEFAULT')} 주행 기록
+                    {formatDate(recordData.ridingTime, "DEFAULT")} 주행 기록
                   </p>
                 </div>
               </div>
               <div>
                 <p className="pb-4 font-semibold">경로 다시보기</p>
-                <div className="flex justify-center items-center w-full">
+                <div className="flex items-center justify-center w-full">
                   <div className="w-full rounded-lg">
                     <MapContainer
-                      style={{ height: '10rem', borderRadius: '0.5rem' }}
+                      style={{ height: "10rem", borderRadius: "0.5rem" }}
                       center={[geometryData[0][0], geometryData[0][1]]}
                       zoom={15}
                       minZoom={11}
@@ -187,33 +196,40 @@ const MyPageRecordDetail: React.FC = () => {
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
                       />
-                      <Polyline positions={geometryData} color={'#0064FF'} />
+                      <Polyline positions={geometryData} color={"#0064FF"} />
                     </MapContainer>
                   </div>
                 </div>
               </div>
               <div>
                 <p className="pb-4 font-semibold">주행 기록</p>
-                <div className="bg-primary-100 rounded-lg shadow-sm">
-                  <div className="flex flex-col gap-y-4 p-4 text-sm">
+                <div className="rounded-lg shadow-sm bg-primary-100">
+                  <div className="flex flex-col p-4 text-sm gap-y-4">
                     <div className="flex items-start gap-x-4">
                       <div className="flex items-center gap-x-1.5">
                         <MapPinIcon className="w-5 h-5 text-primary-default" />
-                        <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">출발</p>
+                        <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
+                          출발
+                        </p>
                       </div>
                       <div className="flex flex-col gap-y-1">
-                        <p>{formatDate(recordData.ridingTime, 'DETAIL')}</p>
+                        <p>{formatDate(recordData.ridingTime, "DETAIL")}</p>
                         <p>{startAddr}</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-x-4">
                       <div className="flex items-center gap-x-1.5">
                         <MapPinIcon className="w-5 h-5 text-primary-default" />
-                        <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">도착</p>
+                        <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
+                          도착
+                        </p>
                       </div>
                       <div className="flex flex-col gap-y-1">
                         <p>
-                          {formatDate(recordData.ridingTime + recordData.ridingDuration, 'DETAIL')}
+                          {formatDate(
+                            recordData.ridingTime + recordData.ridingDuration,
+                            "DETAIL"
+                          )}
                         </p>
                         <p>{endAddr}</p>
                       </div>
@@ -232,19 +248,22 @@ const MyPageRecordDetail: React.FC = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-y-2.5">
-                  <div className="flex items-center gap-x-4 p-4 bg-primary-100 rounded-lg shadow-sm text-sm">
+                  <div className="flex items-center p-4 text-sm rounded-lg shadow-sm gap-x-4 bg-primary-100">
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       주행 거리
                     </p>
                     <p>{formatToTwoDecimals(recordData.distance)}km</p>
                   </div>
-                  <div className="flex items-center gap-x-4 p-4 bg-primary-100 rounded-lg shadow-sm text-sm">
+                  <div className="flex items-center p-4 text-sm rounded-lg shadow-sm gap-x-4 bg-primary-100">
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       최대 속도
                     </p>
-                    <p>{formatToTwoDecimals(formatSpeed(recordData.maxSpeed))}km/h</p>
+                    <p>
+                      {formatToTwoDecimals(formatSpeed(recordData.maxSpeed))}
+                      km/h
+                    </p>
                   </div>
-                  <div className="flex items-center gap-x-4 p-4 bg-primary-100 rounded-lg shadow-sm text-sm">
+                  <div className="flex items-center p-4 text-sm rounded-lg shadow-sm gap-x-4 bg-primary-100">
                     <p className="px-2.5 py-1 rounded-lg text-white bg-primary-default">
                       평균 속도
                     </p>

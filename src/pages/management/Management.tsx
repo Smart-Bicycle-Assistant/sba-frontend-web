@@ -126,6 +126,7 @@ const Management = () => {
                       navigate("/management/detail", {
                         state: {
                           bicycleId: selectedBicycle?.bicycleId,
+                          bicycleName: selectedBicycle?.bicycleName,
                           recordId: management.recordId,
                         },
                       });
