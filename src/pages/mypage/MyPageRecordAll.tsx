@@ -25,7 +25,7 @@ const MyPageRecordAll: React.FC = () => {
   return (
     <div className="content_wrapper">
       <div className="content_fixed">
-        <Header menu={'주행 기록'} />
+        <Header menu={'주행 기록'} showBackArrow={true} />
         <div className="content">
           {recordList && (
             <div className="flex flex-col gap-y-4">

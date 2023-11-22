@@ -160,7 +160,7 @@ const MyPageRecordDetail: React.FC = () => {
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu="주행 기록" />
+        <Header menu="주행 기록" showBackArrow={true} />
         {recordData && geometryData && (
           <div>
             <div className="flex flex-col px-8 py-8 mx-auto gap-y-8">

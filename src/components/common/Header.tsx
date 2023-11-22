@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ menu, showBackArrow = false }) => {
   };
   return (
     <div>
-      <div className="text-black text-lg text-center border-b-2 p-2 font-bold">
+      <div className="text-black text-lg text-center border-b-2 p-3 font-bold">
         {showBackArrow && (
           <span className="absolute left-2" onClick={onClickBtn}>
             <svg
