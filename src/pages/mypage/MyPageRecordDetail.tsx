@@ -66,7 +66,7 @@ const MyPageRecordDetail: React.FC = () => {
     );
 
     return sliceSpeed.map((speedArr) =>
-      formatToTwoDecimals(speedArr.reduce((total, curr) => total + curr, 0) / interval)
+      formatToTwoDecimals(formatSpeed(speedArr.reduce((total, curr) => total + curr, 0) / interval))
     );
   };
 

@@ -1,24 +1,16 @@
-import PackModal from "../components/common/PackModal";
-import AlertModal from "../components/common/AlertModal";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useLocationStore } from "../store/locationStore";
-import { useRidingStore } from "../store/ridingStore";
-import { useModalStore } from "../store/modalStore";
-import { useEffect, useState } from "react";
-import { CustomMarker, redMarker } from "../components/common/CustomMarker";
-import { calculateDistance } from "../utils/riding";
-import { formatToTwoDecimals, formatSpeed } from "../utils/format";
-import { RidingLocationApi, postRidingRecordApi } from "../apis/riding";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Polyline,
-  Tooltip,
-  useMap,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import PackModal from '../components/common/PackModal';
+import AlertModal from '../components/common/AlertModal';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocationStore } from '../store/locationStore';
+import { useRidingStore } from '../store/ridingStore';
+import { useModalStore } from '../store/modalStore';
+import { useEffect, useState } from 'react';
+import { CustomMarker, redMarker } from '../components/common/CustomMarker';
+import { calculateDistance } from '../utils/riding';
+import { formatToTwoDecimals, formatSpeed } from '../utils/format';
+import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMap } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 interface LocationData {
   nickname: string;
@@ -44,15 +36,9 @@ const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
-  const {
-    packMode,
-    targetSpeed,
-    rearDetection,
-    setIsRiding,
-    setRearDetection,
-    setPackMode,
-  } = useRidingStore();
-  const { latitude, longitude, speed, maxSpeed } = useLocationStore();
+  const { packMode, targetSpeed, rearDetection, setIsRiding, setRearDetection, setPackMode } =
+    useRidingStore();
+  const { latitude, longitude, speed, maxSpeed, setMaxSpeed } = useLocationStore();
   const { alertModal } = useModalStore();
 
   const [packUsers, setPackUsers] = useState<packRidingUser[]>([]);
@@ -63,10 +49,7 @@ const RidingPage: React.FC = () => {
   ]);
 
   const [distance, setDistance] = useState<number>(0);
-  const [mapCenter, setMapCenter] = useState<[number, number]>([
-    latitude,
-    longitude + 0.004,
-  ]);
+  const [mapCenter, setMapCenter] = useState<[number, number]>([latitude, longitude + 0.004]);
   const [time, setTime] = useState<[number, number]>([0, 0]);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
@@ -103,13 +86,7 @@ const RidingPage: React.FC = () => {
   }, [latitude]);
 
   useEffect(() => {
-    const res = handlePackRiding(
-      latitude,
-      longitude,
-      packMode,
-      targetSpeed,
-      speed
-    );
+    const res = handlePackRiding(latitude, longitude, packMode, targetSpeed, speed);
     console.log(res);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [latitude, longitude, speed, packMode, targetSpeed]);
@@ -132,8 +109,7 @@ const RidingPage: React.FC = () => {
 
   const getDistance = () => {
     return setDistance(
-      distance +
-        calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1])
+      distance + calculateDistance(latitude, longitude, prevCoord[0], prevCoord[1])
     );
   };
 
@@ -147,9 +123,10 @@ const RidingPage: React.FC = () => {
       });
 
       if (res.status === 200) {
-        console.log("Complete");
+        console.log('Complete');
         setIsRiding(false);
-        navigate("/home");
+        setMaxSpeed(0);
+        navigate('/home');
       }
     } catch (err) {
       console.log(err);
@@ -174,7 +151,7 @@ const RidingPage: React.FC = () => {
         <div className="static w-full">
           <MapContainer
             style={{
-              position: "static",
+              position: 'static',
               width: `100vw`,
               height: `100vh`,
               zIndex: 0,
@@ -208,7 +185,7 @@ const RidingPage: React.FC = () => {
                   </Marker>
                 </div>
               ))}
-            {state && <Polyline positions={state.geometry} color={"#0064FF"} />}
+            {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
             <RecenterAutomatically lat={latitude} lng={longitude} />
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
@@ -219,13 +196,11 @@ const RidingPage: React.FC = () => {
                   <div>
                     <div className="flex flex-col justify-between px-4 py-3 bg-white rounded-lg gap-y-3">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          speed
-                        </span>
+                        <span className="text-xl material-symbols-outlined">speed</span>
                         <p className="text-sm">현재속도</p>
                       </div>
                       <div className="flex items-end gap-x-1">
-                        <p className="text-6xl font-semibold text-red-500">
+                        <p className="text-5xl font-semibold text-red-500">
                           {formatToTwoDecimals(formatSpeed(speed))}
                         </p>
                         <p className="pb-3 text-base text-gray-light">km/h</p>
@@ -246,9 +221,7 @@ const RidingPage: React.FC = () => {
                   <div className="flex flex-col justify-center bg-white rounded-lg">
                     <div className="flex flex-col justify-center px-4 py-3 text-sm">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          directions_bike
-                        </span>
+                        <span className="text-xl material-symbols-outlined">directions_bike</span>
                         <p className="text-sm">주행거리</p>
                       </div>
                       <div>
@@ -262,9 +235,7 @@ const RidingPage: React.FC = () => {
                     </div>
                     <div className="flex flex-col justify-center px-4 pb-3 text-sm">
                       <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">
-                          schedule
-                        </span>
+                        <span className="text-xl material-symbols-outlined">schedule</span>
                         <p className="text-sm">주행시간</p>
                       </div>
                       <div>
@@ -337,9 +308,7 @@ const RidingPage: React.FC = () => {
                     className="flex items-center justify-center w-full py-2 bg-red-500 gap-x-1 rounded-2xl drop-shadow-lg"
                     onClick={ridingStop}
                   >
-                    <span className="text-lg text-white material-symbols-outlined">
-                      cancel
-                    </span>
+                    <span className="text-lg text-white material-symbols-outlined">cancel</span>
                     <p className="text-sm font-semibold text-white">주행종료</p>
                   </button>
                 </div>

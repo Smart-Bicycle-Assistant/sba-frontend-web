@@ -30,8 +30,13 @@ export const getAddr = (lat: number, lng: number): Promise<string> => {
     const callback = function (result: any, status: any) {
       if (status === window.kakao.maps.services.Status.OK) {
         const arr = { ...result };
-        const _arr = arr[0].road_address.address_name;
-        resolve(_arr);
+        if (arr[0].road_address !== null) {
+          const _arr = arr[0].road_address.address_name;
+          resolve(_arr);
+        } else {
+          const _arr = arr[0].address.address_name;
+          resolve(_arr);
+        }
       } else {
         reject(status);
       }
