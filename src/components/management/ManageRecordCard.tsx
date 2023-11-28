@@ -18,7 +18,6 @@ const ManageRecordCard = ({
       break;
     default:
       textColor = 'text-black pl-2';
-      text = '-';
       break;
   }
 
