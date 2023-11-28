@@ -93,10 +93,7 @@ const Management = () => {
           )}
         </div>
         <div className="flex flex-col items-center px-6">
-          <div className="w-full flex flex-col items-center gap-y-3 py-6">
-            {/* <div className="flex items-center px-2 text-sm">
-            <p className="my-4 font-semibold text-base">자전거 정보</p>
-          </div> */}
+          <div className="w-full flex flex-col items-center gap-y-6 pt-10 pb-6">
             <img src={selectedBicycle?.bicycleImage} className="w-3/4" />
             <div className="text-xl font-semibold">{selectedBicycle?.bicycleName}</div>
           </div>
