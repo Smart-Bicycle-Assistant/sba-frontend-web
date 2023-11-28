@@ -1,6 +1,7 @@
 import { useState, Dispatch, SetStateAction } from 'react';
 import useInput from '../../hooks/useInput';
-import { keywordSearch } from '../../utils/map';
+import { useLocationStore } from '../../store/locationStore';
+import { keywordSearch, getAddr } from '../../utils/map';
 import { AddressType } from '../../types';
 
 type SearchPageType = 'DEFAULT' | 'START' | 'END';
@@ -34,6 +35,8 @@ const Search: React.FC<SearchProps> = ({ getDirections, setStartCoord, setEndCoo
   const { value: startInput, onChange: onStartInput, setValue: setStartInput } = useInput();
   const { value: endInput, onChange: onEndInput, setValue: setEndInput } = useInput();
 
+  const { latitude, longitude } = useLocationStore();
+
   const inputHandler = async (
     input: string,
     setSearchList: Dispatch<SetStateAction<AddressType[]>>
@@ -54,18 +57,37 @@ const Search: React.FC<SearchProps> = ({ getDirections, setStartCoord, setEndCoo
       });
   };
 
+  const getCurrentLocation = () => {
+    getAddr(latitude, longitude)
+      .then((result) => {
+        console.log(result);
+        setStartCoord([longitude, latitude]);
+        setStartInput(result);
+      })
+      .catch((error) => {
+        console.error(`Error: ${error}`);
+      });
+  };
+
   return (
     <form className="flex flex-col gap-y-2 pb-4" onSubmit={(e) => getDirections(e)}>
-      <input
-        placeholder="출발지"
-        className="w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        value={startInput}
-        onClick={() => setSearchPageFull('START')}
-        onChange={(e) => {
-          onStartInput(e);
-          inputHandler(startInput, setStartSearchList);
-        }}
-      />
+      <div className="flex items-center w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <input
+          placeholder="출발지"
+          className="w-[90%] text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3"
+          value={startInput}
+          onClick={() => setSearchPageFull('START')}
+          onChange={(e) => {
+            onStartInput(e);
+            inputHandler(startInput, setStartSearchList);
+          }}
+        />
+        <button className="w-[10%] flex justify-end pr-3" onClick={getCurrentLocation}>
+          <span className="material-symbols-outlined text-xl text-slate-400">
+            location_searching
+          </span>
+        </button>
+      </div>
       {searchPageFull === 'START' && startSearchList.length > 0 && (
         <div className="flex flex-col gap-y-2 rounded-lg overflow-auto">
           {startSearchList.map((el, index) => (

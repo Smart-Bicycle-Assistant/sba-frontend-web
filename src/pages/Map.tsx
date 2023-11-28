@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLocationStore } from '../store/locationStore';
 import { useRidingStore } from '../store/ridingStore';
@@ -6,7 +6,7 @@ import Search from '../components/map/Search';
 import Routing from '../components/map/Routing';
 import Navbar from '../components/common/Navbar';
 import CustomMarker from '../components/common/CustomMarker';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
 import { RouteType } from '../types';
 import { decodePolyline } from '../utils/map';
 import { getBicycleDirectionApi } from '../apis/map';
@@ -65,6 +65,16 @@ const MapPage: React.FC = () => {
     }
   };
 
+  const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
+    const map = useMap();
+
+    useEffect(() => {
+      map.setView([lat, lng]);
+    }, [lat, lng]);
+
+    return null;
+  };
+
   return (
     <div className="h-screen">
       <div className="relative">
@@ -91,7 +101,7 @@ const MapPage: React.FC = () => {
           <div className="w-full h-screen">
             <div className="w-full h-full">
               <MapContainer
-                style={{ height: '50%' }}
+                style={{ height: '60%' }}
                 center={[(startCoord[1] + endCoord[1]) / 2, (startCoord[0] + endCoord[0]) / 2]}
                 zoom={13}
                 scrollWheelZoom={true}
@@ -140,7 +150,7 @@ const MapPage: React.FC = () => {
                 height: `calc(100vh - 3.5rem)`,
               }}
               center={[37.56675, 126.97842]}
-              zoom={13}
+              zoom={14}
               minZoom={9}
               scrollWheelZoom={true}
               attributionControl={false}
@@ -155,6 +165,7 @@ const MapPage: React.FC = () => {
                   A pretty CSS3 popup. <br /> Easily customizable.
                 </Popup>
               </Marker>
+              <RecenterAutomatically lat={latitude} lng={longitude} />
             </MapContainer>
           </div>
         )}

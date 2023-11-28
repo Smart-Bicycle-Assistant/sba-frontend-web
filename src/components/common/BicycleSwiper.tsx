@@ -8,7 +8,7 @@ type BicycleSwiperProps = {
 
 const BicycleSwiper: React.FC<BicycleSwiperProps> = ({ bicycle, activeIndex, index }) => {
   return (
-    <div className="h-[52vh] p-[4.2vh] mx-2 mb-10 bg-white shadow-lg rounded-3xl">
+    <div className="h-[55vh] p-[4.2vh] mx-2 mb-10 bg-white shadow-lg rounded-3xl">
       <div className="flex gap-x-2">
         <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary-200">
           <p className="text-sm font-semibold text-primary-default">{index + 1}</p>
@@ -20,7 +20,7 @@ const BicycleSwiper: React.FC<BicycleSwiperProps> = ({ bicycle, activeIndex, ind
         )}
       </div>
       <div className="py-[2vh] text-xl font-semibold">{bicycle.bicycleName}</div>
-      <div className="h-[33vh] flex items-center justify-center">
+      <div className="h-[35vh] flex items-center justify-center">
         <img src={bicycle.bicycleImage} alt="main" className="w-full h-[24vh] object-cover"></img>
       </div>
     </div>
