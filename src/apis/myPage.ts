@@ -29,3 +29,12 @@ export const RecordOneApi = async ({ bicycleId, recordId }: RecordOneType) => {
     return handleApiError(error);
   }
 };
+
+export const deleteRecordApi = async (recordId: number) => {
+  try {
+    const response = await request.delete(`/riding_record/delete_entry?recordId=${recordId}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

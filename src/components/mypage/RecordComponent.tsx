@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import { formatDate } from '../../utils/format';
+import { formatDate, formatDuration } from '../../utils/format';
 import { RecordListType } from '../../types';
-import { formatDuration } from '../../utils/format';
 
 type MyPageRecordDetailProps = {
   data: RecordListType;
+  deleteRecordList: (recordId: number) => void;
 };
 
 const handleRidingDuration = (ridingDuration: number) => {
@@ -17,18 +17,23 @@ const handleRidingDuration = (ridingDuration: number) => {
   }
 };
 
-const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data }) => {
+const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data, deleteRecordList }) => {
   const { recordId, ridingDistance, ridingDuration, ridingTime } = data;
   return (
     <div className="border rounded-lg shadow-sm">
-      <div className="border-b p-4">
-        <div className="flex items-center gap-x-3 text-sm pb-1">
-          <div className="flex justify-center items-center w-8 h-8 bg-primary-200 rounded-full">
-            <span className="material-symbols-outlined text-primary-default text-lg font-medium">
-              directions_bike
-            </span>
+      <div className="border-b pt-3 pb-4 px-4">
+        <div className="flex justify-between text-sm pb-1">
+          <div className="flex items-center gap-x-3">
+            <div className="flex justify-center items-center w-8 h-8 bg-primary-200 rounded-full">
+              <span className="material-symbols-outlined text-primary-default text-lg font-medium">
+                directions_bike
+              </span>
+            </div>
+            <p className="font-medium">자전거 1</p>
           </div>
-          <p className="font-medium">자전거 1</p>
+          <div onClick={() => deleteRecordList(recordId)}>
+            <span className="material-symbols-outlined text-lg text-slate-400 pb-1">close</span>
+          </div>
         </div>
         <div className="flex flex-col gap-y-1 pl-11 text-xs">
           <div className="flex gap-x-2">

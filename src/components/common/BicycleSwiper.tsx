@@ -21,7 +21,7 @@ const BicycleSwiper: React.FC<BicycleSwiperProps> = ({ bicycle, activeIndex, ind
       </div>
       <div className="py-[2vh] text-xl font-semibold">{bicycle.bicycleName}</div>
       <div className="h-[35vh] flex items-center justify-center">
-        <img src={bicycle.bicycleImage} alt="main" className="w-full h-[24vh] object-cover"></img>
+        <img src={bicycle.bicycleImage} alt="main" className="w-full h-[24vh] object-contain"></img>
       </div>
     </div>
   );

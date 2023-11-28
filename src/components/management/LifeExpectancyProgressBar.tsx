@@ -1,5 +1,5 @@
 import Chart from 'react-apexcharts';
-import { formatDate } from '../../utils/format';
+import { formatDate, formatToTwoDecimals } from '../../utils/format';
 
 interface LifeExpectancyProps {
   lifeExpectancyString: string;
@@ -51,8 +51,8 @@ const LifeExpectancyProgressBar: React.FC<LifeExpectancyProps> = ({
             value: {
               offsetY: 50,
               fontSize: '10px',
-              formatter: function (val: number) {
-                return `${val} / ${total} (km)`;
+              formatter: function () {
+                return `${formatToTwoDecimals(Number(value))} / ${total} (km)`;
               },
             },
           },

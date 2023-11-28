@@ -1,14 +1,15 @@
-import Header from "../../components/common/Header";
-import { useNavigate } from "react-router-dom";
-import PreRidingBox from "../../components/riding/PreRidingBox";
-import { useState } from "react";
-import { useRidingStore } from "../../store/ridingStore";
+import { useState } from 'react';
+import Header from '../../components/common/Header';
+import { useNavigate } from 'react-router-dom';
+import PreRidingBox from '../../components/riding/PreRidingBox';
+import { useRidingStore } from '../../store/ridingStore';
+import { useLocationStore } from '../../store/locationStore';
 
 export const PreRiding: React.FC = () => {
   const [packMode, setpackMode] = useState<boolean>(false);
   const [rearDetection, setRearDetection] = useState<boolean>(false);
   const [targetSpeed, setTargetSpeed] = useState<number>(0);
-  // const [destination, setDestination] = useState<boolean>(false);
+  const [destination, setDestination] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -18,15 +19,23 @@ export const PreRiding: React.FC = () => {
   };
 
   const { setRiding } = useRidingStore();
+  const { latitude, longitude } = useLocationStore();
 
   const onSubmit = () => {
     if (!(packMode && !targetSpeed)) {
-      setRiding({ packMode, targetSpeed, rearDetection, destination: false });
-      console.log(packMode, targetSpeed, rearDetection, false);
-      // destination ? navigate("/map") : navigate("/riding");
-      navigate("/map");
+      setRiding({ packMode, targetSpeed, rearDetection, destination });
+      if (destination) {
+        navigate('/map');
+      } else {
+        navigate('/riding', {
+          state: {
+            currentCoord: [latitude, longitude],
+            startTime: new Date(),
+          },
+        });
+      }
     } else {
-      console.log("목표 속도를 설정하세요");
+      console.log('목표 속도를 설정하세요');
     }
   };
 
@@ -58,12 +67,12 @@ export const PreRiding: React.FC = () => {
         state={rearDetection}
         onClick={() => setRearDetection((prev) => !prev)}
       />
-      {/* <PreRidingBox
+      <PreRidingBox
         title="목적지 설정"
         content="목적지 설정 후 추천 경로 안내를 받을 수 있습니다."
         state={destination}
         onClick={() => setDestination((prev) => !prev)}
-      /> */}
+      />
       <div className="fixed bottom-0 left-0 right-0 p-4" onClick={onSubmit}>
         <div className=" text-white py-2.5 px-4 rounded-lg w-full bg-primary-default text-center bg-opacity-85 font-semibold">
           START

@@ -185,7 +185,7 @@ const RidingPage: React.FC = () => {
                   </Marker>
                 </div>
               ))}
-            {state && <Polyline positions={state.geometry} color={'#0064FF'} />}
+            {state && state.geometry && <Polyline positions={state.geometry} color={'#0064FF'} />}
             <RecenterAutomatically lat={latitude} lng={longitude} />
           </MapContainer>
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
