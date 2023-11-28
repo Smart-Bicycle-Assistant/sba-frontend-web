@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import LifeExpectancyProgressBar from "../../components/management/LifeExpectancyProgressBar";
-import PartInfo from "./PartInfo";
+import { useNavigate } from 'react-router-dom';
+import LifeExpectancyProgressBar from '../../components/management/LifeExpectancyProgressBar';
+import PartInfo from './PartInfo';
 
 interface PartStatus {
   bicycleName: string;
@@ -18,101 +18,48 @@ interface PartStatusProps {
   state: number;
 }
 
-const PartStatusDisplay: React.FC<PartStatusProps> = ({
-  partStatus,
-  state,
-}) => {
+const PartStatusDisplay: React.FC<PartStatusProps> = ({ partStatus, state }) => {
   const navigate = useNavigate();
   return (
     <div className="w-full">
-      <div className="flex items-center px-2 text-sm ">
-        <p className="mb-2 font-semibold text-primary-default">최근 교체일</p>
+      <div className="flex justify-between items-center px-2 text-sm">
+        <p className="my-4 text-base font-semibold">최근 교체일</p>
+        <button
+          className="flex items-center text-xs font-normal rounded-md text-opacity-90 text-customColor"
+          onClick={() => {
+            navigate('/management/part', { state: state });
+          }}
+        >
+          부품 정보 업데이트
+          <span className="material-symbols-outlined text-sm">chevron_right</span>
+        </button>
       </div>
-      <div className="p-2 rounded-lg bg-sky-50">
-        <PartInfo
-          label="브레이크"
-          exchangeTime={
-            new Date(partStatus.brakeExchangeTime).toISOString().split("T")[0]
-          }
-        />
-        <PartInfo
-          label="체인"
-          exchangeTime={
-            new Date(partStatus.chainExchangeTime).toISOString().split("T")[0]
-          }
-        />
-        <PartInfo
-          label="기어"
-          exchangeTime={
-            new Date(partStatus.gearExchangeTime).toISOString().split("T")[0]
-          }
-        />
-
-        <div className="">
-          <div className="flex flex-col w-full pr-3 py-2 text-[75%] rounded-lg gap-y-4 bg-sky-50">
-            <div className="flex items-center gap-x-2 ">
-              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-[73px] text-center">
-                앞타이어
-              </div>
-              <p>
-                {
-                  new Date(partStatus.frontTireExchangeTime)
-                    .toISOString()
-                    .split("T")[0]
-                }
-              </p>
-            </div>
-            <div className="px-2 ">
-              <div className="">
-                <LifeExpectancyProgressBar
-                  lifeExpectancyString={partStatus.frontTireLeftLife}
-                />
-                <div className="ml-2 text-center">
-                  <p className="text-[10px] text-gray-700 ">
-                    {partStatus.frontTireLeftLife}
-                  </p>
-                </div>
-              </div>
+      <div className="flex flex-col gap-y-6 p-4 rounded-lg">
+        <div className="grid grid-cols-2 gap-2 pb-3">
+          <div className="flex flex-col items-center justify-center w-full text-sm">
+            <div>
+              <LifeExpectancyProgressBar
+                lifeExpectancyString={partStatus.frontTireLeftLife}
+                exchangeTime={partStatus.frontTireExchangeTime}
+                option="front"
+              />
             </div>
           </div>
-
-          <div className="flex flex-col w-full pr-3 py-2 text-[75%] rounded-lg gap-y-4 bg-sky-50">
-            <div className="flex items-center gap-x-2 ">
-              <div className="px-3 py-1 mx-8 text-white rounded-lg bg-customColor w-[73px] text-center">
-                뒷타이어
-              </div>
-              <p>
-                {
-                  new Date(partStatus.rearTireExchangeTime)
-                    .toISOString()
-                    .split("T")[0]
-                }
-              </p>
-            </div>
-            <div className="px-2 ">
-              <div className="">
+          <div className="flex flex-col items-center justify-center w-full text-sm">
+            <div>
+              <div>
                 <LifeExpectancyProgressBar
                   lifeExpectancyString={partStatus.rearTireLeftLife}
+                  exchangeTime={partStatus.rearTireExchangeTime}
+                  option="rear"
                 />
-                <div className="ml-2 text-center">
-                  <p className="text-[10px] text-gray-700 ">
-                    {partStatus.rearTireLeftLife}
-                  </p>
-                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="justify-center m-2 text-center ">
-        <button
-          className="px-3 mb-2 text-[12px] font-normal underline rouded-md text-opacity-90 text-customColor"
-          onClick={() => {
-            navigate("/management/part", { state: state });
-          }}
-        >
-          부품 정보 업데이트
-        </button>
+        <PartInfo label="브레이크" exchangeTime={partStatus.brakeExchangeTime} />
+        <PartInfo label="체인" exchangeTime={partStatus.chainExchangeTime} />
+        <PartInfo label="기어" exchangeTime={partStatus.gearExchangeTime} />
       </div>
     </div>
   );

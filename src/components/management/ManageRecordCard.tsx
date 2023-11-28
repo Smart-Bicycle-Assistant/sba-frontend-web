@@ -7,38 +7,35 @@ const ManageRecordCard = ({
   type: number;
   lifeSpan?: number;
 }) => {
-  let textColor = "text-gray-700";
-  let text = "교체";
+  let textColor = 'text-gray-700';
 
   switch (type) {
     case 1:
-      textColor = "text-green-700";
-      text = "점검";
+      textColor = 'text-green-700';
       break;
     case 2:
-      textColor = "text-blue-700";
-      text = "교체";
+      textColor = 'text-blue-700';
       break;
     default:
-      textColor = "text-black pl-2";
-      text = "-";
+      textColor = 'text-black pl-2';
+      text = '-';
       break;
   }
 
   return (
     <div
-      className={`flex bg-sky-50  rounded-lg m-2 flex-col pr-3 py-2 text-[75%] gap-y-4`}
+      className={`flex bg-primary-100 rounded-lg flex-col px-4 py-3 text-sm gap-y-4 ${textColor}`}
     >
-      <div className="flex items-center gap-x-2">
-        <div className="w-[73px] px-2 py-1 text-white rounded-lg bg-customColor text-center mx-8">
+      <div className="flex items-center gap-x-4">
+        <div className="w-[73px] px-2 py-1 text-white rounded-lg bg-customColor text-center">
           {part}
         </div>
         <div className="flex items-center gap-2">
-          <p className={`${textColor}`}>{text}</p>
+          <p className={`text-${type === 1 ? 'green' : 'blue'}-700`}>
+            {type === 1 ? '점검' : '교체'}
+          </p>
           {type === 2 && lifeSpan && (
-            <p className="text-[8px] text-gray-700 mt-[2px]">
-              (기대 수명: {lifeSpan}km)
-            </p>
+            <p className="text-[10px] text-gray-700 mt-1">(기대 수명: {lifeSpan}km)</p>
           )}
         </div>
       </div>
