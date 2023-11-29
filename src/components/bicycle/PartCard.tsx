@@ -24,9 +24,7 @@ const PartCard: React.FC<PartCardProps> = ({
       <div className="flex space-x-5">
         <button
           className={`px-4 py-1 rounded-full text-sm ${
-            replace
-              ? "bg-blue-500 text-white font-bold"
-              : "bg-white text-blue-500"
+            replace ? 'bg-blue-500 text-white font-bold' : 'bg-white text-blue-500'
           }`}
           onClick={toggleReplace}
         >
@@ -35,9 +33,7 @@ const PartCard: React.FC<PartCardProps> = ({
 
         <button
           className={`px-4 py-1 rounded-full text-sm ${
-            check
-              ? "bg-blue-500 text-white font-bold"
-              : "bg-white text-blue-500"
+            check ? 'bg-blue-500 text-white font-bold' : 'bg-white text-blue-500'
           }`}
           onClick={toggleCheck}
         >

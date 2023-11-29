@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import RecordComponent from '../../components/mypage/RecordComponent';
+import RecordComponent from '../../components/record/RecordComponent';
 
 import { useMainBike } from '../../store/userStore';
 import { RecordListApi, deleteRecordApi } from '../../apis/myPage';

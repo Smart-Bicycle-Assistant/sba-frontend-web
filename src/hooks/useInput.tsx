@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useState,
-} from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useState } from 'react';
 
 type InputHookReturnType = {
   value: string;
@@ -12,7 +6,7 @@ type InputHookReturnType = {
   setValue: Dispatch<SetStateAction<string>>;
 };
 
-const useInput = (defaultValue = ""): InputHookReturnType => {
+const useInput = (defaultValue = ''): InputHookReturnType => {
   const [value, setValue] = useState<string>(defaultValue);
 
   const onChange = useCallback(

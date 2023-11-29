@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface ModalProps {
   content: string;
@@ -17,10 +17,7 @@ const Modal: React.FC<ModalProps> = ({ content, onClose }) => {
             &times;
           </span>
           <div className=" max-h-[550px] overflow-y-auto">
-            <div
-              className="text-xs"
-              dangerouslySetInnerHTML={{ __html: content }}
-            ></div>
+            <div className="text-xs" dangerouslySetInnerHTML={{ __html: content }}></div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
-import toggleOn from "../../assets/toggleOn.svg";
-import toggleOff from "../../assets/toggleOff.svg";
+import toggleOn from '../../assets/toggleOn.svg';
+import toggleOff from '../../assets/toggleOff.svg';
 
 interface PreRidingBoxProps {
   title: string;
@@ -8,12 +8,7 @@ interface PreRidingBoxProps {
   onClick: () => void;
 }
 
-const PreRidingBox: React.FC<PreRidingBoxProps> = ({
-  title,
-  content,
-  state,
-  onClick,
-}) => {
+const PreRidingBox: React.FC<PreRidingBoxProps> = ({ title, content, state, onClick }) => {
   return (
     <div className="rounded-lg bg-[#4D93FF] shadow-md py-7 m-4 relative">
       <p className="ml-5 text-2xl font-bold text-white">{title}</p>

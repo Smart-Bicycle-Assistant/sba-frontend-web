@@ -1,14 +1,14 @@
-import PackModal from '../components/common/PackModal';
-import AlertModal from '../components/common/AlertModal';
+import PackModal from '../../components/common/PackModal';
+import AlertModal from '../../components/common/AlertModal';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useLocationStore } from '../store/locationStore';
-import { useRidingStore } from '../store/ridingStore';
-import { useModalStore } from '../store/modalStore';
+import { useLocationStore } from '../../store/locationStore';
+import { useRidingStore } from '../../store/ridingStore';
+import { useModalStore } from '../../store/modalStore';
 import { useEffect, useState } from 'react';
-import { CustomMarker, redMarker } from '../components/common/CustomMarker';
-import { calculateDistance } from '../utils/riding';
-import { formatToTwoDecimals, formatSpeed } from '../utils/format';
-import { RidingLocationApi, postRidingRecordApi } from '../apis/riding';
+import { CustomMarker, redMarker } from '../../components/common/CustomMarker';
+import { calculateDistance } from '../../utils/riding';
+import { formatToTwoDecimals, formatSpeed } from '../../utils/format';
+import { RidingLocationApi, postRidingRecordApi } from '../../apis/riding';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 

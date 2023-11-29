@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useLocationStore } from '../store/locationStore';
-import { useRidingStore } from '../store/ridingStore';
-import Search from '../components/map/Search';
-import Routing from '../components/map/Routing';
-import Navbar from '../components/common/Navbar';
-import CustomMarker from '../components/common/CustomMarker';
+import { useLocationStore } from '../../store/locationStore';
+import { useRidingStore } from '../../store/ridingStore';
+import Search from '../../components/riding/Search';
+import Routing from '../../components/riding/Routing';
+import Navbar from '../../components/common/Navbar';
+import CustomMarker from '../../components/common/CustomMarker';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
-import { RouteType } from '../types';
-import { decodePolyline } from '../utils/map';
-import { getBicycleDirectionApi } from '../apis/map';
+import { RouteType } from '../../types';
+import { decodePolyline } from '../../utils/map';
+import { getBicycleDirectionApi } from '../../apis/map';
 import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 import 'leaflet/dist/leaflet.css';
 

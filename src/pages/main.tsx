@@ -1,8 +1,8 @@
-import { startRidingApi } from "../apis/riding";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../components/common/Navbar";
-import { Link } from "react-router-dom";
-import { useLocationStore } from "../store/locationStore";
+import { startRidingApi } from '../apis/riding';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/common/Navbar';
+import { Link } from 'react-router-dom';
+import { useLocationStore } from '../store/locationStore';
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import "swiper/swiper.min.css";
 
@@ -13,7 +13,7 @@ function MainPage() {
   async function handleClickRiding() {
     const res = await startRidingApi();
     if (res === 200) {
-      navigate("/riding");
+      navigate('/riding');
     }
   }
   return (
@@ -21,10 +21,7 @@ function MainPage() {
       <div className="h-auto min-h-screen pb-14">
         <div className="px-2 py-4">
           <div className="flex items-center justify-between">
-            <Link
-              to="/register/terms"
-              className="text-blue-500 hover:underline"
-            >
+            <Link to="/register/terms" className="text-blue-500 hover:underline">
               회원가입
             </Link>
             <Link to="/login" className="text-blue-500 hover:underline">
@@ -32,16 +29,13 @@ function MainPage() {
             </Link>
 
             <div>
-              <p>Latitude: {latitude !== null ? latitude : "N/A"}</p>
-              <p>Longitude: {longitude !== null ? longitude : "N/A"}</p>
-              <p>Speed: {speed !== null ? speed : "N/A"}</p>
+              <p>Latitude: {latitude !== null ? latitude : 'N/A'}</p>
+              <p>Longitude: {longitude !== null ? longitude : 'N/A'}</p>
+              <p>Speed: {speed !== null ? speed : 'N/A'}</p>
             </div>
           </div>
           <div>
-            <Link
-              to="/riding/before"
-              className="block text-blue-500 hover:underline"
-            >
+            <Link to="/riding/before" className="block text-blue-500 hover:underline">
               주행 전 설정
             </Link>
             <Link to="/bicycle" className="block text-blue-500 hover:underline">
@@ -49,10 +43,7 @@ function MainPage() {
             </Link>
           </div>
           <div>
-            <div
-              className="text-blue-500 hover:underline"
-              onClick={handleClickRiding}
-            >
+            <div className="text-blue-500 hover:underline" onClick={handleClickRiding}>
               주행
             </div>
           </div>
