@@ -78,7 +78,10 @@ function LoginPage() {
           </button>
           <div className="mt-10 text-[11px] justify-between flex text-gray-500">
             <Link to="/register">{'회원가입 > '}</Link>
-            <Link to="/">비밀번호 찾기</Link>
+            <div className="flex gap-x-3">
+              <Link to="/password/reset">비밀번호 초기화</Link>
+              <Link to="/">비밀번호 찾기</Link>
+            </div>
           </div>
         </div>
       </div>

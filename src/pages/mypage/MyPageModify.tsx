@@ -83,15 +83,7 @@ function MyPageModify() {
               </button>
             )}
           </div>
-          <div className="flex items-center justify-between">
-            <button
-              className="text-xs text-gray-500 underline"
-              onClick={() => {
-                navigate('/password/reset');
-              }}
-            >
-              비밀번호 초기화
-            </button>
+          <div className="flex items-center justify-end">
             <button
               className="text-xs text-gray-500 underline"
               onClick={() => {
