@@ -1,10 +1,10 @@
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import { BicycleManageListApi, GetBicycleListApi } from '../../apis/bicycle';
+import { BicycleManageListApi, GetBicycleListApi, deleteManagementApi } from '../../apis/bicycle';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bicycle, ManagementStatus, BicycleStatus } from '../../types';
-import DownArrowIcon from '../../assets/DownArrowIcon';
+import DownArrowIcon from '../../assets/DownArrowIcon';
 import { useMainBike } from '../../store/userStore';
 import PartStatusDisplay from '../../components/management/PartStatusDisplay';
 
@@ -41,23 +41,31 @@ const Management = () => {
     forceUpdate();
   };
 
+  const fetchData = async () => {
+    const bicycleData = await GetBicycleListApi();
+    setBicycleList(bicycleData.data);
+    if (main) {
+      const selectedBicycleItem = bicycleData.data.find(
+        (bicycle: { bicycleId: number }) => bicycle.bicycleId === main
+      );
+      setSelectedBicycle(selectedBicycleItem);
+      getManagementList(main);
+    } else {
+      const selectedBicycleItem = bicycleData.data[0].bicycleId;
+      setSelectedBicycle(selectedBicycleItem);
+      getManagementList(bicycleData.data[0].bicycleId);
+    }
+  };
+
+  const deleteManagementList = async (recordId: number) => {
+    const res = await deleteManagementApi(recordId);
+
+    if (res.status === 200) {
+      fetchData();
+    }
+  };
+
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const fetchData = async () => {
-      const bicycleData = await GetBicycleListApi();
-      setBicycleList(bicycleData.data);
-      if (main) {
-        const selectedBicycleItem = bicycleData.data.find(
-          (bicycle: { bicycleId: number }) => bicycle.bicycleId === main
-        );
-        setSelectedBicycle(selectedBicycleItem);
-        getManagementList(main);
-      } else {
-        const selectedBicycleItem = bicycleData.data[0].bicycleId;
-        setSelectedBicycle(selectedBicycleItem);
-        getManagementList(bicycleData.data[0].bicycleId);
-      }
-    };
     fetchData();
   }, [main]);
 
@@ -112,28 +120,31 @@ const Management = () => {
                   console.log(management.recordId);
                   return (
                     <div
-                      onClick={() => {
-                        navigate('/management/detail', {
-                          state: {
-                            bicycleId: selectedBicycle?.bicycleId,
-                            bicycleName: selectedBicycle?.bicycleName,
-                            recordId: management.recordId,
-                          },
-                        });
-                        console.log(selectedBicycle?.bicycleId, management.recordId);
-                      }}
                       key={management.recordId}
                       className="flex px-4 py-4 m-2 text-sm transition duration-300 ease-in-out transform rounded-xl cursor-pointer gap-y-4 bg-primary-100 hover:scale-105"
                     >
                       <div className="flex justify-between items-center w-full">
-                        <div className="flex items-center gap-x-4">
+                        <div
+                          className="flex items-center gap-x-4"
+                          onClick={() => {
+                            navigate('/management/detail', {
+                              state: {
+                                bicycleId: selectedBicycle?.bicycleId,
+                                bicycleName: selectedBicycle?.bicycleName,
+                                recordId: management.recordId,
+                              },
+                            });
+                          }}
+                        >
                           <p className="px-3 py-1 text-white rounded-xl bg-customColor">
                             {date.toISOString().split('T')[0]}
                           </p>
                           <p className="text-sm">교체한 부품: {management.numFixed}</p>
                         </div>
-                        <div>
-                          <p>{'>'}</p>
+                        <div onClick={() => deleteManagementList(management.recordId)}>
+                          <span className="material-symbols-outlined text-lg text-slate-400">
+                            close
+                          </span>
                         </div>
                       </div>
                     </div>

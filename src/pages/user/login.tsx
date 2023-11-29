@@ -67,6 +67,7 @@ function LoginPage() {
               value={password}
               onChange={onPasswordChange}
               onKeyDown={handleEnterKey}
+              autoComplete="current-password"
             />
           </div>
           <button

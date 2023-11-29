@@ -79,3 +79,12 @@ export const getManagementDetailApi = async ({
     return handleApiError(error);
   }
 };
+
+export const deleteManagementApi = async (recordId: number) => {
+  try {
+    const response = await request.delete(`/management_record/delete_entry?recordId=${recordId}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};

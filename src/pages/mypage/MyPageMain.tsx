@@ -8,7 +8,7 @@ const MyPageMain: React.FC = () => {
   return (
     <div className="content_wrapper">
       <div className="content_fixed">
-        <Header menu={'마이페이지'} />
+        <Header menu={'마이페이지'} showBackArrow={true} />
         <div className="flex flex-col content gap-y-8">
           <div className="pt-3">
             <div className="flex items-center text-lg gap-x-3">

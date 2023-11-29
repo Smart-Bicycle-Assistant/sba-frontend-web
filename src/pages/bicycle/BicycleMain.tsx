@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import BicycleCard from "../../components/bicycle/BicycleCard";
-import Header from "../../components/common/Header";
-import Navbar from "../../components/common/Navbar";
-import { GetBicycleListApi } from "../../apis/bicycle";
-import { useEffect, useState } from "react";
-import { Bicycle } from "../../types";
+import { Link } from 'react-router-dom';
+import BicycleCard from '../../components/bicycle/BicycleCard';
+import Header from '../../components/common/Header';
+import Navbar from '../../components/common/Navbar';
+import { GetBicycleListApi } from '../../apis/bicycle';
+import { useEffect, useState } from 'react';
+import { Bicycle } from '../../types';
 
 function BicycleMain() {
   const [bicycles, setBicycles] = useState<Bicycle[]>([]);
@@ -21,7 +21,7 @@ function BicycleMain() {
 
   return (
     <div>
-      <Header menu="내 자전거" />
+      <Header menu="내 자전거" showBackArrow={true} />
       <div className="grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
         {bicycles.map((bicycle: Bicycle) => {
           return (
@@ -35,10 +35,7 @@ function BicycleMain() {
             />
           );
         })}
-        <Link
-          to="/bicycle/registration"
-          className="mt-5 text-xs text-center text-blue-400"
-        >
+        <Link to="/bicycle/registration" className="mt-5 text-xs text-center text-blue-400">
           새 자전거 등록
         </Link>
       </div>

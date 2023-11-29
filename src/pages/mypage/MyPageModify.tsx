@@ -13,7 +13,7 @@ function MyPageModify() {
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu={'회원 정보'} />
+        <Header menu={'회원 정보'} showBackArrow={true} />
         <div className="flex flex-col px-8 py-8 mx-auto gap-y-8">
           <div className="p-6 border border-gray-200 rounded-lg">
             <form className="flex flex-col gap-y-3.5 mb-6">

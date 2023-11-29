@@ -151,7 +151,7 @@ function RegisterPage() {
                 <option value="ajou.ac.kr">ajou.ac.kr</option>
                 <option value="naver.com">naver.com</option>
                 <option value="kakao.com">kakao.com</option>
-                <option value="google.com">google.com</option>
+                <option value="gmail.com">gmail.com</option>
                 <option value="hanmail.net">hanmail.net</option>
                 <option value="직접 입력">직접 입력</option>
               </select>
