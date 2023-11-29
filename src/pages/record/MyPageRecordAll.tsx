@@ -5,7 +5,7 @@ import Navbar from '../../components/common/Navbar';
 import RecordComponent from '../../components/record/RecordComponent';
 
 import { useMainBike } from '../../store/userStore';
-import { RecordListApi, deleteRecordApi } from '../../apis/myPage';
+import { RecordListApi, deleteRecordApi } from '../../apis/record';
 import { RecordComponentType } from '../../types';
 
 const MyPageRecordAll: React.FC = () => {
