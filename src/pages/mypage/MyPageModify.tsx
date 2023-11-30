@@ -1,14 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
 import { useUser } from '../../store/userStore';
 import { useNavigate } from 'react-router-dom';
+import useInput from '../../hooks/useInput';
+import { updateUserInfo } from '../../apis/user';
 
 function MyPageModify() {
   const { id, email, nickname } = useUser();
 
+  const { value: modifyId, onChange: onModifyIdChange, setValue: setModifyId } = useInput();
+  const {
+    value: modifyEmail,
+    onChange: onModifyEmailChange,
+    setValue: setModifyEmail,
+  } = useInput();
+  const {
+    value: modifyNickname,
+    onChange: onModifyNicknameChange,
+    setValue: setModifyNickname,
+  } = useInput();
+
   const [modify, setModify] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setModifyId(id);
+    setModifyEmail(email);
+    setModifyNickname(nickname);
+  }, []);
+
+  const modifyUserInfo = async () => {
+    const res = await updateUserInfo(modifyId, modifyEmail, modifyNickname);
+
+    if (res.status === 200) {
+      setModify(false);
+    }
+  };
 
   return (
     <div className="h-screen">
@@ -26,8 +54,9 @@ function MyPageModify() {
                       ? `text-black focus:outline-none focus:ring-2 focus:ring-blue-500`
                       : `text-gray-400`
                   }`}
+                  onChange={onModifyNicknameChange}
                   disabled={modify ? false : true}
-                  value={nickname}
+                  value={modifyNickname}
                 ></input>
               </div>
               <div>
@@ -39,8 +68,9 @@ function MyPageModify() {
                       ? `text-black focus:outline-none focus:ring-2 focus:ring-blue-500`
                       : `text-gray-400`
                   }`}
+                  onChange={onModifyIdChange}
                   disabled={modify ? false : true}
-                  value={id}
+                  value={modifyId}
                 ></input>
               </div>
               <div>
@@ -52,8 +82,9 @@ function MyPageModify() {
                       ? `text-black focus:outline-none focus:ring-2 focus:ring-blue-500`
                       : `text-gray-400`
                   }`}
+                  onChange={onModifyEmailChange}
                   disabled={modify ? false : true}
-                  value={email}
+                  value={modifyEmail}
                 ></input>
               </div>
               <div>
@@ -70,7 +101,7 @@ function MyPageModify() {
             {modify ? (
               <button
                 className="text-sm w-full bg-primary-default text-white py-2.5 mt-3 rounded-lg hover:bg-opacity-80"
-                onClick={() => setModify(false)}
+                onClick={modifyUserInfo}
               >
                 저장하기
               </button>

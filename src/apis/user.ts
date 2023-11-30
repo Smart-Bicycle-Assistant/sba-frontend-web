@@ -78,4 +78,16 @@ export const WithdrawApi = async () => {
     handleApiError(error);
   }
 };
-//todo : 로그아웃 구현
+
+export const updateUserInfo = async (id: string, email: string, nickname: string) => {
+  try {
+    const response = await request.patch('/update_member', {
+      id,
+      email,
+      nickname,
+    });
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
