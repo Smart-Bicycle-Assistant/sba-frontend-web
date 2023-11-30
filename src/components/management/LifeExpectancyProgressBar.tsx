@@ -22,7 +22,7 @@ const LifeExpectancyProgressBar: React.FC<LifeExpectancyProps> = ({
   const chartState = {
     options: {
       chart: {
-        offsetY: -10,
+        offsetY: -5,
         sparkline: {
           enabled: true,
         },
@@ -49,6 +49,7 @@ const LifeExpectancyProgressBar: React.FC<LifeExpectancyProps> = ({
               show: false,
             },
             value: {
+              show: false,
               offsetY: 50,
               fontSize: '10px',
               formatter: function () {
@@ -101,6 +102,9 @@ const LifeExpectancyProgressBar: React.FC<LifeExpectancyProps> = ({
         type="radialBar"
         width="100%"
       />
+      <p className="text-center text-[10px] pb-2">{`${formatToTwoDecimals(
+        Number(value)
+      )} / ${total} (km)`}</p>
       <div className="flex flex-col items-center gap-y-3">
         <div className="w-[75px] px-2 py-1 text-white rounded-lg bg-primary-200 text-center">
           <p className="text-primary-default">{option === 'front' ? '앞타이어' : '뒷타이어'}</p>
