@@ -191,69 +191,76 @@ const RidingPage: React.FC = () => {
           <div className="absolute top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50"></div>
           <div className="absolute top-0 flex items-center justify-center w-1/2 h-screen left-1/2">
             <div className="flex flex-col w-full py-8 pr-8 gap-y-3">
-              <div className="w-full p-4 bg-slate-100 rounded-2xl drop-shadow-lg">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <div className="flex flex-col justify-between px-4 py-3 bg-white rounded-lg gap-y-3">
-                      <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">speed</span>
-                        <p className="text-sm">현재속도</p>
+              <div className="relative">
+                <div className="w-full h-full p-4 bg-slate-100 rounded-2xl drop-shadow-lg">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <div className="flex flex-col justify-between px-4 py-3 bg-white rounded-lg gap-y-3">
+                        <div className="flex items-center gap-x-1 text-gray-light">
+                          <span className="text-xl material-symbols-outlined">speed</span>
+                          <p className="text-sm">현재속도</p>
+                        </div>
+                        <div className="flex items-end gap-x-1">
+                          <p className="text-5xl font-semibold text-red-500">
+                            {formatToTwoDecimals(formatSpeed(speed))}
+                          </p>
+                          <p className="pb-3 text-base text-gray-light">km/h</p>
+                        </div>
                       </div>
-                      <div className="flex items-end gap-x-1">
-                        <p className="text-5xl font-semibold text-red-500">
-                          {formatToTwoDecimals(formatSpeed(speed))}
-                        </p>
-                        <p className="pb-3 text-base text-gray-light">km/h</p>
-                      </div>
-                    </div>
-                    <div className="flex pt-2 pl-2 gap-x-2">
-                      <div className="flex items-center gap-x-1 text-gray-light">
-                        <p className="text-xs text-gray-light">최대속도</p>
-                      </div>
-                      <div className="flex items-center gap-x-1">
-                        <p className="text-2xl font-semibold text-gray-dark">
-                          {formatToTwoDecimals(formatSpeed(maxSpeed))}
-                        </p>
-                        <p className="text-sm text-gray-light">km/h</p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex flex-col justify-center bg-white rounded-lg">
-                    <div className="flex flex-col justify-center px-4 py-3 text-sm">
-                      <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">directions_bike</span>
-                        <p className="text-sm">주행거리</p>
-                      </div>
-                      <div>
+                      <div className="flex pt-2 pl-2 gap-x-2">
+                        <div className="flex items-center gap-x-1 text-gray-light">
+                          <p className="text-xs text-gray-light">최대속도</p>
+                        </div>
                         <div className="flex items-center gap-x-1">
                           <p className="text-2xl font-semibold text-gray-dark">
-                            {formatToTwoDecimals(distance)}
+                            {formatToTwoDecimals(formatSpeed(maxSpeed))}
                           </p>
-                          <p className="text-sm text-gray-light">km</p>
+                          <p className="text-sm text-gray-light">km/h</p>
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col justify-center px-4 pb-3 text-sm">
-                      <div className="flex items-center gap-x-1 text-gray-light">
-                        <span className="text-xl material-symbols-outlined">schedule</span>
-                        <p className="text-sm">주행시간</p>
+                    <div className="flex flex-col justify-center bg-white rounded-lg">
+                      <div className="flex flex-col justify-center px-4 py-3 text-sm">
+                        <div className="flex items-center gap-x-1 text-gray-light">
+                          <span className="text-xl material-symbols-outlined">directions_bike</span>
+                          <p className="text-sm">주행거리</p>
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-x-1">
+                            <p className="text-2xl font-semibold text-gray-dark">
+                              {formatToTwoDecimals(distance)}
+                            </p>
+                            <p className="text-sm text-gray-light">km</p>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        {time[0] === 0 ? (
-                          <div className="flex items-center gap-x-1">
-                            <p className="text-2xl font-semibold">{time[1]}</p>
-                            <p className="text-sm text-gray-light">분</p>
-                          </div>
-                        ) : (
-                          <div className="flex items-center gap-x-1">
-                            <p className="text-2xl font-semibold">{time[1]}</p>
-                            <p className="text-sm text-gray-light">분</p>
-                          </div>
-                        )}
+                      <div className="flex flex-col justify-center px-4 pb-3 text-sm">
+                        <div className="flex items-center gap-x-1 text-gray-light">
+                          <span className="text-xl material-symbols-outlined">schedule</span>
+                          <p className="text-sm">주행시간</p>
+                        </div>
+                        <div>
+                          {time[0] === 0 ? (
+                            <div className="flex items-center gap-x-1">
+                              <p className="text-2xl font-semibold">{time[1]}</p>
+                              <p className="text-sm text-gray-light">분</p>
+                            </div>
+                          ) : (
+                            <div className="flex items-center gap-x-1">
+                              <p className="text-2xl font-semibold">{time[1]}</p>
+                              <p className="text-sm text-gray-light">분</p>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                {alertModal && (
+                  <div className="absolute flex items-center justify-center top-0 w-full h-full animate-fade-in-down">
+                    <AlertModal />
+                  </div>
+                )}
               </div>
               <div className="flex w-full gap-x-3">
                 <div className="w-1/2">
@@ -335,13 +342,6 @@ const RidingPage: React.FC = () => {
         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
           <div className="flex flex-col gap-y-3 animate-fade-in-down">
             <PackModal toggleModalHandler={toggleModalHandler} />
-          </div>
-        </div>
-      )}
-      {alertModal && (
-        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
-          <div className="flex flex-col gap-y-3 animate-fade-in-down">
-            <AlertModal />
           </div>
         </div>
       )}
