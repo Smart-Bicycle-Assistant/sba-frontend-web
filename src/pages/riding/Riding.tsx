@@ -271,8 +271,15 @@ const RidingPage: React.FC = () => {
                           className="sr-only peer"
                           checked={packMode}
                           onChange={() => packChangeHandler()}
+                          disabled={speed === 0}
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                        <div
+                          className={`w-11 h-6 peer peer-focus:outline-none rounded-full ${
+                            speed === 0
+                              ? `bg-gray-600 peer-checked:bg-gray-600`
+                              : `bg-gray-200 peer-checked:bg-blue-600`
+                          }  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all`}
+                        ></div>
                       </label>
                     </div>
                   </div>
@@ -293,8 +300,15 @@ const RidingPage: React.FC = () => {
                           className="sr-only peer"
                           checked={rearDetection}
                           onChange={() => setRearDetection(!rearDetection)}
+                          disabled={speed === 0}
                         />
-                        <div className="w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+                        <div
+                          className={`w-11 h-6 bg-gray-200 peer peer-focus:outline-none rounded-full ${
+                            speed === 0
+                              ? `bg-gray-600 peer-checked:bg-gray-600`
+                              : `bg-gray-200 peer-checked:bg-blue-600`
+                          } peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all`}
+                        ></div>
                       </label>
                     </div>
                   </div>
