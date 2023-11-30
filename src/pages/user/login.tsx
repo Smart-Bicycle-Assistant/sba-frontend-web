@@ -1,48 +1,52 @@
-import useInput from '../../hooks/useInput';
-import Header from '../../components/common/Header';
+import useInput from "../../hooks/useInput";
+import Header from "../../components/common/Header";
 
-import { useUser } from '../../store/userStore';
-import { Link, useNavigate } from 'react-router-dom';
-import { LoginApi } from '../../apis/user';
-import { useToken } from '../../store/tokenStore';
+import { useUser } from "../../store/userStore";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginApi } from "../../apis/user";
+import { useToken } from "../../store/tokenStore";
 
 function LoginPage() {
   const { value: id, onChange: onIdChange, setValue: setId } = useInput();
-  const { value: password, onChange: onPasswordChange, setValue: setPassword } = useInput();
+  const {
+    value: password,
+    onChange: onPasswordChange,
+    setValue: setPassword,
+  } = useInput();
   const navigate = useNavigate();
 
   const { setUser, setLoggedIn } = useUser();
   const { setToken } = useToken();
 
   const onSubmit = async () => {
-    if (id === '' || password === '') {
+    if (id === "" || password === "") {
       return;
     }
 
     try {
       const res = await LoginApi({ id, password });
       console.log(res);
-      if (res.message === 'OK') {
+      if (res.message === "OK") {
         setToken(res.data.token);
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem("token", res.data.token);
         setUser({
           id: res.data.id,
           email: res.data.email,
           nickname: res.data.nickname,
         });
         setLoggedIn();
-        navigate('/home');
+        navigate("/home");
         console.log(res);
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
     } finally {
-      setId('');
-      setPassword('');
+      setId("");
+      setPassword("");
     }
   };
   const handleEnterKey = (event: { key: string }) => {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       onSubmit();
     }
   };
@@ -77,7 +81,7 @@ function LoginPage() {
             로그인
           </button>
           <div className="mt-10 text-[11px] justify-between flex text-gray-500">
-            <Link to="/register">{'회원가입 > '}</Link>
+            <Link to="/register/terms">{"회원가입 > "}</Link>
             <div className="flex gap-x-3">
               <Link to="/password/reset">비밀번호 초기화</Link>
               <Link to="/">비밀번호 찾기</Link>
@@ -86,8 +90,8 @@ function LoginPage() {
         </div>
       </div>
       <div className="text-[10px] text-gray-300 bottom-0 px-7 pt-16">
-        로그인 완료 시 SBA 앱에 ‘자동 로그인'됩니다. 본인 기기가 아니거나 여러 사람이 사용중인
-        기기인 경우 로그아웃을 해주세요.
+        로그인 완료 시 SBA 앱에 ‘자동 로그인'됩니다. 본인 기기가 아니거나 여러
+        사람이 사용중인 기기인 경우 로그아웃을 해주세요.
       </div>
     </div>
   );
