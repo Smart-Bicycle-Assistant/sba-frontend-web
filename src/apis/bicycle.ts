@@ -80,6 +80,15 @@ export const getManagementDetailApi = async ({
   }
 };
 
+export const deleteBicycleApi = async (bicycleId: number) => {
+  try {
+    const response = await request.delete(`delete_bicycle?bicycleId=${bicycleId}`);
+    return response.data;
+  } catch (error) {
+    return handleApiError(error);
+  }
+};
+
 export const deleteManagementApi = async (recordId: number) => {
   try {
     const response = await request.delete(`/management_record/delete_entry?recordId=${recordId}`);

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import BicycleCard from '../../components/bicycle/BicycleCard';
 import Header from '../../components/common/Header';
 import Navbar from '../../components/common/Navbar';
-import { GetBicycleListApi } from '../../apis/bicycle';
+import { GetBicycleListApi, deleteBicycleApi } from '../../apis/bicycle';
 import { useEffect, useState } from 'react';
 import { Bicycle } from '../../types';
 
@@ -15,9 +15,16 @@ function BicycleMain() {
 
   async function getBicycle() {
     const res = await GetBicycleListApi();
-    console.log(res.data);
     setBicycles(res.data);
   }
+
+  const deleteBicycle = async (bicycleId: number) => {
+    const res = await deleteBicycleApi(bicycleId);
+
+    if (res.status === 200) {
+      getBicycle();
+    }
+  };
 
   return (
     <div>
@@ -32,6 +39,7 @@ function BicycleMain() {
               registerTime={bicycle.registerTime}
               bicycleImage={bicycle.bicycleImage}
               distance={bicycle.distance}
+              deleteBicycle={deleteBicycle}
             />
           );
         })}

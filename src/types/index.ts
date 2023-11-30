@@ -16,8 +16,6 @@ export type RecordComponentType = RecordListType & {
   map: string;
 };
 
-
-
 export type BicycleType = {
   bicycleId: number;
   bicycleImage: string;

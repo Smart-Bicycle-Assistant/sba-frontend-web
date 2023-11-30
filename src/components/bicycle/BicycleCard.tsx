@@ -1,43 +1,61 @@
 import { useNavigate } from 'react-router-dom';
 import { Bicycle } from '../../types';
 import { useMainBike } from '../../store/userStore';
-import { formatToTwoDecimals } from '../../utils/format';
+import { formatToTwoDecimals, formatDate } from '../../utils/format';
 
-function BicycleCard({ bicycleId, bicycleName, bicycleImage, registerTime, distance }: Bicycle) {
+type BicycleCardProps = Bicycle & {
+  deleteBicycle: (bicycleId: number) => void;
+};
+
+const BicycleCard: React.FC<BicycleCardProps> = ({
+  bicycleId,
+  bicycleName,
+  bicycleImage,
+  registerTime,
+  distance,
+  deleteBicycle,
+}) => {
   const { setMain } = useMainBike();
   const navigate = useNavigate();
 
   return (
-    <div className="px-5 py-2 border rounded-md shadow-md">
-      <div className="flex items-center">
+    <div className="border rounded-lg shadow-sm">
+      <div className="flex items-center gap-x-5 border-b p-5">
         <img
           src={bicycleImage}
           alt="logo"
-          className="w-12 h-12 mt-3 bg-gray-100 rounded-full"
+          className="w-12 h-12 bg-primary-200 rounded-full object-contain p-1 "
           onClick={() => {
             setMain(bicycleId);
           }}
         />
-        <div className="mt-2 ml-4">
-          <p className="text-lg font-semibold text-gray-700">{bicycleName}</p>
-          <p className="text-xs text-gray-500">
-            등록일: {new Date(registerTime).toISOString().split('T')[0]}
-          </p>
-          <p className="text-xs text-gray-500">주행거리: {formatToTwoDecimals(distance)} km</p>
+        <div className="w-full">
+          <div className="flex justify-between text-sm">
+            <p className="text-lg font-semibold text-gray-700 pb-2">{bicycleName}</p>
+            <div onClick={() => deleteBicycle(bicycleId)}>
+              <span className="material-symbols-outlined text-lg text-slate-400 pb-1">close</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-x-2 text-xs pb-1">
+            <p className="text-gray-500">등록일</p>
+            <p className="text-black">{formatDate(registerTime, 'DEFAULT')}</p>
+          </div>
+          <div className="flex items-center gap-x-2 text-xs">
+            <p className="text-gray-500">주행거리</p>
+            <p className="text-black">{formatToTwoDecimals(distance)} km</p>
+          </div>
         </div>
       </div>
-
-      <hr className="my-3" />
       <div
-        className="block mb-1 text-xs text-center text-blue-500 hover:underline"
+        className="py-3 bg-primary-default rounded-b-lg"
         onClick={() => {
           navigate('/management', { state: bicycleId });
         }}
       >
-        자세히 보기
+        <p className="text-center text-xs text-white">자세히 보기</p>
       </div>
     </div>
   );
-}
+};
 
 export default BicycleCard;
