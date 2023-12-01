@@ -181,7 +181,7 @@ function RegisterPage() {
           </div>
         </div>
 
-        <div className="pt-4">
+        <div className="pt-4 mb-10">
           <p className="text-sm text-gray-500">이메일</p>
           <div className="flex w-full gap-3">
             <input
