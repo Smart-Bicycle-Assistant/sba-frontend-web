@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useEffect, useRef } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   LoginPage,
   HomePage,
@@ -24,118 +24,118 @@ import {
   Withdraw,
   ChangePassword,
   ResetPassword,
-} from './pages';
+} from "./pages";
 
-import { useUser } from './store/userStore';
-import { useToken } from './store/tokenStore';
-import { useLocationStore } from '../src/store/locationStore';
-import { useRidingStore } from './store/ridingStore';
-import { useModalStore } from './store/modalStore';
-import { RefreshApi } from './apis/user';
+import { useUser } from "./store/userStore";
+import { useToken } from "./store/tokenStore";
+import { useLocationStore } from "../src/store/locationStore";
+import { useRidingStore } from "./store/ridingStore";
+import { useModalStore } from "./store/modalStore";
+import { RefreshApi } from "./apis/user";
 
 const ROUTER = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <OnBoardingPage />,
   },
   {
-    path: '/home',
+    path: "/home",
     element: <HomePage />,
   },
   {
-    path: '/main',
+    path: "/main",
     element: <MainPage />,
   },
   {
-    path: '/password/change',
+    path: "/password/change",
     element: <ChangePassword />,
   },
   {
-    path: '/password/reset',
+    path: "/password/reset",
     element: <ResetPassword />,
   },
   {
-    path: '/riding/before',
+    path: "/riding/before",
     element: <PreRiding />,
   },
   {
-    path: '/withdraw',
+    path: "/withdraw",
     element: <Withdraw />,
   },
   {
-    path: '/management/part',
+    path: "/management/part",
     element: <PartManagement />,
   },
   {
-    path: '/management/detail',
+    path: "/management/detail",
     element: <ManagementDetail />,
   },
   {
-    path: '/map',
+    path: "/map",
     element: <MapPage />,
   },
   {
-    path: '/login',
+    path: "/login",
     element: <LoginPage />,
   },
   {
-    path: '/register',
+    path: "/register",
     element: <RegisterPage />,
   },
   {
-    path: '/mypage',
+    path: "/mypage",
     element: <MyPageMain />,
   },
   {
-    path: '/mypage/modify',
+    path: "/mypage/modify",
     element: <MyPageModify />,
   },
   {
-    path: '/mypage/record',
+    path: "/mypage/record",
     element: <MyPageRecord />,
   },
   {
-    path: '/mypage/record/all',
+    path: "/mypage/record/all",
     element: <MyPageRecordAll />,
   },
   {
-    path: '/mypage/record/:recordNo',
+    path: "/mypage/record/:recordNo",
     element: <MyPageRecordDetail />,
   },
   {
-    path: '/bicycle',
+    path: "/bicycle",
     element: <BicycleMain />,
   },
   {
-    path: '/bicycle/registration',
+    path: "/bicycle/registration",
     element: <BicycleRegistration />,
   },
   {
-    path: '/management',
+    path: "/management",
     element: <Management />,
   },
   {
-    path: '/register/terms',
+    path: "/register/terms",
     element: <RegisterTerms />,
   },
   {
-    path: '/register/success',
+    path: "/register/success",
     element: <RegisterSuccess />,
   },
   {
-    path: '/bicycle/registration',
+    path: "/bicycle/registration",
     element: <BicycleRegistration />,
   },
   {
-    path: '/register/terms',
+    path: "/register/terms",
     element: <RegisterTerms />,
   },
   {
-    path: '/register/success',
+    path: "/register/success",
     element: <RegisterSuccess />,
   },
   {
-    path: '/riding',
+    path: "/riding",
     element: <RidingPage />,
   },
 ]);
@@ -146,15 +146,15 @@ function App() {
 
   useEffect(() => {
     const refreshData = async () => {
-      if (localStorage.getItem('token') === null) {
+      if (localStorage.getItem("token") === null) {
         return;
       }
 
-      setToken(localStorage.getItem('token') as string);
+      setToken(localStorage.getItem("token") as string);
 
       const res = await RefreshApi();
 
-      if (res.message === 'OK') {
+      if (res.message === "OK") {
         setUser({
           id: res.data.id,
           email: res.data.email,
@@ -183,10 +183,10 @@ function App() {
       } else if (isSizeMessage(messageObject)) {
         handleSizeMessage(messageObject);
       } else {
-        console.log('Unsupported message type');
+        console.log("Unsupported message type");
       }
     } catch (error) {
-      console.error('Error parsing the message:', error);
+      console.error("Error parsing the message:", error);
     }
   }
 
@@ -194,14 +194,22 @@ function App() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
   ): obj is { latitude: number; longitude: number; speed: number } {
-    return obj.latitude !== undefined && obj.longitude !== undefined && obj.speed !== undefined;
+    return (
+      obj.latitude !== undefined &&
+      obj.longitude !== undefined &&
+      obj.speed !== undefined
+    );
   }
 
   function isSizeMessage(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
-  ): obj is { Width: number; Height: number; boxCount: number } {
-    return obj.Width !== undefined && obj.Height !== undefined && obj.boxCount !== undefined;
+  ): obj is { width: number; height: number; boxCount: number } {
+    return (
+      obj.width !== undefined &&
+      obj.height !== undefined &&
+      obj.boxCount !== undefined
+    );
   }
 
   function handleLocationMessage(locationMessage: {
@@ -217,7 +225,11 @@ function App() {
     setMaxSpeed(locationMessage.speed);
   }
 
-  function handleSizeMessage(sizeMessage: { Width: number; Height: number; boxCount: number }) {
+  function handleSizeMessage(sizeMessage: {
+    width: number;
+    height: number;
+    boxCount: number;
+  }) {
     const { boxCount } = sizeMessage;
 
     if (boxCount) {
@@ -237,14 +249,14 @@ function App() {
 
   useEffect(() => {
     if (eventHandlerRef.current) {
-      window.removeEventListener('message', eventHandlerRef.current);
+      window.removeEventListener("message", eventHandlerRef.current);
     }
     eventHandlerRef.current = handleMessage;
-    window.addEventListener('message', eventHandlerRef.current);
+    window.addEventListener("message", eventHandlerRef.current);
 
     return () => {
       if (eventHandlerRef.current) {
-        window.removeEventListener('message', eventHandlerRef.current);
+        window.removeEventListener("message", eventHandlerRef.current);
       }
     };
   }, [handleMessage]);
@@ -252,8 +264,8 @@ function App() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       handleSizeMessage({
-        Width: 1,
-        Height: 1,
+        width: 1,
+        height: 1,
         boxCount: 1,
       });
     }, 10000);
@@ -261,7 +273,7 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
-  window.addEventListener('message', handleMessage);
+  window.addEventListener("message", handleMessage);
 
   return <RouterProvider router={ROUTER} />;
 }
