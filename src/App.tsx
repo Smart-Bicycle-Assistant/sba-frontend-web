@@ -204,10 +204,10 @@ function App() {
   function isSizeMessage(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     obj: any
-  ): obj is { width: number; height: number; boxCount: number } {
+  ): obj is { Width: number; Height: number; boxCount: number } {
     return (
-      obj.width !== undefined &&
-      obj.height !== undefined &&
+      obj.Width !== undefined &&
+      obj.Height !== undefined &&
       obj.boxCount !== undefined
     );
   }
@@ -226,8 +226,8 @@ function App() {
   }
 
   function handleSizeMessage(sizeMessage: {
-    width: number;
-    height: number;
+    Width: number;
+    Height: number;
     boxCount: number;
   }) {
     const { boxCount } = sizeMessage;
@@ -264,8 +264,8 @@ function App() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       handleSizeMessage({
-        width: 1,
-        height: 1,
+        Width: 1,
+        Height: 1,
         boxCount: 1,
       });
     }, 10000);
