@@ -36,7 +36,7 @@ const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
   const map = useMap();
 
   useEffect(() => {
-    map.setView([lat, lng + 0.004]);
+    lat && lng && map.setView([lat, lng + 0.004]);
   }, [lat, lng]);
 
   return null;
