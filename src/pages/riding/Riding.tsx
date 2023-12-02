@@ -32,15 +32,15 @@ interface packRidingUser {
   latitude: number;
 }
 
-const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
-  const map = useMap();
+// const RecenterAutomatically = ({ lat, lng }: { lat: number; lng: number }) => {
+//   const map = useMap();
 
-  useEffect(() => {
-    lat && lng && map.setView([lat, lng + 0.004]);
-  }, [lat, lng]);
+//   useEffect(() => {
+//     lat && lng && map.setView([lat, lng + 0.004]);
+//   }, [lat, lng]);
 
-  return null;
-};
+//   return null;
+// };
 
 const RidingPage: React.FC = () => {
   const { state } = useLocation();
