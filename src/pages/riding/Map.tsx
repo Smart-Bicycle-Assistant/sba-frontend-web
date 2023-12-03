@@ -20,7 +20,7 @@ const MapPage: React.FC = () => {
   const [searchPageOpen, setSearchPageOpen] = useState<boolean>(false);
   const [routingPageOpen, setRoutingPageOpen] = useState<boolean>(false);
 
-  const { latitude, longitude } = useLocationStore();
+  const { latitude, longitude, setMaxSpeed } = useLocationStore();
   const { setIsRiding } = useRidingStore();
 
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ const MapPage: React.FC = () => {
 
   const handleRidingStart = () => {
     setIsRiding(true);
+    setMaxSpeed(0);
     navigate('/riding', {
       state: {
         currentCoord: [latitude, longitude],
