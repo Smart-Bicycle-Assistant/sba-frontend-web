@@ -4,10 +4,10 @@ import Navbar from '../../components/common/Navbar';
 import { useUser } from '../../store/userStore';
 import { useNavigate } from 'react-router-dom';
 import useInput from '../../hooks/useInput';
-import { updateUserInfo } from '../../apis/user';
+import { RefreshApi, updateUserInfo } from '../../apis/user';
 
 function MyPageModify() {
-  const { id, email, nickname } = useUser();
+  const { id, email, nickname, setUser } = useUser();
 
   const { value: modifyId, onChange: onModifyIdChange, setValue: setModifyId } = useInput();
   const {
@@ -34,6 +34,16 @@ function MyPageModify() {
     const res = await updateUserInfo(modifyId, modifyEmail, modifyNickname);
 
     if (res.status === 200) {
+      const res = await RefreshApi();
+
+      if (res.message === 'OK') {
+        setUser({
+          id: res.data.id,
+          email: res.data.email,
+          nickname: res.data.nickname,
+        });
+      }
+
       setModify(false);
     }
   };
@@ -60,20 +70,6 @@ function MyPageModify() {
                 ></input>
               </div>
               <div>
-                <p className="mb-2 text-xs text-gray-600">아이디</p>
-                <input
-                  type="text"
-                  className={`w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 ${
-                    modify
-                      ? `text-black focus:outline-none focus:ring-2 focus:ring-blue-500`
-                      : `text-gray-400`
-                  }`}
-                  onChange={onModifyIdChange}
-                  disabled={modify ? false : true}
-                  value={modifyId}
-                ></input>
-              </div>
-              <div>
                 <p className="mb-2 text-xs text-gray-600">이메일</p>
                 <input
                   type="text"
@@ -88,6 +84,16 @@ function MyPageModify() {
                 ></input>
               </div>
               <div>
+                <p className="mb-2 text-xs text-gray-600">아이디</p>
+                <input
+                  type="text"
+                  className={`w-full text-xs placeholder-slate-400 bg-gray-100 rounded-lg py-3 px-3 text-gray-400`}
+                  onChange={onModifyIdChange}
+                  disabled={true}
+                  value={modifyId}
+                ></input>
+              </div>
+              <div>
                 <p className="mb-2 text-xs text-gray-600">비밀번호</p>
                 <input
                   type="password"
@@ -95,7 +101,6 @@ function MyPageModify() {
                   value="********"
                   disabled={true}
                 ></input>
-                <p className="text-xs text-gray-600 text-right underline">비밀번호 확인하기</p>
               </div>
             </form>
             {modify ? (
