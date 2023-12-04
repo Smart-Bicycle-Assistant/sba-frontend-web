@@ -157,7 +157,11 @@ const MyPageRecordDetail: React.FC = () => {
   return (
     <div className="h-screen">
       <div className="h-auto min-h-screen pb-14">
-        <Header menu="주행 기록" showBackArrow={true} />
+        {openMapDetail ? (
+          <Header menu="주행 기록" showBackArrow={false} />
+        ) : (
+          <Header menu="주행 기록" showBackArrow={true} />
+        )}
         <div className="relative">
           {recordData && geometryData && (
             <div>
