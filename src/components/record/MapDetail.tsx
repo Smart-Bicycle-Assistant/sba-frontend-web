@@ -18,7 +18,7 @@ const MapDetail: React.FC<MapDetailProps> = ({
     <div className="relative">
       <MapContainer
         style={{
-          height: `calc(100vh - 6.7rem)`,
+          height: `calc(100vh - 3.5rem - 54px)`,
         }}
         center={[latitude, longtitude]}
         zoom={17}
@@ -34,7 +34,7 @@ const MapDetail: React.FC<MapDetailProps> = ({
         <Polyline positions={geometryData} color={'#0064FF'} />
       </MapContainer>
       <div
-        className="flex items-center gap-x-0.5 rounded-lg bg-rose-500 absolute top-2 right-2 px-2.5 py-1 z-[9999]"
+        className="flex items-center gap-x-0.5 rounded-lg bg-rose-500 absolute top-3 right-3 px-2.5 py-1 z-[9999]"
         onClick={() => setOpenMapDetail(false)}
       >
         <p className="text-sm text-white">지도 닫기</p>
