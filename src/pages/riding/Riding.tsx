@@ -205,9 +205,9 @@ const RidingPage: React.FC = () => {
             <RecenterAutomatically lat={latitude} lng={longitude} />
           </MapContainer>
           <div
-            className={`absolute h-screen ${
+            className={`absolute ${
               landScape
-                ? `top-0 left-1/2 w-1/2 bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50`
+                ? `top-0 left-1/2 w-1/2 h-screen bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50`
                 : `bottom-0 w-full h-1/2 bg-gradient-to-b from-50% from-transparent to-95% to-primary-400 opacity-50`
             }`}
           ></div>
