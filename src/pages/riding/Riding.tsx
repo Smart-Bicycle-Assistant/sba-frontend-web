@@ -70,6 +70,7 @@ const RidingPage: React.FC = () => {
   ]);
   const [time, setTime] = useState<[number, number]>([0, 0]);
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [landScape, setLandScape] = useState<boolean>(false);
 
   const navigate = useNavigate();
 

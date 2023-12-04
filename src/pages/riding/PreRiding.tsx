@@ -34,10 +34,6 @@ export const PreRiding: React.FC = () => {
           },
         });
       }
-
-      if (window.ReactNativeWebView) {
-        window.ReactNativeWebview.postMessage('가로모드');
-      }
     } else {
       console.log('목표 속도를 설정하세요');
     }
