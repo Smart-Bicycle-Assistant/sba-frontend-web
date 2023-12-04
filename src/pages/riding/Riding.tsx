@@ -208,7 +208,7 @@ const RidingPage: React.FC = () => {
             className={`absolute h-screen ${
               landScape
                 ? `top-0 left-1/2 w-1/2 bg-gradient-to-r from-0% from-transparent to-95% to-primary-400 opacity-50`
-                : `bottom-0 w-full bg-gradient-to-b from-50% from-transparent to-95% to-primary-400 opacity-50`
+                : `bottom-0 w-full h-1/2 bg-gradient-to-b from-50% from-transparent to-95% to-primary-400 opacity-50`
             }`}
           ></div>
           <div
