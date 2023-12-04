@@ -1,4 +1,5 @@
 import MainPage from './main';
+import ErrorPage from './Error';
 import OnBoardingPage from './OnBoarding';
 import HomePage from './Home';
 import RegisterPage from './user/register/Register';
@@ -27,6 +28,7 @@ export {
   ResetPassword,
   MainPage,
   OnBoardingPage,
+  ErrorPage,
   HomePage,
   MapPage,
   RidingPage,

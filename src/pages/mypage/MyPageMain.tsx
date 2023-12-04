@@ -29,13 +29,13 @@ const MyPageMain: React.FC = () => {
             </div>
             <div>
               <div className="text-sm text-slate-400 py-2">고객센터</div>
-              <Link to="/">
+              <Link to="/error">
                 <div className="flex items-center py-2.5 text-sm gap-x-2 rounded-xl">
                   <span className="material-symbols-outlined text-slate-400">quiz</span>
                   <p className="text-base">FAQ</p>
                 </div>
               </Link>
-              <Link to="/">
+              <Link to="/error">
                 <div className="flex items-center py-2.5 text-sm gap-x-2 rounded-xl">
                   <span className="material-symbols-outlined text-slate-400">report</span>
                   <p className="text-base">회원 신고</p>
