@@ -84,7 +84,6 @@ function LoginPage() {
             <Link to="/register/terms">{"회원가입 > "}</Link>
             <div className="flex gap-x-3">
               <Link to="/password/reset">비밀번호 초기화</Link>
-              <Link to="/">비밀번호 찾기</Link>
             </div>
           </div>
         </div>
