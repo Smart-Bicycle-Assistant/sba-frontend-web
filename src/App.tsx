@@ -235,12 +235,12 @@ function App() {
     Height: number;
     boxCount: number;
   }) {
-    const { boxCount } = sizeMessage;
+    const { Width, Height, boxCount } = sizeMessage;
 
     if (boxCount) {
-      alert("detect");
+      alert("detect" + Width + Height);
       if (isRiding && rearDetection) {
-        alert("detect2");
+        alert("detect2" + Width + Height);
         if (!alertModal) {
           setAlertModal(true);
 
