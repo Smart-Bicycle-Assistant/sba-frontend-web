@@ -180,67 +180,18 @@ function App() {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   function handleMessage(e: { data: string }) {
-    try {
-      const messageObject = JSON.parse(e.data);
-
-      if (isLocationMessage(messageObject)) {
-        handleLocationMessage(messageObject);
-      } else if (isSizeMessage(messageObject)) {
-        handleSizeMessage(messageObject);
-      } else {
-        console.log("Unsupported message type");
-      }
-    } catch (error) {
-      console.error("Error parsing the message:", error);
-    }
-  }
-
-  function isLocationMessage(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    obj: any
-  ): obj is { latitude: number; longitude: number; speed: number } {
-    return (
-      obj.latitude !== undefined &&
-      obj.longitude !== undefined &&
-      obj.speed !== undefined
-    );
-  }
-
-  function isSizeMessage(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    obj: any
-  ): obj is { Width: number; Height: number; boxCount: number } {
-    return (
-      obj.Width !== undefined &&
-      obj.Height !== undefined &&
-      obj.boxCount !== undefined
-    );
-  }
-
-  function handleLocationMessage(locationMessage: {
-    latitude: number;
-    longitude: number;
-    speed: number;
-  }) {
+    const { latitude, longitude, speed, boxCount } = JSON.parse(e.data);
     setLocation({
-      latitude: locationMessage.latitude,
-      longitude: locationMessage.longitude,
-      speed: locationMessage.speed,
+      latitude: latitude,
+      longitude: longitude,
+      speed: speed,
     });
-    setMaxSpeed(locationMessage.speed);
-  }
+    setMaxSpeed(speed);
 
-  function handleSizeMessage(sizeMessage: {
-    Width: number;
-    Height: number;
-    boxCount: number;
-  }) {
-    alert("in");
-    const { Width, Height, boxCount } = sizeMessage;
-    alert("detect" + Width + Height);
-    if (boxCount) {
+    if (boxCount >= 1) {
+      // alert("detect3" + Width + Height + boxCount + isRiding + rearDetection);
       if (isRiding && rearDetection) {
-        alert("detect2" + Width + Height);
+        // alert("detect2" + Width + Height);
         if (!alertModal) {
           setAlertModal(true);
 
@@ -252,7 +203,70 @@ function App() {
         }
       }
     }
+
+    // alert(messageObject);
   }
+
+  // function isLocationMessage(
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   obj: any
+  // ): obj is { latitude: number; longitude: number; speed: number } {
+  //   return (
+  //     obj.latitude !== undefined &&
+  //     obj.longitude !== undefined &&
+  //     obj.speed !== undefined
+  //   );
+  // }
+
+  // function isSizeMessage(
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  //   obj: any
+  // ): obj is { Width: number; Height: number; boxCount: number } {
+  //   return (
+  //     obj.Width !== undefined &&
+  //     obj.Height !== undefined &&
+  //     obj.boxCount !== undefined
+  //   );
+  // }
+
+  // function handleLocationMessage(locationMessage: {
+  //   latitude: number;
+  //   longitude: number;
+  //   speed: number;
+  // }) {
+  //   setLocation({
+  //     latitude: locationMessage.latitude,
+  //     longitude: locationMessage.longitude,
+  //     speed: locationMessage.speed,
+  //   });
+  //   setMaxSpeed(locationMessage.speed);
+  // }
+
+  // function handleSizeMessage(sizeMessage: {
+  //   Width: number;
+  //   Height: number;
+  //   boxCount: number;
+  // }) {
+  //   //
+  //   const { Width, Height, boxCount } = sizeMessage;
+  //   alert(sizeMessage);
+  //   alert("detect " + Width + Height + boxCount);
+  //   if (boxCount >= 1) {
+  //     // alert("detect3" + Width + Height + boxCount + isRiding + rearDetection);
+  //     if (isRiding && rearDetection) {
+  //       // alert("detect2" + Width + Height);
+  //       if (!alertModal) {
+  //         setAlertModal(true);
+
+  //         const timer = setTimeout(() => {
+  //           setAlertModal(false);
+  //         }, 3000);
+
+  //         return () => clearTimeout(timer);
+  //       }
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     if (eventHandlerRef.current) {
@@ -268,17 +282,17 @@ function App() {
     };
   }, [handleMessage]);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      handleSizeMessage({
-        Width: 1,
-        Height: 1,
-        boxCount: 1,
-      });
-    }, 10000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     handleSizeMessage({
+  //       Width: 1,
+  //       Height: 1,
+  //       boxCount: 1,
+  //     });
+  //   }, 10000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+  //   return () => clearInterval(intervalId);
+  // }, [isRiding, rearDetection]);
 
   window.addEventListener("message", handleMessage);
 
@@ -286,3 +300,4 @@ function App() {
 }
 
 export default App;
+
