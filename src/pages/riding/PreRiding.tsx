@@ -18,7 +18,7 @@ export const PreRiding: React.FC = () => {
     setTargetSpeed(Number(newValue));
   };
 
-  const { setRiding } = useRidingStore();
+  const { setRiding, setIsRiding } = useRidingStore();
   const { latitude, longitude } = useLocationStore();
 
   const onSubmit = () => {
@@ -27,6 +27,7 @@ export const PreRiding: React.FC = () => {
       if (destination) {
         navigate('/map');
       } else {
+        setIsRiding(true);
         navigate('/riding', {
           state: {
             currentCoord: [latitude, longitude],
