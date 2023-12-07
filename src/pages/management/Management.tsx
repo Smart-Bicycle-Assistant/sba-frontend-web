@@ -1,25 +1,26 @@
-import Header from "../../components/common/Header";
-import Navbar from "../../components/common/Navbar";
-import {
-  BicycleManageListApi,
-  GetBicycleListApi,
-  deleteManagementApi,
-} from "../../apis/bicycle";
-import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Bicycle, ManagementStatus, BicycleStatus } from "../../types";
-import DownArrowIcon from "../../assets/DownArrowIcon";
-import { useMainBike } from "../../store/userStore";
-import PartStatusDisplay from "../../components/management/PartStatusDisplay";
+import Header from '../../components/common/Header';
+import Navbar from '../../components/common/Navbar';
+import ConfirmModal from '../../components/common/ConfirmModal';
+import { BicycleManageListApi, GetBicycleListApi, deleteManagementApi } from '../../apis/bicycle';
+import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Bicycle, ManagementStatus, BicycleStatus } from '../../types';
+import DownArrowIcon from '../../assets/DownArrowIcon';
+import { useMainBike } from '../../store/userStore';
+import PartStatusDisplay from '../../components/management/PartStatusDisplay';
 
 const Management = () => {
   const { main } = useMainBike();
+
   const navigate = useNavigate();
+
   const [managements, setManagements] = useState<ManagementStatus[]>([]);
   const [partStatus, setPartStatus] = useState<BicycleStatus>();
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const [bicycleList, setBicycleList] = useState<Bicycle[]>([]);
   const [selectedBicycle, setSelectedBicycle] = useState<Bicycle | undefined>();
+  const [confirmModal, setConfirmModal] = useState<boolean>(false);
+  const [deleteManagementId, setDeleteManagementId] = useState<number>(0);
 
   const forceUpdateRef = useRef<() => void>(() => {});
   const forceUpdate = () => forceUpdateRef.current();
@@ -39,9 +40,7 @@ const Management = () => {
   };
 
   const handleBicycleChange = (newBicycleId: number) => {
-    const selectedBicycleItem = bicycleList.find(
-      (bicycle) => bicycle.bicycleId === newBicycleId
-    );
+    const selectedBicycleItem = bicycleList.find((bicycle) => bicycle.bicycleId === newBicycleId);
     setSelectedBicycle(selectedBicycleItem);
     getManagementList(newBicycleId);
     forceUpdate();
@@ -63,12 +62,17 @@ const Management = () => {
     }
   };
 
-  const deleteManagementList = async (recordId: number) => {
-    const res = await deleteManagementApi(recordId);
+  const deleteManagementList = async () => {
+    const res = await deleteManagementApi(deleteManagementId);
 
     if (res.status === 200) {
       fetchData();
     }
+  };
+
+  const openConfirmModal = (id: number) => {
+    setConfirmModal(true);
+    setDeleteManagementId(id);
   };
 
   useEffect(() => {
@@ -84,9 +88,7 @@ const Management = () => {
             onClick={handleDropdownToggle}
             className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:shadow-outline-gray"
           >
-            <span className="w-16 pl-1 pr-2">
-              {selectedBicycle && selectedBicycle.bicycleName}
-            </span>
+            <span className="w-16 pl-1 pr-2">{selectedBicycle && selectedBicycle.bicycleName}</span>
             <DownArrowIcon />
           </button>
           {dropdownOpen && (
@@ -111,15 +113,10 @@ const Management = () => {
         <div className="flex flex-col items-center px-6">
           <div className="flex flex-col items-center w-full pt-10 pb-6 gap-y-6">
             <img src={selectedBicycle?.bicycleImage} className="w-3/4" />
-            <div className="text-xl font-semibold">
-              {selectedBicycle?.bicycleName}
-            </div>
+            <div className="text-xl font-semibold">{selectedBicycle?.bicycleName}</div>
           </div>
           {selectedBicycle && partStatus && (
-            <PartStatusDisplay
-              partStatus={partStatus}
-              state={selectedBicycle.bicycleId}
-            />
+            <PartStatusDisplay partStatus={partStatus} state={selectedBicycle.bicycleId} />
           )}
           <div className="w-full py-6 pt-3">
             <div className="flex items-center px-2 text-sm">
@@ -136,14 +133,14 @@ const Management = () => {
                     <div
                       key={management.recordId}
                       className={`flex px-4 py-4 m-2 text-sm transition duration-300 ease-in-out transform cursor-pointer rounded-xl gap-y-4 ${
-                        isLastElement ? "bg-primary-100" : "bg-gray-100"
+                        isLastElement ? 'bg-primary-100' : 'bg-gray-100'
                       }`}
                     >
                       <div className="flex items-center justify-between w-full">
                         <div
                           className="flex items-center gap-x-4"
                           onClick={() => {
-                            navigate("/management/detail", {
+                            navigate('/management/detail', {
                               state: {
                                 bicycleId: selectedBicycle?.bicycleId,
                                 bicycleName: selectedBicycle?.bicycleName,
@@ -153,23 +150,17 @@ const Management = () => {
                           }}
                         >
                           <p className="px-3 py-1 text-white rounded-xl bg-customColor">
-                            {date.toISOString().split("T")[0]}
+                            {date.toISOString().split('T')[0]}
                           </p>
                           {isLastElement ? (
-                            <p className="text-sm">
-                              교체한 부품: {management.numFixed}
-                            </p>
+                            <p className="text-sm">교체한 부품: {management.numFixed}</p>
                           ) : (
                             <p className="text-sm">자전거 최초 등록</p>
                           )}
                         </div>
                         {isLastElement ? (
-                          <div
-                            onClick={() =>
-                              deleteManagementList(management.recordId)
-                            }
-                          >
-                            <span className="text-lg material-symbols-outlined text-slate-400">
+                          <div onClick={() => openConfirmModal(management.recordId)}>
+                            <span className="material-symbols-outlined text-lg text-slate-400">
                               close
                             </span>
                           </div>
@@ -185,6 +176,13 @@ const Management = () => {
         </div>
       </div>
       <Navbar />
+      {confirmModal && (
+        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
+          <div className="flex flex-col gap-y-3 animate-fade-in-down">
+            <ConfirmModal setOpenModal={setConfirmModal} deleteHandler={deleteManagementList} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

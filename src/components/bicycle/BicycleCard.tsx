@@ -4,7 +4,7 @@ import { useMainBike } from '../../store/userStore';
 import { formatToTwoDecimals, formatDate } from '../../utils/format';
 
 type BicycleCardProps = Bicycle & {
-  deleteBicycle: (bicycleId: number) => void;
+  openConfirmModal: (bicycleId: number) => void;
 };
 
 const BicycleCard: React.FC<BicycleCardProps> = ({
@@ -13,7 +13,7 @@ const BicycleCard: React.FC<BicycleCardProps> = ({
   bicycleImage,
   registerTime,
   distance,
-  deleteBicycle,
+  openConfirmModal,
 }) => {
   const { setMain } = useMainBike();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const BicycleCard: React.FC<BicycleCardProps> = ({
         <div className="w-full">
           <div className="flex justify-between text-sm">
             <p className="text-lg font-semibold text-gray-700 pb-2">{bicycleName}</p>
-            <div onClick={() => deleteBicycle(bicycleId)}>
+            <div onClick={() => openConfirmModal(bicycleId)}>
               <span className="material-symbols-outlined text-lg text-slate-400 pb-1">close</span>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { RecordListType } from '../../types';
 
 type MyPageRecordDetailProps = {
   data: RecordListType;
-  deleteRecordList: (recordId: number) => void;
+  openConfirmModal: (id: number) => void;
 };
 
 const handleRidingDuration = (ridingDuration: number) => {
@@ -17,7 +17,7 @@ const handleRidingDuration = (ridingDuration: number) => {
   }
 };
 
-const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data, deleteRecordList }) => {
+const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data, openConfirmModal }) => {
   const { recordId, ridingDistance, ridingDuration, ridingTime } = data;
   return (
     <div className="border rounded-lg shadow-sm">
@@ -31,7 +31,7 @@ const MyPageRecordDetail: React.FC<MyPageRecordDetailProps> = ({ data, deleteRec
             </div>
             <p className="font-medium">자전거 1</p>
           </div>
-          <div onClick={() => deleteRecordList(recordId)}>
+          <div onClick={() => openConfirmModal(recordId)}>
             <span className="material-symbols-outlined text-lg text-slate-400 pb-1">close</span>
           </div>
         </div>
