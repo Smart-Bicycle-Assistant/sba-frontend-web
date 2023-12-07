@@ -7,13 +7,12 @@ export const Withdraw: React.FC = () => {
   const { nickname } = useUser();
   const navigate = useNavigate();
 
-  // todo 회원탈퇴 api 연결하기
-
   async function handleWithdraw() {
     const res = await WithdrawApi();
     if (res.status == 200) {
       alert('회원탈퇴 완료');
-      navigate('/home');
+      localStorage.clear();
+      navigate('/');
     }
   }
 
