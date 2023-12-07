@@ -25,6 +25,11 @@ const ManageRecordCard = ({
               (기대 수명: {lifeSpan}km)
             </p>
           )}
+          {type === 3 && lifeSpan && (
+            <p className="text-[10px] text-gray-700 mt-1">
+              (기대 수명: {lifeSpan}km)
+            </p>
+          )}
         </div>
       </div>
     </div>
