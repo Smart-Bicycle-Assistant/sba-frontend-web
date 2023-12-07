@@ -28,6 +28,8 @@ export type AddressType = {
   label: string;
   x: number;
   y: number;
+  road_address_name: string;
+  address_name: string;
 };
 
 export type StepType = {
