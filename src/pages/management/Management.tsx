@@ -153,7 +153,9 @@ const Management = () => {
                             {date.toISOString().split('T')[0]}
                           </p>
                           {isLastElement ? (
-                            <p className="text-sm">교체한 부품: {management.numFixed}</p>
+                            <p className="text-sm">
+                              교체 {management.numFixed}개 / 점검 {management.numChecked}개
+                            </p>
                           ) : (
                             <p className="text-sm">자전거 최초 등록</p>
                           )}

@@ -83,6 +83,7 @@ export type BicycleCardProps = {
 export interface ManagementStatus {
   managementTime: number;
   numFixed: number;
+  numChecked: number;
   recordId: number;
 }
 export interface BicycleStatus {
