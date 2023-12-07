@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useRidingStore } from '../../store/ridingStore';
+import { useState } from "react";
+import { useRidingStore } from "../../store/ridingStore";
 
 type PackModalProps = {
   toggleModalHandler: () => void;
@@ -21,7 +21,7 @@ const PackModal: React.FC<PackModalProps> = ({ toggleModalHandler }) => {
   };
 
   return (
-    <div className="flex flex-col gap-y-6 justify-center items-center py-7 px-3 bg-white border rounded-xl">
+    <div className="flex flex-col items-center justify-center px-3 bg-white border gap-y-6 py-7 rounded-xl">
       <div>
         <p className="text-base font-semibold">목표속력을 설정하세요.</p>
       </div>
@@ -30,13 +30,19 @@ const PackModal: React.FC<PackModalProps> = ({ toggleModalHandler }) => {
           className="w-1/4 bg-transparent border-b border-[#73AAFF] text-right text-primary-default font-bold text-lg"
           type="number"
           placeholder="0"
-          onChange={(e) => handleInputChange(e)}
+          onChange={(e) => {
+            const inputValue = Number(e.target.value);
+            if (inputValue >= 0) {
+              handleInputChange(e);
+            }
+          }}
+          value={temp}
         ></input>
         <span className="text-lg font-bold text-primary-default">km/h</span>
       </div>
       <div>
         <button
-          className="rounded-full bg-primary-default text-xs text-white hover:bg-primary-900 px-5 py-1"
+          className="px-5 py-1 text-xs text-white rounded-full bg-primary-default hover:bg-primary-900"
           onClick={() => handleInputClick()}
         >
           확인

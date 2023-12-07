@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type PartCardProps = {
   title: string;
   tire?: boolean;
@@ -17,6 +19,7 @@ const PartCard: React.FC<PartCardProps> = ({
   toggleReplace,
   toggleCheck,
 }) => {
+  const [life, setLife] = useState<number>(0);
   return (
     <div className="relative flex flex-col items-center p-4 m-3 bg-white border-opacity-25 rounded-lg shadow-sm shadow-gray-300 border-gray-200 border-[1px]">
       <p className="mb-2 font-semibold text-blue-500 text-md">{title}</p>
@@ -24,7 +27,9 @@ const PartCard: React.FC<PartCardProps> = ({
       <div className="flex space-x-5">
         <button
           className={`px-4 py-1 rounded-full text-sm ${
-            replace ? 'bg-blue-500 text-white font-bold' : 'bg-white text-blue-500'
+            replace
+              ? "bg-blue-500 text-white font-bold"
+              : "bg-white text-blue-500"
           }`}
           onClick={toggleReplace}
         >
@@ -33,7 +38,9 @@ const PartCard: React.FC<PartCardProps> = ({
 
         <button
           className={`px-4 py-1 rounded-full text-sm ${
-            check ? 'bg-blue-500 text-white font-bold' : 'bg-white text-blue-500'
+            check
+              ? "bg-blue-500 text-white font-bold"
+              : "bg-white text-blue-500"
           }`}
           onClick={toggleCheck}
         >
@@ -46,9 +53,13 @@ const PartCard: React.FC<PartCardProps> = ({
           <input
             className=" bg-transparent border-b w-14 border-[#73AAFF] text-right text-blue-500 font-bold text-md pr-1"
             type="number"
+            value={life}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              const newValue = event.target.value;
-              setLifeSpan(Number(newValue));
+              const newValue = Number(event.target.value);
+              if (newValue >= 0) {
+                setLifeSpan(newValue);
+                setLife(newValue);
+              }
             }}
           />
           <span className="text-xs text-blue-500">km</span>

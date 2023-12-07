@@ -57,7 +57,13 @@ export const PreRiding: React.FC = () => {
               <input
                 className="mr-2 bg-transparent border-b w-10 border-[#73AAFF] text-right text-white font-bold text-xl"
                 type="number"
-                onChange={handleInputChange}
+                onChange={(e) => {
+                  const inputValue = Number(e.target.value);
+                  if (inputValue >= 0) {
+                    handleInputChange(e);
+                  }
+                }}
+                value={targetSpeed}
               ></input>
               <span className="text-lg font-bold text-white">km/h</span>
             </div>
