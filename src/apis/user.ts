@@ -1,7 +1,7 @@
-import member_request from './request';
-import request from './request';
-import { LoginType, RegisterType } from '../types';
-import { handleApiError } from './errorHandling';
+import member_request from "./request";
+import request from "./request";
+import { LoginType, RegisterType } from "../types";
+import { handleApiError } from "./errorHandling";
 
 export const LoginApi = async (params: LoginType) => {
   try {
@@ -9,6 +9,22 @@ export const LoginApi = async (params: LoginType) => {
     return response.data;
   } catch (error) {
     return handleApiError(error);
+  }
+};
+
+interface ReportApiParams {
+  reporter: string;
+  target: string;
+  time: number;
+  content: string;
+}
+
+export const ReportApi = async (params: ReportApiParams) => {
+  try {
+    const res = await request.post("/report/post", params);
+    return res.data;
+  } catch (err) {
+    return handleApiError(err);
   }
 };
 
@@ -23,7 +39,7 @@ export const RefreshApi = async () => {
 
 export const RegisterApi = async (params: RegisterType) => {
   try {
-    const response = await member_request.post('/member/register', params);
+    const response = await member_request.post("/member/register", params);
     return response.data;
   } catch (error) {
     return handleApiError(error);
@@ -59,7 +75,7 @@ export const ChangePasswordApi = async ({
   newPassword: string;
 }) => {
   try {
-    const response = await member_request.post('/member/change_password', {
+    const response = await member_request.post("/member/change_password", {
       id,
       password,
       newPassword,
@@ -72,16 +88,20 @@ export const ChangePasswordApi = async ({
 
 export const WithdrawApi = async () => {
   try {
-    const response = await member_request.delete('/delete');
+    const response = await member_request.delete("/delete");
     return response.data;
   } catch (error) {
     handleApiError(error);
   }
 };
 
-export const updateUserInfo = async (id: string, email: string, nickname: string) => {
+export const updateUserInfo = async (
+  id: string,
+  email: string,
+  nickname: string
+) => {
   try {
-    const response = await request.patch('/update_member', {
+    const response = await request.patch("/update_member", {
       id,
       email,
       nickname,

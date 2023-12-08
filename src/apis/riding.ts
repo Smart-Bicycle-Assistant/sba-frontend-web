@@ -1,13 +1,14 @@
-import { PackRidingType } from '../types';
-import { handleApiError } from './errorHandling';
-import { useMainBike } from '../store/userStore';
-import request from './request';
+import { PackRidingType } from "../types";
+import { handleApiError } from "./errorHandling";
+import { useMainBike } from "../store/userStore";
+import request from "./request";
 
 export type RidingRecordType = {
   ridingTime: string;
   distance: number;
   maxSpeed: number;
   ridingDuration: number;
+  userList: string;
 };
 
 export const RidingLocationApi = async (params: PackRidingType) => {
@@ -35,16 +36,21 @@ export const postRidingRecordApi = async ({
   distance,
   maxSpeed,
   ridingDuration,
+  userList,
 }: RidingRecordType) => {
   try {
-    const response = await request.post('/riding_record/post', {
-      bicycleId: useMainBike.getState().main,
-      ridingTime: Number(ridingTime),
-      distance: distance,
-      avgSpeed: distance / (Number(ridingDuration) / (1000 * 60 * 60)),
-      maxSpeed: maxSpeed,
-      ridingDuration: Number(ridingDuration),
-    });
+    const response = await request.post(
+      "/riding_record/post",
+      JSON.stringify({
+        bicycleId: useMainBike.getState().main,
+        ridingTime: Number(ridingTime),
+        distance: distance,
+        avgSpeed: distance / (Number(ridingDuration) / (1000 * 60 * 60)),
+        maxSpeed: maxSpeed,
+        ridingDuration: Number(ridingDuration),
+        userList: userList,
+      })
+    );
 
     return response.data;
   } catch (error) {

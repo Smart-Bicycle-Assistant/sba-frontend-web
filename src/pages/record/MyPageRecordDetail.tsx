@@ -1,16 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import { RecordOneApi } from '../../apis/record';
-import { useMainBike } from '../../store/userStore';
-import { formatToTwoDecimals, formatSpeed, formatDate } from '../../utils/format';
-import { getAddr } from '../../utils/map';
-import { MapPinIcon } from '@heroicons/react/20/solid';
-import Chart from 'react-apexcharts';
-import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import MapDetail from '../../components/record/MapDetail';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import { RecordOneApi } from "../../apis/record";
+import { useMainBike } from "../../store/userStore";
+import { AiOutlineAlert } from "react-icons/ai";
+import ReportModal from "../../components/common/ReportModal";
+import { useUser } from "../../store/userStore";
+
+import {
+  formatToTwoDecimals,
+  formatSpeed,
+  formatDate,
+} from "../../utils/format";
+import { getAddr } from "../../utils/map";
+import { MapPinIcon } from "@heroicons/react/20/solid";
+import Chart from "react-apexcharts";
+import { MapContainer, TileLayer, Polyline } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import MapDetail from "../../components/record/MapDetail";
+import { ReportApi } from "../../apis/user";
 
 type RecordDetailType = {
   avgSpeed: number;
@@ -24,14 +33,35 @@ type RecordDetailType = {
   ridingTime: number;
 };
 
+interface User {
+  id: string;
+  nickname: string;
+}
+
 const MyPageRecordDetail: React.FC = () => {
+  const [reportModal, setReportModal] = useState<boolean>(false);
+  const [deleteReportId, setDeleteReportId] = useState<string>("");
+  const openReportModal = (id: string) => {
+    setReportModal(true);
+    setDeleteReportId(id);
+  };
+  const reportUser = async (content: string) => {
+    const res = await ReportApi({
+      reporter: useUser.getState().id,
+      target: deleteReportId,
+      time: new Date().getTime(),
+      content: content,
+    });
+    console.log(res);
+  };
   const [recordData, setRecordData] = useState<RecordDetailType>();
   const [geometryData, setGeometryData] = useState<[number, number][]>([]);
   const [speedData, setSpeedData] = useState<number[]>([]);
   const [xAxis, setXAxis] = useState<string[]>([]);
+  const [userList, setUserList] = useState<User[]>([]);
 
-  const [startAddr, setStartAddr] = useState<string>('');
-  const [endAddr, setEndAddr] = useState<string>('');
+  const [startAddr, setStartAddr] = useState<string>("");
+  const [endAddr, setEndAddr] = useState<string>("");
 
   const [openMapDetail, setOpenMapDetail] = useState<boolean>(false);
 
@@ -39,17 +69,17 @@ const MyPageRecordDetail: React.FC = () => {
   const { main } = useMainBike();
 
   const calculateXAxis = (ridingDuration: number) => {
-    let unit = '';
+    let unit = "";
     let divisor = 0;
 
     if (ridingDuration > 3600000) {
-      unit = '시간';
+      unit = "시간";
       divisor = 1000 * 60 * 60;
     } else if (ridingDuration > 60000) {
-      unit = '분';
+      unit = "분";
       divisor = 1000 * 60;
     } else {
-      unit = '초';
+      unit = "초";
       divisor = 1000;
     }
 
@@ -69,14 +99,18 @@ const MyPageRecordDetail: React.FC = () => {
     );
 
     return sliceSpeed.map((speedArr) =>
-      formatToTwoDecimals(formatSpeed(speedArr.reduce((total, curr) => total + curr, 0) / interval))
+      formatToTwoDecimals(
+        formatSpeed(
+          speedArr.reduce((total, curr) => total + curr, 0) / interval
+        )
+      )
     );
   };
 
   const chartState = {
     series: [
       {
-        name: '속도',
+        name: "속도",
         data: speedData,
       },
     ],
@@ -91,12 +125,12 @@ const MyPageRecordDetail: React.FC = () => {
         enabled: false,
       },
       stroke: {
-        curve: 'smooth' as const,
+        curve: "smooth" as const,
         width: 3,
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
           opacity: 0.5,
         },
       },
@@ -129,13 +163,16 @@ const MyPageRecordDetail: React.FC = () => {
       });
       setRecordData(res.data);
       setGeometryData(
-        JSON.parse(res.data.map).map((el: { latitude: number; longitude: number }) => [
-          el.latitude,
-          el.longitude,
-        ])
+        JSON.parse(res.data.map).map(
+          (el: { latitude: number; longitude: number }) => [
+            el.latitude,
+            el.longitude,
+          ]
+        )
       );
       setSpeedData(calculateSpeed(JSON.parse(res.data.listSpeed)));
       setXAxis(calculateXAxis(res.data.ridingDuration));
+      setUserList(JSON.parse(res.data.userList));
     };
 
     loadRecordList();
@@ -177,7 +214,7 @@ const MyPageRecordDetail: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-xl font-semibold">
-                      {formatDate(recordData.ridingTime, 'DEFAULT')} 주행 기록
+                      {formatDate(recordData.ridingTime, "DEFAULT")} 주행 기록
                     </p>
                   </div>
                 </div>
@@ -189,7 +226,7 @@ const MyPageRecordDetail: React.FC = () => {
                       onClick={() => setOpenMapDetail(true)}
                     >
                       <MapContainer
-                        style={{ height: '10rem', borderRadius: '0.5rem' }}
+                        style={{ height: "10rem", borderRadius: "0.5rem" }}
                         center={[geometryData[0][0], geometryData[0][1]]}
                         zoom={15}
                         minZoom={11}
@@ -201,7 +238,7 @@ const MyPageRecordDetail: React.FC = () => {
                           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                           url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"
                         />
-                        <Polyline positions={geometryData} color={'#0064FF'} />
+                        <Polyline positions={geometryData} color={"#0064FF"} />
                       </MapContainer>
                       <div className="absolute top-0 z-[999] w-full h-full rounded-lg bg-gradient-to-b from-[#ffffff00] from-30% to-slate-700"></div>
                       <div className="absolute flex justify-center bottom-3 w-full text-xs text-white z-[1000]">
@@ -222,7 +259,7 @@ const MyPageRecordDetail: React.FC = () => {
                           </p>
                         </div>
                         <div className="flex flex-col gap-y-1">
-                          <p>{formatDate(recordData.ridingTime, 'DETAIL')}</p>
+                          <p>{formatDate(recordData.ridingTime, "DETAIL")}</p>
                           <p>{startAddr}</p>
                         </div>
                       </div>
@@ -237,7 +274,7 @@ const MyPageRecordDetail: React.FC = () => {
                           <p>
                             {formatDate(
                               recordData.ridingTime + recordData.ridingDuration,
-                              'DETAIL'
+                              "DETAIL"
                             )}
                           </p>
                           <p>{endAddr}</p>
@@ -280,6 +317,27 @@ const MyPageRecordDetail: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                {userList && (
+                  <div>
+                    <p className="pb-4 font-semibold">참가자 목록</p>
+                    <div className="flex flex-wrap gap-2">
+                      {userList.map((user) => (
+                        <div
+                          key={user.id}
+                          className="flex items-center p-3 text-sm rounded-lg gap-x-2 bg-primary-100"
+                        >
+                          <span className="pl-1 text-blue-800">
+                            {user.nickname}
+                          </span>
+                          <AiOutlineAlert
+                            className="text-red-500 opacity-70"
+                            onClick={() => openReportModal(user.id)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -296,6 +354,16 @@ const MyPageRecordDetail: React.FC = () => {
         </div>
       </div>
       <Navbar />
+      {reportModal && (
+        <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
+          <div className="flex flex-col gap-y-3 animate-fade-in-down">
+            <ReportModal
+              setOpenModal={setReportModal}
+              deleteHandler={reportUser}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
