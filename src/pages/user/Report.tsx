@@ -2,6 +2,7 @@ import Header from "../../components/common/Header";
 import { GetReportApi } from "../../apis/user";
 import { useEffect, useState } from "react";
 import { formatDate } from "../../utils/format";
+import Navbar from "../../components/common/Navbar";
 
 type ReportItem = {
   id: number;
@@ -45,6 +46,7 @@ export const Report: React.FC = () => {
           </div>
         ))}
       </div>
+      <Navbar />
     </div>
   );
 };
