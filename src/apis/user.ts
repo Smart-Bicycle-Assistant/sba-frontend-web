@@ -27,6 +27,14 @@ export const ReportApi = async (params: ReportApiParams) => {
     return handleApiError(err);
   }
 };
+export const GetReportApi = async () => {
+  try {
+    const res = await request.get("/report/get_my_reports");
+    return res.data;
+  } catch (err) {
+    return handleApiError(err);
+  }
+};
 
 export const RefreshApi = async () => {
   try {
