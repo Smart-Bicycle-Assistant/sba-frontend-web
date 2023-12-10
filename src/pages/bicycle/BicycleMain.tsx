@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import BicycleCard from '../../components/bicycle/BicycleCard';
-import Header from '../../components/common/Header';
-import Navbar from '../../components/common/Navbar';
-import ConfirmModal from '../../components/common/ConfirmModal';
-import { GetBicycleListApi, deleteBicycleApi } from '../../apis/bicycle';
-import { useEffect, useState } from 'react';
-import { Bicycle } from '../../types';
+import { Link } from "react-router-dom";
+import BicycleCard from "../../components/bicycle/BicycleCard";
+import Header from "../../components/common/Header";
+import Navbar from "../../components/common/Navbar";
+import ConfirmModal from "../../components/common/ConfirmModal";
+import { GetBicycleListApi, deleteBicycleApi } from "../../apis/bicycle";
+import { useEffect, useState } from "react";
+import { Bicycle } from "../../types";
 
 function BicycleMain() {
   const [bicycles, setBicycles] = useState<Bicycle[]>([]);
@@ -51,7 +51,10 @@ function BicycleMain() {
             />
           );
         })}
-        <Link to="/bicycle/registration" className="mt-5 text-xs text-center text-blue-400">
+        <Link
+          to="/bicycle/registration"
+          className="mt-3 mb-24 text-xs text-center text-blue-400"
+        >
           새 자전거 등록
         </Link>
       </div>
@@ -59,7 +62,10 @@ function BicycleMain() {
       {confirmModal && (
         <div className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50 rounded-lg">
           <div className="flex flex-col gap-y-3 animate-fade-in-down">
-            <ConfirmModal setOpenModal={setConfirmModal} deleteHandler={deleteBicycle} />
+            <ConfirmModal
+              setOpenModal={setConfirmModal}
+              deleteHandler={deleteBicycle}
+            />
           </div>
         </div>
       )}

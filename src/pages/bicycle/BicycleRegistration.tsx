@@ -12,7 +12,7 @@ const compressImage = async (image: File) => {
   try {
     const options = {
       maxSizeMb: 1,
-      maxWidthOrHeight: 300,
+      maxWidthOrHeight: 200,
     };
     return await imageCompression(image, options);
   } catch (e) {
@@ -25,6 +25,8 @@ const encodeFileToBase64 = (image: File) => {
   return new Promise(async (resolve, reject) => {
     const reader = new FileReader();
     const compressedImage = await compressImage(image);
+    console.log("압축 사이즈:", compressedImage?.size);
+    console.log("원본 사이즈:", image.size);
     if (compressedImage) {
       reader.readAsDataURL(compressedImage);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
