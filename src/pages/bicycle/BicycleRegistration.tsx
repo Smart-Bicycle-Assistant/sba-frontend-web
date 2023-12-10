@@ -6,19 +6,19 @@ import {
   BicycleRegistrationApi,
 } from "../../apis/bicycle";
 import { useNavigate } from "react-router-dom";
-import imageCompression from "browser-image-compression";
+// import imageCompression from "browser-image-compression";
 
-const compressImage = async (image: File) => {
-  try {
-    const options = {
-      maxSizeMb: 1,
-      maxWidthOrHeight: 300,
-    };
-    return await imageCompression(image, options);
-  } catch (e) {
-    console.log(e);
-  }
-};
+// const compressImage = async (image: File) => {
+//   try {
+//     const options = {
+//       maxSizeMb: 1,
+//       maxWidthOrHeight: 300,
+//     };
+//     return await imageCompression(image, options);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
 
 const encodeFileToBase64 = (image: File) => {
   // eslint-disable-next-line no-async-promise-executor
