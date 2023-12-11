@@ -138,7 +138,14 @@ const Search: React.FC<SearchProps> = ({ getDirections, setStartCoord, setEndCoo
                 setSearchPageFull('DEFAULT');
               }}
             >
-              {el.label}
+              <div>
+                <p className="font-semibold pb-0.5">{el.label}</p>
+                {el.road_address_name !== ('' && null && undefined) ? (
+                  <p className="text-slate-500">{el.road_address_name}</p>
+                ) : (
+                  <p className="text-slate-500">{el.address_name}</p>
+                )}
+              </div>
             </div>
           ))}
         </div>
